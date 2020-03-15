@@ -12,6 +12,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import static com.nbw.blueapp.GlobalApplication.SERVER_IP;
+
 
 public class ServerApi {
 
@@ -45,7 +47,7 @@ public class ServerApi {
     }
 
     static public void signupPost(JSONObject params, final PostCallBack cb) {
-        post("http://172.30.1.32:8080/blue/v1/users/", params.toString(), new Callback() {
+        post(SERVER_IP+"/blue/v1/users/signup/", params.toString(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (cb != null)
@@ -72,7 +74,7 @@ public class ServerApi {
     }
 
     static public void signinPost(JSONObject params, final PostCallBack cb) {
-        post("http://172.30.1.32:8080/blue/v1/users/signin", params.toString(), new Callback() {
+        post(SERVER_IP+"/blue/v1/users/signin/", params.toString(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (cb != null)
@@ -99,7 +101,7 @@ public class ServerApi {
     }
 
     static public void getSignStatus(String uid, final PostCallBack cb) {
-        get("http://172.30.1.32:8080/blue/v1/users/status/"+ uid, new Callback() {
+        get(SERVER_IP+"/blue/v1/users/status/"+ uid, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (cb != null)
@@ -126,7 +128,7 @@ public class ServerApi {
     }
 
     static public void getSignout(String uid, final PostCallBack cb) {
-        get("http://172.30.1.32:8080/blue/v1/users/signout/"+ uid, new Callback() {
+        get(SERVER_IP+"/blue/v1/users/signout/"+ uid, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (cb != null)

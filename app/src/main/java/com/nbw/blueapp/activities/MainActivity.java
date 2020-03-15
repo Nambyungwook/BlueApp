@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
         uid = sharedPreferences.getString("uid", "signout");
 
-        //회원가입 api 호출
         ServerApi.getSignout(uid, new PostCallBack() {
             @Override
             public void onResponse(JSONObject ret, String errMsg) {

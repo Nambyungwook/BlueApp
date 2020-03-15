@@ -46,6 +46,11 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
+    public void onClick_signup(View view) {
+        Intent intent = new Intent(SplashActivity.this, SignupActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     public void onClick_signin(View view) {
         id = et_id.getText().toString();
