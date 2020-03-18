@@ -17,6 +17,8 @@ import com.nbw.blueapp.utils.Utils;
 
 import org.json.JSONObject;
 
+import static com.nbw.blueapp.GlobalApplication.USER_SIGNOUT;
+
 public class SplashActivity extends AppCompatActivity {
 
     private EditText et_id;
@@ -38,9 +40,9 @@ public class SplashActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
 
-        uid = sharedPreferences.getString("uid", "signout");
+        uid = sharedPreferences.getString("uid", USER_SIGNOUT);
 
-        if (!uid.equals("signout")) {
+        if (!uid.equals(USER_SIGNOUT)) {
             checkSignStatus(uid);
         }
 

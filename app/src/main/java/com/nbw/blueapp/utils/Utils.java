@@ -1,6 +1,10 @@
 package com.nbw.blueapp.utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.widget.Toast;
 
 import java.security.MessageDigest;
@@ -9,7 +13,7 @@ import java.security.NoSuchAlgorithmException;
 //자주 사용하는 유용한 기능 정리 코드
 public class Utils {
 
-    static public void toast(final Activity act, final String string) {
+    public static void toast(final Activity act, final String string) {
         act.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -37,4 +41,5 @@ public class Utils {
             return "";
         }
     }
+
 }

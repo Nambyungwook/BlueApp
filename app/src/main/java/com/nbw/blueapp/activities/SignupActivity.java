@@ -50,7 +50,7 @@ public class SignupActivity extends AppCompatActivity {
         pwd = et_signup_pwd.getText().toString();
         pwd_conrfirm = et_signup_pwd_confirm.getText().toString();
 
-        if (pwd == pwd_conrfirm) {
+        if (!pwd.equals(pwd_conrfirm)) {
 
             Utils.toast(SignupActivity.this, "비밀번호가 일치하지 않습니다.");
 

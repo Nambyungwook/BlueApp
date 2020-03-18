@@ -24,6 +24,7 @@ public class ServerApi {
     static private OkHttpClient client = new OkHttpClient();
 
 
+    //post호출
     static private Call post(String url, String json, Callback callback) {
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
@@ -35,6 +36,7 @@ public class ServerApi {
         return call;
     }
 
+    //get호출
     static private Call get(String url, Callback callback) {
         Request request = new Request.Builder()
                 .url(url)
@@ -46,6 +48,7 @@ public class ServerApi {
         return call;
     }
 
+    //회원가입
     static public void signupPost(JSONObject params, final PostCallBack cb) {
         post(SERVER_IP+"/blue/v1/users/signup/", params.toString(), new Callback() {
             @Override
@@ -63,7 +66,9 @@ public class ServerApi {
                         String responseStr = response.body().string();
                         cb.onResponse(new JSONObject(responseStr), null);
                     } else {
-                        cb.onResponse(null, response.message());
+                        String responseStr = response.body().string();
+                        JSONObject ret = new JSONObject(responseStr);
+                        cb.onResponse(null, ret.getString("message"));
                     }
                 } catch (Exception e) {
                     cb.onResponse(null, e.getMessage());
@@ -73,6 +78,7 @@ public class ServerApi {
 
     }
 
+    //로그인
     static public void signinPost(JSONObject params, final PostCallBack cb) {
         post(SERVER_IP+"/blue/v1/users/signin/", params.toString(), new Callback() {
             @Override
@@ -90,7 +96,9 @@ public class ServerApi {
                         String responseStr = response.body().string();
                         cb.onResponse(new JSONObject(responseStr), null);
                     } else {
-                        cb.onResponse(null, response.message());
+                        String responseStr = response.body().string();
+                        JSONObject ret = new JSONObject(responseStr);
+                        cb.onResponse(null, ret.getString("message"));
                     }
                 } catch (Exception e) {
                     cb.onResponse(null, e.getMessage());
@@ -100,6 +108,7 @@ public class ServerApi {
 
     }
 
+    //로그인상태
     static public void getSignStatus(String uid, final PostCallBack cb) {
         get(SERVER_IP+"/blue/v1/users/status/"+ uid, new Callback() {
             @Override
@@ -117,7 +126,9 @@ public class ServerApi {
                         String responseStr = response.body().string();
                         cb.onResponse(new JSONObject(responseStr), null);
                     } else {
-                        cb.onResponse(null, response.message());
+                        String responseStr = response.body().string();
+                        JSONObject ret = new JSONObject(responseStr);
+                        cb.onResponse(null, ret.getString("message"));
                     }
                 } catch (Exception e) {
                     cb.onResponse(null, e.getMessage());
@@ -127,6 +138,7 @@ public class ServerApi {
 
     }
 
+    //로그아웃
     static public void getSignout(String uid, final PostCallBack cb) {
         get(SERVER_IP+"/blue/v1/users/signout/"+ uid, new Callback() {
             @Override
@@ -144,7 +156,39 @@ public class ServerApi {
                         String responseStr = response.body().string();
                         cb.onResponse(new JSONObject(responseStr), null);
                     } else {
-                        cb.onResponse(null, response.message());
+                        String responseStr = response.body().string();
+                        JSONObject ret = new JSONObject(responseStr);
+                        cb.onResponse(null, ret.getString("message"));
+                    }
+                } catch (Exception e) {
+                    cb.onResponse(null, e.getMessage());
+                }
+            }
+        });
+
+    }
+
+    //회원탈퇴
+    static public void dropout(String uid, final PostCallBack cb) {
+        get(SERVER_IP+"/blue/v1/users/dropout/"+ uid, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                if (cb != null)
+                    cb.onResponse(null, e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (cb == null)
+                    return;
+                try {
+                    if (response.isSuccessful()) {
+                        String responseStr = response.body().string();
+                        cb.onResponse(new JSONObject(responseStr), null);
+                    } else {
+                        String responseStr = response.body().string();
+                        JSONObject ret = new JSONObject(responseStr);
+                        cb.onResponse(null, ret.getString("message"));
                     }
                 } catch (Exception e) {
                     cb.onResponse(null, e.getMessage());
