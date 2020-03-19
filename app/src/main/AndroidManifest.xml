@@ -12,17 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.UserInfoActivity"></activity>
-        <activity android:name=".activities.SignupActivity" />
-        <activity android:name=".activities.SignupCompleteActivity" />
-        <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.SplashActivity">
+        <activity android:name=".activities.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.UserInfoActivity" />
+        <activity android:name=".activities.SignupActivity" />
+        <activity android:name=".activities.SignupCompleteActivity" />
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.SplashActivity"/>
     </application>
 
 </manifest>

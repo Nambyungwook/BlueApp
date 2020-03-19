@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,7 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Spinner;
 
 import com.nbw.blueapp.BuildConfig;
 import com.nbw.blueapp.R;
@@ -34,27 +33,150 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 import static com.nbw.blueapp.GlobalApplication.USER_SIGNOUT;
+import static com.nbw.blueapp.utils.SpinnerVariables.arrayList_age;
+import static com.nbw.blueapp.utils.SpinnerVariables.arrayList_gender;
+import static com.nbw.blueapp.utils.SpinnerVariables.arrayList_income;
+import static com.nbw.blueapp.utils.SpinnerVariables.arrayList_local;
+import static com.nbw.blueapp.utils.SpinnerVariables.arrayList_target;
+import static com.nbw.blueapp.utils.SpinnerVariables.setArrayList_age;
+import static com.nbw.blueapp.utils.SpinnerVariables.setArrayList_gender;
+import static com.nbw.blueapp.utils.SpinnerVariables.setArrayList_income;
+import static com.nbw.blueapp.utils.SpinnerVariables.setArrayList_local;
+import static com.nbw.blueapp.utils.SpinnerVariables.setArrayList_target;
 
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
+    //서버 디비에서 가져온 유저의 정보
     private String uid;
+    private String local;
+    private String income;
+    private String age;
+    private String gender;
 
-    ListView listview = null;
+    //스피너를 통해 선택한 정보
+    private String selectedTarget;
+    private String selectedLocal;
+    private String selectedIncome;
+    private String selectedAge;
+    private String selectedGender;
+
+    private ListView navDrawerListview = null;
+
+    private Spinner spinnerTarget;
+    private Spinner spinnerLocal;
+    private Spinner spinnerIncome;
+    private Spinner spinnerAge;
+    private Spinner spinnerGender;
+    ArrayAdapter<String> arrayAdapterTarget;
+    ArrayAdapter<String> arrayAdapterLocal;
+    ArrayAdapter<String> arrayAdapterIncome;
+    ArrayAdapter<String> arrayAdapterAge;
+    ArrayAdapter<String> arrayAdapterGender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        spinnerTarget = (Spinner)findViewById(R.id.spinner_target);
+        spinnerLocal = (Spinner)findViewById(R.id.spinner_local);
+        spinnerIncome = (Spinner)findViewById(R.id.spinner_income);
+        spinnerAge = (Spinner)findViewById(R.id.spinner_age);
+        spinnerGender = (Spinner)findViewById(R.id.spinner_gender);
+
+        setArrayList_target();
+        setArrayList_local();
+        setArrayList_income();
+        setArrayList_age();
+        setArrayList_gender();
+
+        arrayAdapterTarget = new ArrayAdapter<>(getApplicationContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                arrayList_target);
+        arrayAdapterLocal = new ArrayAdapter<>(getApplicationContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                arrayList_local);
+        arrayAdapterIncome = new ArrayAdapter<>(getApplicationContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                arrayList_income);
+        arrayAdapterAge = new ArrayAdapter<>(getApplicationContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                arrayList_age);
+        arrayAdapterGender = new ArrayAdapter<>(getApplicationContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                arrayList_gender);
+
+
+        spinnerTarget.setAdapter(arrayAdapterTarget);
+        spinnerTarget.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //목적 스피너에서 선택된 내용을 저장
+                selectedTarget = arrayList_target.get(i);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        spinnerLocal.setAdapter(arrayAdapterLocal);
+        spinnerLocal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //지역 스피너에서 선택된 내용을 저장
+                selectedLocal = arrayList_local.get(i);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        spinnerIncome.setAdapter(arrayAdapterIncome);
+        spinnerIncome.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //수입 스피너에서 선택된 내용을 저장
+                selectedIncome = arrayList_income.get(i);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        spinnerAge.setAdapter(arrayAdapterAge);
+        spinnerAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //나이 스피너에서 선택된 내용을 저장
+                selectedAge = arrayList_age.get(i);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        spinnerGender.setAdapter(arrayAdapterGender);
+        spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //성별 스피너에서 선택된 내용을 저장
+                selectedGender = arrayList_gender.get(i);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        //네비게이션드로어 설정---------------------------------------------------------------------------------------
         final String[] items = {"회원정보", "로그아웃", "회원탈퇴"} ;
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items) ;
 
-        listview = (ListView) findViewById(R.id.drawer_menulist) ;
-        listview.setAdapter(adapter) ;
+        navDrawerListview = (ListView) findViewById(R.id.drawer_menulist) ;
+        navDrawerListview.setAdapter(adapter) ;
 
-        listview.setOnItemClickListener(new ListView.OnItemClickListener() {
+        navDrawerListview.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
 
@@ -157,6 +279,7 @@ public class MainActivity extends AppCompatActivity {
                 drawer.closeDrawer(Gravity.LEFT) ;
             }
         });
+        //네비게이션드로어 설정 끝--------------------------------------------------------------------------------------
 
         //구글 플레이스토어와 앱 버전 비교 및 업데이트 팝업 실행 - 테스트시에 주석처리
 //        MainActivity.versionCheck versionCheck_ = new MainActivity.versionCheck();

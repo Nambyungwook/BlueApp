@@ -86,6 +86,8 @@ public class SignupActivity extends AppCompatActivity {
 
                             // 로그인이 잘 끝났으니 MainActivity로 화면을 바꿔주고 종료
                             Intent intent = new Intent(SignupActivity.this, SignupCompleteActivity.class);
+                            intent.putExtra("email", id);
+                            intent.putExtra("pwd", pwd);
                             startActivity(intent);
                             finish();
                         } catch (Exception e) {
