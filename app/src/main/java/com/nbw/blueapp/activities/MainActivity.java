@@ -1,16 +1,23 @@
 package com.nbw.blueapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.nbw.blueapp.BuildConfig;
 import com.nbw.blueapp.R;
@@ -34,74 +41,34 @@ public class MainActivity extends AppCompatActivity {
 
     private String uid;
 
+    ListView listview = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //구글 플레이스토어와 앱 버전 비교 및 업데이트 팝업 실행 - 테스트시에 주석처리
-//        MainActivity.versionCheck versionCheck_ = new MainActivity.versionCheck();
-//        versionCheck_.execute();
-    }
+        final String[] items = {"회원정보", "로그아웃", "회원탈퇴"} ;
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items) ;
 
-    //로그아웃
-    public void onClick_signout(View view) {
+        listview = (ListView) findViewById(R.id.drawer_menulist) ;
+        listview.setAdapter(adapter) ;
 
-        sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
-
-        uid = sharedPreferences.getString("uid", USER_SIGNOUT);
-
-        ServerApi.getSignout(uid, new PostCallBack() {
+        listview.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
-            public void onResponse(JSONObject ret, String errMsg) {
-                try {
-                    //api호출 실패로 서버에서 에러가 나는지 확인
-                    if (errMsg != null) {
-                        Utils.toast(MainActivity.this, errMsg);
-                        return;
-                    }
-                    //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
-                    if (!ret.getString("response_code").equals("SUCCESS")) {
-                        Utils.toast(MainActivity.this, ret.getString("message"));
-                        return;
-                    }
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("uid", USER_SIGNOUT);
-                    editor.commit();
+            public void onItemClick(AdapterView parent, View v, int position, long id) {
 
-                    // 로그아웃이 잘 끝났으니 SplashActivity로 화면을 바꿔주고 종료
-                    Intent intent = new Intent(MainActivity.this, SplashActivity.class);
-                    startActivity(intent);
-                    finish();
-
-                } catch (Exception e) {
-                    Utils.toast(MainActivity.this,e+"");
-                }
-            }
-        });
-    }
-
-    //회원탈퇴
-    public void onCLick_dropout(View view) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-
-        builder.setTitle("회원탈퇴")
-                .setMessage("회원탈퇴를 하시면 앱을 이용하실수 없습니다. 정말 탈퇴하시겠습니까?")
-                .setCancelable(false)
-                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        return;
-                    }
-                })
-                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-
+                switch (position) {
+                    case 0 : // 회원정보
+                        Intent intent = new Intent(MainActivity.this, UserInfoActivity.class);
+                        startActivity(intent);
+                        break ;
+                    case 1 : // 로그아웃
                         sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
 
                         uid = sharedPreferences.getString("uid", USER_SIGNOUT);
 
-                        ServerApi.dropout(uid, new PostCallBack() {
+                        ServerApi.getSignout(uid, new PostCallBack() {
                             @Override
                             public void onResponse(JSONObject ret, String errMsg) {
                                 try {
@@ -119,8 +86,6 @@ public class MainActivity extends AppCompatActivity {
                                     editor.putString("uid", USER_SIGNOUT);
                                     editor.commit();
 
-                                    Utils.toast(MainActivity.this, ret.getString("message"));
-
                                     // 로그아웃이 잘 끝났으니 SplashActivity로 화면을 바꿔주고 종료
                                     Intent intent = new Intent(MainActivity.this, SplashActivity.class);
                                     startActivity(intent);
@@ -131,10 +96,71 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }
                         });
-                    }
-                });
-        AlertDialog dialog = builder.create();    // 알림창 객체 생성
-        dialog.show();    // 알림창 띄우기
+                        break ;
+                    case 2 : // 회원탈퇴
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                        builder.setTitle("회원탈퇴")
+                                .setMessage("회원탈퇴를 하시면 앱을 이용하실수 없습니다. 정말 탈퇴하시겠습니까?")
+                                .setCancelable(false)
+                                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        return;
+                                    }
+                                })
+                                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                                        sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
+
+                                        uid = sharedPreferences.getString("uid", USER_SIGNOUT);
+
+                                        ServerApi.dropout(uid, new PostCallBack() {
+                                            @Override
+                                            public void onResponse(JSONObject ret, String errMsg) {
+                                                try {
+                                                    //api호출 실패로 서버에서 에러가 나는지 확인
+                                                    if (errMsg != null) {
+                                                        Utils.toast(MainActivity.this, errMsg);
+                                                        return;
+                                                    }
+                                                    //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
+                                                    if (!ret.getString("response_code").equals("SUCCESS")) {
+                                                        Utils.toast(MainActivity.this, ret.getString("message"));
+                                                        return;
+                                                    }
+                                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                    editor.putString("uid", USER_SIGNOUT);
+                                                    editor.commit();
+
+                                                    Utils.toast(MainActivity.this, ret.getString("message"));
+
+                                                    // 로그아웃이 잘 끝났으니 SplashActivity로 화면을 바꿔주고 종료
+                                                    Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+
+                                                } catch (Exception e) {
+                                                    Utils.toast(MainActivity.this,e+"");
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                        AlertDialog dialog = builder.create();    // 알림창 객체 생성
+                        dialog.show();    // 알림창 띄우기
+                        break ;
+                }
+                // close drawer.
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer) ;
+                drawer.closeDrawer(Gravity.LEFT) ;
+            }
+        });
+
+        //구글 플레이스토어와 앱 버전 비교 및 업데이트 팝업 실행 - 테스트시에 주석처리
+//        MainActivity.versionCheck versionCheck_ = new MainActivity.versionCheck();
+//        versionCheck_.execute();
     }
 
     //구글플레이스토어의 걷다 어플 버전가져와서 현재 어플과 비교 - 강제 업데이트를 위함
