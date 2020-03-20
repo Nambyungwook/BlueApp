@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.UserInfoActivity"
+    tools:context=".activities.UserInfoEditActivity"
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/toolbar_userinfo"
+        android:id="@+id/toolbar_userinfo_edit"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:background="#0000ff"
@@ -39,7 +38,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="내 정보 보기"
+            android:text="내 정보 수정"
             android:textColor="#ffffff"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -51,51 +50,11 @@
             android:layout_marginRight="20dp"
             android:layout_weight="0"
             android:gravity="center|right"
-            android:onClick="onClick_updateUserInfo"
-            android:text="수정하기"
+            android:onClick="onClick_update"
+            android:text="적용하기"
             android:textColor="#ffffff" />
 
     </FrameLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="150dp"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/iv_profile"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@mipmap/ic_launcher"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingLeft="30dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_email"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center|left"
-                android:text="email"/>
-
-            <TextView
-                android:paddingRight="30dp"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:text="회원님께서 입력하신 정보입니다. 정보를 정확하게 입력하실수록 좋은 정보를 얻을 수 있습니다."/>
-
-        </LinearLayout>
-
-    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -119,7 +78,7 @@
                     android:text="이름"
                     android:textSize="20dp"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_name"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -142,7 +101,7 @@
                     android:text="직업"
                     android:textSize="20dp"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_job"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -165,7 +124,7 @@
                     android:text="지역"
                     android:textSize="20dp"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_local"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -188,7 +147,7 @@
                     android:text="흥미"
                     android:textSize="20dp"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_interest"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -211,7 +170,7 @@
                     android:text="수입"
                     android:textSize="20dp"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_income"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -234,7 +193,7 @@
                     android:text="생년월일"
                     android:textSize="20dp"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_birthday"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -257,7 +216,7 @@
                     android:text="전화번호"
                     android:textSize="20dp"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_phone"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -280,7 +239,7 @@
                     android:text="성별"
                     android:textSize="20dp"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/tv_gender"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -294,6 +253,5 @@
         </LinearLayout>
 
     </ScrollView>
-
 
 </LinearLayout>

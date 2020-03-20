@@ -10,8 +10,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activities.UserInfoEditActivity"></activity>
         <activity android:name=".activities.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,11 +20,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.UserInfoActivity" />
+        <activity android:name=".activities.UserInfoActivity"/>
         <activity android:name=".activities.SignupActivity" />
         <activity android:name=".activities.SignupCompleteActivity" />
         <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.SplashActivity"/>
+        <activity android:name=".activities.SplashActivity" />
     </application>
 
 </manifest>

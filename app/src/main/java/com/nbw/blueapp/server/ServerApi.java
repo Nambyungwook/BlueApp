@@ -138,6 +138,36 @@ public class ServerApi {
 
     }
 
+    //회원정보조회
+    static public void getUserInfo(String uid, final PostCallBack cb) {
+        get(SERVER_IP+"/blue/v1/users/userinfo/"+ uid, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                if (cb != null)
+                    cb.onResponse(null, e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (cb == null)
+                    return;
+                try {
+                    if (response.isSuccessful()) {
+                        String responseStr = response.body().string();
+                        cb.onResponse(new JSONObject(responseStr), null);
+                    } else {
+                        String responseStr = response.body().string();
+                        JSONObject ret = new JSONObject(responseStr);
+                        cb.onResponse(null, ret.getString("message"));
+                    }
+                } catch (Exception e) {
+                    cb.onResponse(null, e.getMessage());
+                }
+            }
+        });
+
+    }
+
     //로그인상태
     static public void getSignStatus(String uid, final PostCallBack cb) {
         get(SERVER_IP+"/blue/v1/users/status/"+ uid, new Callback() {
