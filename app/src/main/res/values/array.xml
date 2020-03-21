@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="target">
+        <item >지원금</item>
+        <item >일자리</item>
+        <item >공연</item>
+        <item >쇼핑</item>
+        <item >기타</item>
+    </string-array>
+
+    <string-array name="local">
+        <item >입력안함</item>
+        <item >서울</item>
+        <item >경기도</item>
+        <item >인천</item>
+        <item >강원도</item>
+        <item >부산</item>
+        <item >대구</item>
+        <item >울산</item>
+        <item >경상도</item>
+        <item >대전</item>
+        <item >충청도</item>
+        <item >광주</item>
+        <item >전라도</item>
+    </string-array>
+
+    <string-array name="income">
+        <item >없음</item>
+        <item >0~1000만원</item>
+        <item >1000~2000만원</item>
+        <item >2000~3000만원</item>
+        <item >3000~4000만원</item>
+        <item >4000~5000만원</item>
+        <item >5000~6000만원</item>
+        <item >6000만원이상</item>
+    </string-array>
+
+    <string-array name="age">
+        <item >10대</item>
+        <item >20대</item>
+        <item >30대</item>
+        <item >40대</item>
+        <item >50대</item>
+        <item >60대</item>
+        <item >70대</item>
+        <item >80대이상</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item >남</item>
+        <item >여</item>
+    </string-array>
+</resources>

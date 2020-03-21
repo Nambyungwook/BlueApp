@@ -32,28 +32,28 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
+import static com.nbw.blueapp.GlobalApplication.NODATA_NUMBER;
+import static com.nbw.blueapp.GlobalApplication.NODATA_STRING;
 import static com.nbw.blueapp.GlobalApplication.USER_SIGNOUT;
-import static com.nbw.blueapp.utils.SpinnerVariables.arrayList_age;
-import static com.nbw.blueapp.utils.SpinnerVariables.arrayList_gender;
-import static com.nbw.blueapp.utils.SpinnerVariables.arrayList_income;
-import static com.nbw.blueapp.utils.SpinnerVariables.arrayList_local;
-import static com.nbw.blueapp.utils.SpinnerVariables.arrayList_target;
-import static com.nbw.blueapp.utils.SpinnerVariables.setArrayList_age;
-import static com.nbw.blueapp.utils.SpinnerVariables.setArrayList_gender;
-import static com.nbw.blueapp.utils.SpinnerVariables.setArrayList_income;
-import static com.nbw.blueapp.utils.SpinnerVariables.setArrayList_local;
-import static com.nbw.blueapp.utils.SpinnerVariables.setArrayList_target;
+import static com.nbw.blueapp.utils.Utils.BirthdayToAge;
 
 public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
     //서버 디비에서 가져온 유저의 정보
+    private String email;
     private String uid;
     private String local;
-    private String income;
-    private String age;
+    private int income;
     private String gender;
+    private String name;
+    private String birthday;
+    private String job;
+    private String interest;
+    private String phone;
+
+    private int age;
 
     //스피너를 통해 선택한 정보
     private String selectedTarget;
@@ -80,89 +80,65 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
+
+        uid = sharedPreferences.getString("uid", USER_SIGNOUT);
+
         spinnerTarget = (Spinner)findViewById(R.id.spinner_target);
         spinnerLocal = (Spinner)findViewById(R.id.spinner_local);
         spinnerIncome = (Spinner)findViewById(R.id.spinner_income);
         spinnerAge = (Spinner)findViewById(R.id.spinner_age);
         spinnerGender = (Spinner)findViewById(R.id.spinner_gender);
 
-        setArrayList_target();
-        setArrayList_local();
-        setArrayList_income();
-        setArrayList_age();
-        setArrayList_gender();
-
-        arrayAdapterTarget = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_spinner_dropdown_item,
-                arrayList_target);
-        arrayAdapterLocal = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_spinner_dropdown_item,
-                arrayList_local);
-        arrayAdapterIncome = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_spinner_dropdown_item,
-                arrayList_income);
-        arrayAdapterAge = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_spinner_dropdown_item,
-                arrayList_age);
-        arrayAdapterGender = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_spinner_dropdown_item,
-                arrayList_gender);
-
-
-        spinnerTarget.setAdapter(arrayAdapterTarget);
         spinnerTarget.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //목적 스피너에서 선택된 내용을 저장
-                selectedTarget = arrayList_target.get(i);
+                selectedTarget = adapterView.getItemAtPosition(i).toString();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
 
-        spinnerLocal.setAdapter(arrayAdapterLocal);
         spinnerLocal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //지역 스피너에서 선택된 내용을 저장
-                selectedLocal = arrayList_local.get(i);
+                selectedLocal = adapterView.getItemAtPosition(i).toString();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
 
-        spinnerIncome.setAdapter(arrayAdapterIncome);
         spinnerIncome.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //수입 스피너에서 선택된 내용을 저장
-                selectedIncome = arrayList_income.get(i);
+                selectedIncome = adapterView.getItemAtPosition(i).toString();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
 
-        spinnerAge.setAdapter(arrayAdapterAge);
         spinnerAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //나이 스피너에서 선택된 내용을 저장
-                selectedAge = arrayList_age.get(i);
+                selectedAge = adapterView.getItemAtPosition(i).toString();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
 
-        spinnerGender.setAdapter(arrayAdapterGender);
         spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //성별 스피너에서 선택된 내용을 저장
-                selectedGender = arrayList_gender.get(i);
+                selectedGender = adapterView.getItemAtPosition(i).toString();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -284,6 +260,80 @@ public class MainActivity extends AppCompatActivity {
         //구글 플레이스토어와 앱 버전 비교 및 업데이트 팝업 실행 - 테스트시에 주석처리
 //        MainActivity.versionCheck versionCheck_ = new MainActivity.versionCheck();
 //        versionCheck_.execute();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        getUserInfo(uid);
+    }
+
+    private void getUserInfo(String uid) {
+        final String check_uid = uid;
+        ServerApi.getUserInfo(uid, new PostCallBack() {
+            @Override
+            public void onResponse(JSONObject ret, String errMsg) {
+                try {
+                    //api호출 실패로 서버에서 에러가 나는지 확인
+                    if (errMsg != null) {
+                        Utils.toast(MainActivity.this, errMsg);
+                        return;
+                    }
+                    //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
+                    if (!ret.getString("uid").equals(check_uid)) {
+                        Utils.toast(MainActivity.this, "사용자 정보를 불러오는데 실패했습니다.");
+                        return;
+                    } else {
+                        email = ret.getString("email");
+                        if (ret.getString("name")=="null") {
+                            name = NODATA_STRING;
+                        } else {
+                            name = ret.getString("name");
+                        }
+                        if (ret.getString("birthday")=="null") {
+                            birthday = NODATA_STRING;
+                        } else {
+                            birthday = ret.getString("birthday");
+                            age = BirthdayToAge(birthday);
+                        }
+                        if (ret.getString("gender")=="null") {
+                            gender = NODATA_STRING;
+                        } else {
+                            gender = ret.getString("gender");
+                        }
+                        if (ret.getString("local")=="null") {
+                            local = NODATA_STRING;
+                        } else {
+                            local = ret.getString("local");
+                        }
+                        if (ret.getString("interest")=="null") {
+                            interest = NODATA_STRING;
+                        } else {
+                            interest = ret.getString("interest");
+                        }
+                        if (ret.getString("job")=="null") {
+                            job = NODATA_STRING;
+                        } else {
+                            job = ret.getString("job");
+                        }
+                        if (ret.getString("income")=="null") {
+                            income = NODATA_NUMBER;
+                        } else {
+                            income = ret.getInt("income");
+                        }
+                        if (ret.getString("phone")=="null") {
+                            phone = NODATA_STRING;
+                        } else {
+                            phone = ret.getString("phone");
+                        }
+                    }
+
+                } catch (Exception e) {
+                    Utils.toast(MainActivity.this,e+"");
+                }
+            }
+        });
     }
 
     //구글플레이스토어의 걷다 어플 버전가져와서 현재 어플과 비교 - 강제 업데이트를 위함

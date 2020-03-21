@@ -104,7 +104,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingRight="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -211,13 +212,27 @@
                     android:text="수입"
                     android:textSize="20dp"/>
 
-                <TextView
-                    android:id="@+id/tv_income"
-                    android:gravity="center"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="income"/>
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/tv_income"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="income"/>
+
+                    <TextView
+                        android:gravity="right|center"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:text="만원"
+                        android:textSize="20dp"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 

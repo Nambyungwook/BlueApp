@@ -21,12 +21,6 @@ import org.json.JSONObject;
 import static com.nbw.blueapp.GlobalApplication.NODATA_NUMBER;
 import static com.nbw.blueapp.GlobalApplication.NODATA_STRING;
 import static com.nbw.blueapp.GlobalApplication.USER_SIGNOUT;
-import static com.nbw.blueapp.utils.SpinnerVariables.arrayList_gender;
-import static com.nbw.blueapp.utils.SpinnerVariables.arrayList_income;
-import static com.nbw.blueapp.utils.SpinnerVariables.arrayList_local;
-import static com.nbw.blueapp.utils.SpinnerVariables.setArrayList_gender;
-import static com.nbw.blueapp.utils.SpinnerVariables.setArrayList_income;
-import static com.nbw.blueapp.utils.SpinnerVariables.setArrayList_local;
 
 public class UserInfoEditActivity extends AppCompatActivity {
 
@@ -47,7 +41,6 @@ public class UserInfoEditActivity extends AppCompatActivity {
 
     EditText et_name;
     EditText et_birthday;
-    EditText et_gender;
     EditText et_job;
     EditText et_interest;
     EditText et_income;
@@ -55,8 +48,6 @@ public class UserInfoEditActivity extends AppCompatActivity {
 
     private Spinner spinnerLocal;
     private Spinner spinnerGender;
-    ArrayAdapter<String> arrayAdapterLocal;
-    ArrayAdapter<String> arrayAdapterGender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,34 +64,23 @@ public class UserInfoEditActivity extends AppCompatActivity {
         spinnerGender = (Spinner) findViewById(R.id.spinner_gender_user_info_edit);
         spinnerLocal = (Spinner) findViewById(R.id.spinner_local_user_info_edit);
 
-        setArrayList_local();
-        setArrayList_gender();
 
-        arrayAdapterLocal = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_spinner_dropdown_item,
-                arrayList_local);
-        arrayAdapterGender = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_spinner_dropdown_item,
-                arrayList_gender);
-
-        spinnerLocal.setAdapter(arrayAdapterLocal);
         spinnerLocal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //지역 스피너에서 선택된 내용을 저장
-                local = arrayList_local.get(i);
+                local = adapterView.getItemAtPosition(i).toString();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
 
-        spinnerGender.setAdapter(arrayAdapterGender);
         spinnerGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //성별 스피너에서 선택된 내용을 저장
-                gender = arrayList_gender.get(i);
+                gender = adapterView.getItemAtPosition(i).toString();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -143,8 +123,9 @@ public class UserInfoEditActivity extends AppCompatActivity {
         birthday = et_birthday.getText().toString();
         job = et_job.getText().toString();
         income = Integer.parseInt(et_income.getText().toString());
-        phone = et_phone.getText().toString();
+        String raw_phone = et_phone.getText().toString();
         interest = et_interest.getText().toString();
+        phone = raw_phone.substring(0,3) + "-" + raw_phone.substring(3,7) + "-" + raw_phone.substring(7);
 
         try {
             //서버에 회원가입 정보 전달
@@ -250,12 +231,25 @@ public class UserInfoEditActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                et_phone.setText(phone);
-                                et_income.setText(income+"");
-                                et_interest.setText(interest);
-                                et_job.setText(job);
-                                et_birthday.setText(birthday);
-                                et_name.setText(name);
+                                if (!phone.equals(NODATA_STRING)) {
+                                    String raw_phone = phone.substring(0,3)+phone.substring(4,8)+phone.substring(9);
+                                    et_phone.setText(raw_phone);
+                                }
+                                if (income!=NODATA_NUMBER) {
+                                    et_income.setText(income+"");
+                                }
+                                if (!interest.equals(NODATA_STRING)) {
+                                    et_interest.setText(interest);
+                                }
+                                if (!job.equals(NODATA_STRING)) {
+                                    et_job.setText(job);
+                                }
+                                if (!birthday.equals(NODATA_STRING)) {
+                                    et_birthday.setText(birthday);
+                                }
+                                if (!name.equals(NODATA_STRING)) {
+                                    et_name.setText(name);
+                                }
                             }
                         });
                     }
