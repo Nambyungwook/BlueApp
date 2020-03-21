@@ -105,42 +105,42 @@ public class UserInfoActivity extends AppCompatActivity {
                         return;
                     } else {
                         email = ret.getString("email");
-                        if (ret.getString("name").equals(null)) {
+                        if (ret.getString("name")=="null") {
                             name = NODATA_STRING;
                         } else {
                             name = ret.getString("name");
                         }
-                        if (ret.getString("birthday").equals(null)) {
+                        if (ret.getString("birthday")=="null") {
                             birthday = NODATA_STRING;
                         } else {
                             birthday = ret.getString("birthday");
                         }
-                        if (ret.getString("gender").equals(null)) {
+                        if (ret.getString("gender")=="null") {
                             gender = NODATA_STRING;
                         } else {
                             gender = ret.getString("gender");
                         }
-                        if (ret.getString("local").equals(null)) {
+                        if (ret.getString("local")=="null") {
                             local = NODATA_STRING;
                         } else {
                             local = ret.getString("local");
                         }
-                        if (ret.getString("interest").equals(null)) {
+                        if (ret.getString("interest")=="null") {
                             interest = NODATA_STRING;
                         } else {
                             interest = ret.getString("interest");
                         }
-                        if (ret.getString("job").equals(null)) {
+                        if (ret.getString("job")=="null") {
                             job = NODATA_STRING;
                         } else {
                             job = ret.getString("job");
                         }
-                        if (ret.getInt("income")==0) {
+                        if (ret.getString("income")=="null") {
                             income = NODATA_NUMBER;
                         } else {
                             income = ret.getInt("income");
                         }
-                        if (ret.getString("phone").equals(null)) {
+                        if (ret.getString("phone")=="null") {
                             phone = NODATA_STRING;
                         } else {
                             phone = ret.getString("phone");

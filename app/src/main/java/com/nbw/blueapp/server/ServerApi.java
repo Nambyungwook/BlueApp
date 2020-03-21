@@ -48,6 +48,18 @@ public class ServerApi {
         return call;
     }
 
+    //put호출
+    static private Call put(String url, String json, Callback callback) {
+        RequestBody body = RequestBody.create(JSON, json);
+        Request request = new Request.Builder()
+                .url(url)
+                .put(body)
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+        return call;
+    }
+
     //서버연결확인
     static public void checkServer(final PostCallBack cb) {
         get(SERVER_IP+"/blue/v1/check/", new Callback() {
@@ -141,6 +153,36 @@ public class ServerApi {
     //회원정보조회
     static public void getUserInfo(String uid, final PostCallBack cb) {
         get(SERVER_IP+"/blue/v1/users/userinfo/"+ uid, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                if (cb != null)
+                    cb.onResponse(null, e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (cb == null)
+                    return;
+                try {
+                    if (response.isSuccessful()) {
+                        String responseStr = response.body().string();
+                        cb.onResponse(new JSONObject(responseStr), null);
+                    } else {
+                        String responseStr = response.body().string();
+                        JSONObject ret = new JSONObject(responseStr);
+                        cb.onResponse(null, ret.getString("message"));
+                    }
+                } catch (Exception e) {
+                    cb.onResponse(null, e.getMessage());
+                }
+            }
+        });
+
+    }
+
+    //회원정보수정
+    static public void updateUserInfoPost(JSONObject params, String uid, final PostCallBack cb) {
+        put(SERVER_IP+"/blue/v1/users/update/" + uid, params.toString(), new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (cb != null)

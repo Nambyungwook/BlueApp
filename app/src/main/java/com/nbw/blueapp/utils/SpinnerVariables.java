@@ -22,6 +22,7 @@ public class SpinnerVariables {
 
     public static void setArrayList_local() {
         arrayList_local = new ArrayList<>();
+        SpinnerVariables.arrayList_local.add("입력안함");
         SpinnerVariables.arrayList_local.add("서울");
         SpinnerVariables.arrayList_local.add("경기도");
         SpinnerVariables.arrayList_local.add("인천");
