@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.nbw.blueapp.GlobalApplication;
@@ -24,9 +26,20 @@ public class SignupActivity extends AppCompatActivity {
     private String pwd;
     private String pwd_conrfirm;
 
+    //체크 박스에서 사용할 값
+    private int TERMS_AGREE_PRIVACY = 0;// No Check = 0, Check = 1
+    private int TERMS_AGREE_USE = 0;     // No Check = 0, Check = 1
+    private int TERMS_AGREE_ALL = 0;     // No Check = 0, Check = 1
+
+    private boolean termsChecker = false;
+
     private EditText et_signup_id;
     private EditText et_signup_pwd;
     private EditText et_signup_pwd_confirm;
+
+    private CheckBox cb_use;
+    private CheckBox cb_privacy;
+    private CheckBox cb_all;
 
     private SharedPreferences sharedPreferences;
 
@@ -39,10 +52,78 @@ public class SignupActivity extends AppCompatActivity {
         et_signup_pwd = (EditText) findViewById(R.id.et_signup_pwd);
         et_signup_pwd_confirm = (EditText) findViewById(R.id.et_signup_pwd_confirm);
 
+        cb_use = (CheckBox) findViewById(R.id.cb_use);
+        cb_privacy = (CheckBox) findViewById(R.id.cb_privacy);
+        cb_all = (CheckBox) findViewById(R.id.cb_all);
+
         sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
+
+        //checkbox를 사용해서 확인
+        cb_privacy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) {
+                    TERMS_AGREE_PRIVACY = 1;
+                } else {
+                    TERMS_AGREE_PRIVACY = 0;
+                }
+            }
+        });
+
+        cb_use.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) {
+                    TERMS_AGREE_USE = 1;
+                } else {
+                    TERMS_AGREE_USE = 0;
+                }
+            }
+        });
+
+        cb_all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) {
+                    cb_privacy.setChecked(true);
+                    cb_use.setChecked(true);
+                    TERMS_AGREE_ALL = 1;
+                } else {
+                    cb_privacy.setChecked(false);
+                    cb_use.setChecked(false);
+                    TERMS_AGREE_ALL = 0;
+                }
+            }
+        });
     }
 
     public void onClick_signup(View view) {
+
+        if (TERMS_AGREE_ALL != 1) {
+            if (TERMS_AGREE_USE == 1) {
+                if (TERMS_AGREE_PRIVACY == 1) {
+
+                    //모두 동의가 된경우
+                    termsChecker = true;
+                } else {
+                    Utils.toast(SignupActivity.this, "개인정보취급방침을 체크해주세요");
+                    return;
+                }
+            } else {
+                Utils.toast(SignupActivity.this, "이용약관을 체크해주세요");
+            }
+        } else {
+            //모두 동의가 된경우
+            termsChecker = true;
+        }
+
+        if (termsChecker!=true) {
+            Utils.toast(SignupActivity.this, "앱을 사용하기 위해서는 모두 동의해야 합니다.");
+            return;
+        }
 
         sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
 
@@ -101,5 +182,11 @@ public class SignupActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    public void onClick_use(View view) {
+    }
+
+    public void onClick_privacy(View view) {
     }
 }

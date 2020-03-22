@@ -26,7 +26,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="left"
             android:id="@+id/drawer_menulist"
-            android:background="#ffffff"/>
+            android:background="#ffffff"
+            android:entries="@array/nav_bar"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

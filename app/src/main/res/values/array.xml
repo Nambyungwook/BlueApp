@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="nav_bar">
+        <item>회원정보</item>
+        <item>로그아웃</item>
+        <item>회원탈퇴</item>
+    </string-array>
+
     <string-array name="target">
         <item >지원금</item>
         <item >일자리</item>

@@ -146,12 +146,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //네비게이션드로어 설정---------------------------------------------------------------------------------------
-        final String[] items = {"회원정보", "로그아웃", "회원탈퇴"};
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items);
 
         navDrawerListview = (ListView) findViewById(R.id.drawer_menulist);
-        navDrawerListview.setAdapter(adapter);
-
         navDrawerListview.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
@@ -366,7 +362,7 @@ public class MainActivity extends AppCompatActivity {
     private void initSpinner(int index) {
 
         switch (index) {
-            case 0:
+            case 0://지역
                 for (int i = 0; i < 13; i++) {
                     if (local.equals(spinnerLocal.getItemAtPosition(i))) {
                         spinnerLocal.setSelection(i);
@@ -374,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                 }
-            case 1:
+            case 1://연봉
                 if (income == 0) {
                     spinnerIncome.setSelection(0);
                 } else if (income < 1000) {
@@ -393,7 +389,7 @@ public class MainActivity extends AppCompatActivity {
                     spinnerIncome.setSelection(7);
                 }
                 break;
-            case 2:
+            case 2://나이
                 if (age<=10) {
                     spinnerAge.setSelection(0);
                 } else if (age<20) {
@@ -414,7 +410,7 @@ public class MainActivity extends AppCompatActivity {
                     spinnerAge.setSelection(8);
                 }
                 break;
-            case 3:
+            case 3://성별
                 if (gender.equals("남")) {
                     spinnerGender.setSelection(1);
                 } else if (gender.equals("여")) {
