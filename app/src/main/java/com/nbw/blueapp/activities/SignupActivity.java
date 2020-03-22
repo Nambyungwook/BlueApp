@@ -143,6 +143,8 @@ public class SignupActivity extends AppCompatActivity {
                 JSONObject json = new JSONObject();
                 json.put("email", id);
                 json.put("pwd", pwd);
+                json.put("sign_type", "M");//메일로 회원가입
+                json.put("terms_agree", "Y");//이용약관, 개인정보처리방침 동의
 
                 //회원가입 api 호출
                 ServerApi.signupPost(json, new PostCallBack() {
@@ -177,7 +179,7 @@ public class SignupActivity extends AppCompatActivity {
                     }
                 });
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
 
