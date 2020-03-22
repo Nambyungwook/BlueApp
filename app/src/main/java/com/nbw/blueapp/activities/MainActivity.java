@@ -69,11 +69,6 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinnerIncome;
     private Spinner spinnerAge;
     private Spinner spinnerGender;
-    ArrayAdapter<String> arrayAdapterTarget;
-    ArrayAdapter<String> arrayAdapterLocal;
-    ArrayAdapter<String> arrayAdapterIncome;
-    ArrayAdapter<String> arrayAdapterAge;
-    ArrayAdapter<String> arrayAdapterGender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,11 +79,11 @@ public class MainActivity extends AppCompatActivity {
 
         uid = sharedPreferences.getString("uid", USER_SIGNOUT);
 
-        spinnerTarget = (Spinner)findViewById(R.id.spinner_target);
-        spinnerLocal = (Spinner)findViewById(R.id.spinner_local);
-        spinnerIncome = (Spinner)findViewById(R.id.spinner_income);
-        spinnerAge = (Spinner)findViewById(R.id.spinner_age);
-        spinnerGender = (Spinner)findViewById(R.id.spinner_gender);
+        spinnerTarget = (Spinner) findViewById(R.id.spinner_target);
+        spinnerLocal = (Spinner) findViewById(R.id.spinner_local);
+        spinnerIncome = (Spinner) findViewById(R.id.spinner_income);
+        spinnerAge = (Spinner) findViewById(R.id.spinner_age);
+        spinnerGender = (Spinner) findViewById(R.id.spinner_gender);
 
         spinnerTarget.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -96,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 //목적 스피너에서 선택된 내용을 저장
                 selectedTarget = adapterView.getItemAtPosition(i).toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -107,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 //지역 스피너에서 선택된 내용을 저장
                 selectedLocal = adapterView.getItemAtPosition(i).toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -118,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 //수입 스피너에서 선택된 내용을 저장
                 selectedIncome = adapterView.getItemAtPosition(i).toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -129,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 //나이 스피너에서 선택된 내용을 저장
                 selectedAge = adapterView.getItemAtPosition(i).toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
@@ -140,28 +139,29 @@ public class MainActivity extends AppCompatActivity {
                 //성별 스피너에서 선택된 내용을 저장
                 selectedGender = adapterView.getItemAtPosition(i).toString();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
 
         //네비게이션드로어 설정---------------------------------------------------------------------------------------
-        final String[] items = {"회원정보", "로그아웃", "회원탈퇴"} ;
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items) ;
+        final String[] items = {"회원정보", "로그아웃", "회원탈퇴"};
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, items);
 
-        navDrawerListview = (ListView) findViewById(R.id.drawer_menulist) ;
-        navDrawerListview.setAdapter(adapter) ;
+        navDrawerListview = (ListView) findViewById(R.id.drawer_menulist);
+        navDrawerListview.setAdapter(adapter);
 
         navDrawerListview.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
 
                 switch (position) {
-                    case 0 : // 회원정보
+                    case 0: // 회원정보
                         Intent intent = new Intent(MainActivity.this, UserInfoActivity.class);
                         startActivity(intent);
-                        break ;
-                    case 1 : // 로그아웃
+                        break;
+                    case 1: // 로그아웃
                         sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
 
                         uid = sharedPreferences.getString("uid", USER_SIGNOUT);
@@ -190,12 +190,12 @@ public class MainActivity extends AppCompatActivity {
                                     finish();
 
                                 } catch (Exception e) {
-                                    Utils.toast(MainActivity.this,e+"");
+                                    Utils.toast(MainActivity.this, e + "");
                                 }
                             }
                         });
-                        break ;
-                    case 2 : // 회원탈퇴
+                        break;
+                    case 2: // 회원탈퇴
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
                         builder.setTitle("회원탈퇴")
@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
                                                     finish();
 
                                                 } catch (Exception e) {
-                                                    Utils.toast(MainActivity.this,e+"");
+                                                    Utils.toast(MainActivity.this, e + "");
                                                 }
                                             }
                                         });
@@ -248,11 +248,11 @@ public class MainActivity extends AppCompatActivity {
                                 });
                         AlertDialog dialog = builder.create();    // 알림창 객체 생성
                         dialog.show();    // 알림창 띄우기
-                        break ;
+                        break;
                 }
                 // close drawer.
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer) ;
-                drawer.closeDrawer(Gravity.LEFT) ;
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+                drawer.closeDrawer(Gravity.LEFT);
             }
         });
         //네비게이션드로어 설정 끝--------------------------------------------------------------------------------------
@@ -286,43 +286,69 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     } else {
                         email = ret.getString("email");
-                        if (ret.getString("name")=="null") {
+                        if (ret.getString("name") == "null") {
                             name = NODATA_STRING;
                         } else {
                             name = ret.getString("name");
                         }
-                        if (ret.getString("birthday")=="null") {
+                        if (ret.getString("birthday") == "null") {
                             birthday = NODATA_STRING;
                         } else {
                             birthday = ret.getString("birthday");
                             age = BirthdayToAge(birthday);
+                            //ui가 변경되는 경우(단순 글자가 아닌 화면상에 그려지는 것이 변경되는 경우) 쓰레드 사용
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    initSpinner(2);
+                                }
+                            });
+
                         }
-                        if (ret.getString("gender")=="null") {
+                        if (ret.getString("gender") == "null") {
                             gender = NODATA_STRING;
                         } else {
                             gender = ret.getString("gender");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    initSpinner(3);
+                                }
+                            });
                         }
-                        if (ret.getString("local")=="null") {
+                        if (ret.getString("local") == "null") {
                             local = NODATA_STRING;
                         } else {
                             local = ret.getString("local");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    initSpinner(0);
+                                }
+                            });
                         }
-                        if (ret.getString("interest")=="null") {
+                        if (ret.getString("interest") == "null") {
                             interest = NODATA_STRING;
                         } else {
                             interest = ret.getString("interest");
                         }
-                        if (ret.getString("job")=="null") {
+                        if (ret.getString("job") == "null") {
                             job = NODATA_STRING;
                         } else {
                             job = ret.getString("job");
                         }
-                        if (ret.getString("income")=="null") {
+                        if (ret.getString("income") == "null") {
                             income = NODATA_NUMBER;
                         } else {
                             income = ret.getInt("income");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    initSpinner(1);
+                                }
+                            });
                         }
-                        if (ret.getString("phone")=="null") {
+                        if (ret.getString("phone") == "null") {
                             phone = NODATA_STRING;
                         } else {
                             phone = ret.getString("phone");
@@ -330,10 +356,74 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 } catch (Exception e) {
-                    Utils.toast(MainActivity.this,e+"");
+                    Utils.toast(MainActivity.this, e + "");
                 }
             }
         });
+    }
+
+    //스피너 초기값 설정
+    private void initSpinner(int index) {
+
+        switch (index) {
+            case 0:
+                for (int i = 0; i < 13; i++) {
+                    if (local.equals(spinnerLocal.getItemAtPosition(i))) {
+                        spinnerLocal.setSelection(i);
+
+                        break;
+                    }
+                }
+            case 1:
+                if (income == 0) {
+                    spinnerIncome.setSelection(0);
+                } else if (income < 1000) {
+                    spinnerIncome.setSelection(1);
+                } else if (income < 2000) {
+                    spinnerIncome.setSelection(2);
+                } else if (income < 3000) {
+                    spinnerIncome.setSelection(3);
+                } else if (income < 4000) {
+                    spinnerIncome.setSelection(4);
+                } else if (income < 5000) {
+                    spinnerIncome.setSelection(5);
+                } else if (income < 6000) {
+                    spinnerIncome.setSelection(6);
+                } else {
+                    spinnerIncome.setSelection(7);
+                }
+                break;
+            case 2:
+                if (age<=10) {
+                    spinnerAge.setSelection(0);
+                } else if (age<20) {
+                    spinnerAge.setSelection(1);
+                } else if (age<30) {
+                    spinnerAge.setSelection(2);
+                } else if (age<40) {
+                    spinnerAge.setSelection(3);
+                } else if (age<50) {
+                    spinnerAge.setSelection(4);
+                } else if (age<60) {
+                    spinnerAge.setSelection(5);
+                } else if (age<70) {
+                    spinnerAge.setSelection(6);
+                } else if (age<80) {
+                    spinnerAge.setSelection(7);
+                } else {
+                    spinnerAge.setSelection(8);
+                }
+                break;
+            case 3:
+                if (gender.equals("남")) {
+                    spinnerGender.setSelection(1);
+                } else if (gender.equals("여")) {
+                    spinnerGender.setSelection(2);
+                } else {
+                    spinnerGender.setSelection(0);
+                }
+                break;
+        }
     }
 
     //구글플레이스토어의 걷다 어플 버전가져와서 현재 어플과 비교 - 강제 업데이트를 위함

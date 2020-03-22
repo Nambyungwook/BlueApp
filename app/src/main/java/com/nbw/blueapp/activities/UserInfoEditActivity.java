@@ -81,6 +81,9 @@ public class UserInfoEditActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //성별 스피너에서 선택된 내용을 저장
                 gender = adapterView.getItemAtPosition(i).toString();
+                if (gender.equals("선택안함")) {
+                    gender = "X";
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -106,8 +109,6 @@ public class UserInfoEditActivity extends AppCompatActivity {
 
     public void onClick_update(View view) {
         updateUserInfo(uid);
-
-        finish();
     }
 
     public void onClick_back(View view) {
@@ -118,14 +119,32 @@ public class UserInfoEditActivity extends AppCompatActivity {
     private void updateUserInfo(String uid) {
 
         final String check_uid = uid;
+        //생년월일 형식
+        String birthdayForm = "^([12]\\d{3}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))$";
+        //전화번호 형식
+        String phoneForm = "^01(?:0|1|[6-9])[-]?(\\d{3}|\\d{4})[-]?(\\d{4})$";
 
         name = et_name.getText().toString();
         birthday = et_birthday.getText().toString();
         job = et_job.getText().toString();
-        income = Integer.parseInt(et_income.getText().toString());
+        String strIncome = et_income.getText().toString();
         String raw_phone = et_phone.getText().toString();
         interest = et_interest.getText().toString();
+
+        if (name.equals("")|birthday.equals("")|job.equals("")|raw_phone.equals("")|interest.equals("")|strIncome.equals("")) {
+            Utils.toast(UserInfoEditActivity.this, "회원정보를 모두 입력해주세요.");
+            return;
+        } else if (!birthday.matches(birthdayForm)) {
+            Utils.toast(this, "생년월일을 올바르게 입력해주세요.");
+            return;
+        } else if (!raw_phone.matches(phoneForm)) {
+            Utils.toast(this, "전화번호를 올바르게 입력해주세요.");
+            return;
+        }
+
         phone = raw_phone.substring(0,3) + "-" + raw_phone.substring(3,7) + "-" + raw_phone.substring(7);
+        income = Integer.parseInt(strIncome);
+
 
         try {
             //서버에 회원가입 정보 전달
@@ -201,11 +220,23 @@ public class UserInfoEditActivity extends AppCompatActivity {
                             gender = NODATA_STRING;
                         } else {
                             gender = ret.getString("gender");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    initSpinner(1);
+                                }
+                            });
                         }
                         if (ret.getString("local")=="null") {
                             local = NODATA_STRING;
                         } else {
                             local = ret.getString("local");
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    initSpinner(0);
+                                }
+                            });
                         }
                         if (ret.getString("interest")=="null") {
                             interest = NODATA_STRING;
@@ -259,5 +290,29 @@ public class UserInfoEditActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    //스피너 초기값 설정
+    private void initSpinner(int index) {
+
+        switch (index) {
+            case 0:
+                for (int i = 0; i < 13; i++) {
+                    if (local.equals(spinnerLocal.getItemAtPosition(i))) {
+                        spinnerLocal.setSelection(i);
+
+                        break;
+                    }
+                }
+            case 1:
+                if (gender.equals("남")) {
+                    spinnerGender.setSelection(1);
+                } else if (gender.equals("여")) {
+                    spinnerGender.setSelection(2);
+                } else {
+                    spinnerGender.setSelection(0);
+                }
+                break;
+        }
     }
 }

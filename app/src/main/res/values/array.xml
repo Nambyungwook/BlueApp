@@ -26,7 +26,7 @@
 
     <string-array name="income">
         <item >없음</item>
-        <item >0~1000만원</item>
+        <item >1000만원이하</item>
         <item >1000~2000만원</item>
         <item >2000~3000만원</item>
         <item >3000~4000만원</item>
@@ -36,6 +36,7 @@
     </string-array>
 
     <string-array name="age">
+        <item>10살이하</item>
         <item >10대</item>
         <item >20대</item>
         <item >30대</item>
@@ -47,6 +48,7 @@
     </string-array>
 
     <string-array name="gender">
+        <item>선택안함</item>
         <item >남</item>
         <item >여</item>
     </string-array>
