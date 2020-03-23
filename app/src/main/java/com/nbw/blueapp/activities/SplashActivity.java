@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 
@@ -37,6 +38,9 @@ public class SplashActivity extends AppCompatActivity {
 
         et_id = (EditText) findViewById(R.id.et_id);
         et_pwd = (EditText) findViewById(R.id.et_pwd);
+
+        //비밀번호 안보이게 설정
+        et_pwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
 

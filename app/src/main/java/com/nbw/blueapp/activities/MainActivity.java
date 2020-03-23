@@ -15,6 +15,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -36,6 +38,7 @@ import static com.nbw.blueapp.GlobalApplication.NODATA_NUMBER;
 import static com.nbw.blueapp.GlobalApplication.NODATA_STRING;
 import static com.nbw.blueapp.GlobalApplication.USER_SIGNOUT;
 import static com.nbw.blueapp.utils.Utils.BirthdayToAge;
+import static com.nbw.blueapp.utils.Utils.toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinnerAge;
     private Spinner spinnerGender;
 
+    private Button btn_search;
+
+    private EditText et_item_title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
         spinnerIncome = (Spinner) findViewById(R.id.spinner_income);
         spinnerAge = (Spinner) findViewById(R.id.spinner_age);
         spinnerGender = (Spinner) findViewById(R.id.spinner_gender);
+
+        btn_search = (Button) findViewById(R.id.btn_search);
+
+        et_item_title = (EditText) findViewById(R.id.et_item_title);
 
         spinnerTarget.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -256,6 +267,18 @@ public class MainActivity extends AppCompatActivity {
         //구글 플레이스토어와 앱 버전 비교 및 업데이트 팝업 실행 - 테스트시에 주석처리
 //        MainActivity.versionCheck versionCheck_ = new MainActivity.versionCheck();
 //        versionCheck_.execute();
+
+        //제도 검색 버튼 기능 구현
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //검색할 제목
+                String item_title = et_item_title.getText().toString();
+
+                toast(MainActivity.this, "검색할이름 : " + item_title + "\n목적 : " + selectedTarget + "\n지역 : " + selectedLocal + "\n나이 : " + selectedAge + "\n연봉 : "+selectedIncome+"\n성별 : "+selectedGender);
+            }
+        });
     }
 
     @Override

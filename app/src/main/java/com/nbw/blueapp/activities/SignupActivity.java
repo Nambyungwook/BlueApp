@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -51,6 +52,10 @@ public class SignupActivity extends AppCompatActivity {
         et_signup_id = (EditText) findViewById(R.id.et_signup_id);
         et_signup_pwd = (EditText) findViewById(R.id.et_signup_pwd);
         et_signup_pwd_confirm = (EditText) findViewById(R.id.et_signup_pwd_confirm);
+
+        //비밀번호 안보이게 설정
+        et_signup_pwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        et_signup_pwd_confirm.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         cb_use = (CheckBox) findViewById(R.id.cb_use);
         cb_privacy = (CheckBox) findViewById(R.id.cb_privacy);
@@ -143,7 +148,7 @@ public class SignupActivity extends AppCompatActivity {
                 JSONObject json = new JSONObject();
                 json.put("email", id);
                 json.put("pwd", pwd);
-                json.put("sign_type", "M");//메일로 회원가입
+                json.put("signType", "M");//메일로 회원가입
                 json.put("terms_agree", "Y");//이용약관, 개인정보처리방침 동의
 
                 //회원가입 api 호출
@@ -187,8 +192,10 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onClick_use(View view) {
+        //이용약관 보여주기
     }
 
     public void onClick_privacy(View view) {
+        //개인정보처리방침 보여주기
     }
 }
