@@ -3,9 +3,11 @@ package com.nbw.blueapp.server;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URL;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -40,6 +42,29 @@ public class ServerApi {
     static private Call get(String url, Callback callback) {
         Request request = new Request.Builder()
                 .url(url)
+                .get()
+                .build();
+
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+        return call;
+    }
+
+    //get호출 + 요청 파라미터가 존재시
+    static private Call getParam(String url, String page, String size, String categoryB, String categoryM, String categoryS, String siteName, Callback callback) {
+
+        HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
+        builder.addQueryParameter("page", page)
+                .addQueryParameter("size",size)
+                .addQueryParameter("categoryB", categoryB)
+                .addQueryParameter("categoryM",categoryM)
+                .addQueryParameter("categoryS",categoryS)
+                .addQueryParameter("siteName",siteName);
+
+        String requestUrl = builder.build().toString();
+
+        Request request = new Request.Builder()
+                .url(requestUrl)
                 .get()
                 .build();
 
@@ -300,91 +325,15 @@ public class ServerApi {
 
     }
 
-    /*
-
-    {
-    "content": [
-        {
-            "createdDate": "2020-03-26T14:16:29.124",
-            "modifiedDate": "2020-03-26T14:16:29.124",
-            "id": 5,
-            "site_name": "test01",
-            "category_1": "test_category_1_01",
-            "category_2": "test_category_2_01",
-            "category_3": "test_category_3_01",
-            "site_url": "https://www.naver.com/"
-        },
-        {
-            "createdDate": "2020-03-26T14:16:28.673",
-            "modifiedDate": "2020-03-26T14:16:28.673",
-            "id": 4,
-            "site_name": "test01",
-            "category_1": "test_category_1_01",
-            "category_2": "test_category_2_01",
-            "category_3": "test_category_3_01",
-            "site_url": "https://www.naver.com/"
-        },
-        {
-            "createdDate": "2020-03-26T14:16:28.158",
-            "modifiedDate": "2020-03-26T14:16:28.158",
-            "id": 3,
-            "site_name": "test01",
-            "category_1": "test_category_1_01",
-            "category_2": "test_category_2_01",
-            "category_3": "test_category_3_01",
-            "site_url": "https://www.naver.com/"
-        },
-        {
-            "createdDate": "2020-03-26T14:16:27.554",
-            "modifiedDate": "2020-03-26T14:16:27.554",
-            "id": 2,
-            "site_name": "test01",
-            "category_1": "test_category_1_01",
-            "category_2": "test_category_2_01",
-            "category_3": "test_category_3_01",
-            "site_url": "https://www.naver.com/"
-        },
-        {
-            "createdDate": "2020-03-26T14:16:26.063",
-            "modifiedDate": "2020-03-26T14:16:26.063",
-            "id": 1,
-            "site_name": "test01",
-            "category_1": "test_category_1_01",
-            "category_2": "test_category_2_01",
-            "category_3": "test_category_3_01",
-            "site_url": "https://www.naver.com/"
-        }
-    ],
-    "pageable": {
-        "sort": {
-            "sorted": true,
-            "unsorted": false,
-            "empty": false
-        },
-        "offset": 0,
-        "pageSize": 10,
-        "pageNumber": 0,
-        "unpaged": false,
-        "paged": true
-    },
-    "totalPages": 1,
-    "totalElements": 5,
-    "last": true,
-    "size": 10,
-    "number": 0,
-    "first": true,
-    "numberOfElements": 5,
-    "sort": {
-        "sorted": true,
-        "unsorted": false,
-        "empty": false
-    },
-    "empty": false
-}
-
-    */
-    static public void getSites(final PostCallBack cb) {
-        get(SERVER_IP+"/blue/v1/sites/", new Callback() {
+    //사이트 조
+    static public void getSites(String page,
+                                String size,
+                                String categoryB,
+                                String categoryM,
+                                String categoryS,
+                                String siteName,
+                                final PostCallBack cb) {
+        getParam(SERVER_IP+"/blue/v1/sites/", page, size, categoryB, categoryM, categoryS, siteName, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (cb != null)

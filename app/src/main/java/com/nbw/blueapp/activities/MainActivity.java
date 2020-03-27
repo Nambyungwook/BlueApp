@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -85,12 +86,12 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText et_item_title;
 
+    private TextView tv_error;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
         sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
 
@@ -108,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
         sitesListview = (ListView) findViewById(R.id.lv_sites);
 
+        tv_error = (TextView) findViewById(R.id.tv_error);
         //스피너 리스너 구현-------------------------------------------------------------------------
 
         spinnerTarget.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -296,6 +298,8 @@ public class MainActivity extends AppCompatActivity {
                 //검색할 제목
                 String item_title = et_item_title.getText().toString();
 
+                getSitesToListview();
+
                 toast(MainActivity.this, "검색할이름 : " + item_title + "\n목적 : " + selectedTarget + "\n지역 : " + selectedLocal + "\n나이 : " + selectedAge + "\n연봉 : "+selectedIncome+"\n성별 : "+selectedGender);
             }
         });
@@ -322,6 +326,15 @@ public class MainActivity extends AppCompatActivity {
                 String siteName = site.getSiteName();
                 String siteUrl = site.getSiteUrl();
                 String siteDetail = site.getSiteDetail();
+
+                Intent intent = new Intent(MainActivity.this, SiteDetailActivity.class);
+                intent.putExtra("categoryB", categoryB);
+                intent.putExtra("categoryM", categoryM);
+                intent.putExtra("categoryS", categoryS);
+                intent.putExtra("siteName", siteName);
+                intent.putExtra("siteUrl", siteUrl);
+                intent.putExtra("siteDetail", siteDetail);
+                startActivity(intent);
             }
         });
 
@@ -424,7 +437,7 @@ public class MainActivity extends AppCompatActivity {
     private void getSitesToListview() {
         final SitesListAdapter sitesListAdapter = new SitesListAdapter();
 
-        ServerApi.getSites(new PostCallBack() {
+        ServerApi.getSites("0", "10", selectedTarget, selectedLocal, selectedIncome, et_item_title.getText().toString(), new PostCallBack() {
             @Override
             public void onResponse(JSONObject ret, String errMsg) {
                 try {
@@ -437,8 +450,14 @@ public class MainActivity extends AppCompatActivity {
                     if (!ret.getString("response_code").equals("SUCCESS")) {
                         Utils.toast(MainActivity.this, "사용자 정보를 불러오는데 실패했습니다.");
                         return;
-                    } else if (ret.get("sites")==null) {
-                        sitesListview.setVisibility(View.GONE);
+                    } else if (ret.get("sites").toString().equals("[]")) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tv_error.setVisibility(View.VISIBLE);
+                                sitesListview.setVisibility(View.GONE);
+                            }
+                        });
                         Utils.toast(MainActivity.this, "해당 사이트가 없습니다.");
                         return;
                     } else {
@@ -458,6 +477,8 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                tv_error.setVisibility(View.GONE);
+                                sitesListview.setVisibility(View.VISIBLE);
                                 sitesListview.setAdapter(sitesListAdapter);
                             }
                         });

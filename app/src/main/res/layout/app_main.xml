@@ -176,12 +176,23 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <ListView
                 android:id="@+id/lv_sites"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/tv_error"
+                android:gravity="center"
+                android:visibility="gone"
+                android:background="#00FFEB"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="죄송합니다. 조건에 맞는 사이트가 없습니다. 다시 검색해주세요."
+                android:textColor="#ffffff"/>
 
         </LinearLayout>
 
