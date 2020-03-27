@@ -19,6 +19,7 @@ import com.nbw.blueapp.utils.Utils;
 import org.json.JSONObject;
 
 import static com.nbw.blueapp.GlobalApplication.USER_SIGNOUT;
+import static com.nbw.blueapp.utils.Utils.StringToSHA1;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -59,10 +60,20 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void onClick_signin(View view) {
+
+        String regEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+
         id = et_id.getText().toString();
         pwd = et_pwd.getText().toString();
 
-        signin(id, pwd);
+        String pwd_sha1 = StringToSHA1(pwd);
+
+        if (!id.matches(regEmail)) {
+            Utils.toast(SplashActivity.this, "이메일 형식을 올바르게 입력해주세요.");
+            return;
+        }
+
+        signin(id, pwd_sha1);
     }
 
     private void signin(String id, String pwd) {

@@ -20,6 +20,8 @@ import com.nbw.blueapp.utils.Utils;
 
 import org.json.JSONObject;
 
+import static com.nbw.blueapp.utils.Utils.StringToSHA1;
+
 public class SignupActivity extends AppCompatActivity {
 
     private String uid;
@@ -136,18 +138,27 @@ public class SignupActivity extends AppCompatActivity {
         pwd = et_signup_pwd.getText().toString();
         pwd_conrfirm = et_signup_pwd_confirm.getText().toString();
 
-        if (!pwd.equals(pwd_conrfirm)) {
+        String regEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+
+        if (!id.matches(regEmail)) {
+
+            Utils.toast(SignupActivity.this, "이메일 형식을 올바르게 입력해주세요.");
+            return;
+
+        } else if (!pwd.equals(pwd_conrfirm)) {
 
             Utils.toast(SignupActivity.this, "비밀번호가 일치하지 않습니다.");
-
             return;
 
         } else {
+
+            String pwd_sha1 = StringToSHA1(pwd);
+
             try {
                 //서버에 회원가입 정보 전달
                 JSONObject json = new JSONObject();
                 json.put("email", id);
-                json.put("pwd", pwd);
+                json.put("pwd", pwd_sha1);
                 json.put("signType", "M");//메일로 회원가입
                 json.put("terms_agree", "Y");//이용약관, 개인정보처리방침 동의
 

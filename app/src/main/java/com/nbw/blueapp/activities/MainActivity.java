@@ -20,10 +20,16 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.nbw.blueapp.BuildConfig;
 import com.nbw.blueapp.R;
+import com.nbw.blueapp.items.Sites;
 import com.nbw.blueapp.server.PostCallBack;
 import com.nbw.blueapp.server.ServerApi;
+import com.nbw.blueapp.utils.SitesListAdapter;
 import com.nbw.blueapp.utils.Utils;
 
 import org.json.JSONObject;
@@ -32,6 +38,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import static com.nbw.blueapp.GlobalApplication.NODATA_NUMBER;
@@ -66,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     private String selectedGender;
 
     private ListView navDrawerListview = null;
+    private ListView sitesListview;
 
     private Spinner spinnerTarget;
     private Spinner spinnerLocal;
@@ -82,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
 
         uid = sharedPreferences.getString("uid", USER_SIGNOUT);
@@ -95,6 +105,10 @@ public class MainActivity extends AppCompatActivity {
         btn_search = (Button) findViewById(R.id.btn_search);
 
         et_item_title = (EditText) findViewById(R.id.et_item_title);
+
+        sitesListview = (ListView) findViewById(R.id.lv_sites);
+
+        //스피너 리스너 구현-------------------------------------------------------------------------
 
         spinnerTarget.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -155,6 +169,10 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+
+        //스피너 리스너 구현-------------------------------------------------------------------------
+
+        //=========================================================================================================
 
         //네비게이션드로어 설정---------------------------------------------------------------------------------------
 
@@ -264,6 +282,8 @@ public class MainActivity extends AppCompatActivity {
         });
         //네비게이션드로어 설정 끝--------------------------------------------------------------------------------------
 
+        //=========================================================================================================
+
         //구글 플레이스토어와 앱 버전 비교 및 업데이트 팝업 실행 - 테스트시에 주석처리
 //        MainActivity.versionCheck versionCheck_ = new MainActivity.versionCheck();
 //        versionCheck_.execute();
@@ -285,7 +305,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        getSitesToListview();
         getUserInfo(uid);
+
+        //사이트 리스트뷰 리스너 구현----------------------------------------------------------------------------------------
+
+        sitesListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+                Sites site = (Sites) parent.getItemAtPosition(position);
+
+                String categoryB = site.getCategoryB();
+                String categoryM = site.getCategoryM();
+                String categoryS = site.getCategoryS();
+                String siteName = site.getSiteName();
+                String siteUrl = site.getSiteUrl();
+                String siteDetail = site.getSiteDetail();
+            }
+        });
+
+        //사이트 리스트뷰 리스너 구현----------------------------------------------------------------------------------------
     }
 
     private void getUserInfo(String uid) {
@@ -381,6 +421,57 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void getSitesToListview() {
+        final SitesListAdapter sitesListAdapter = new SitesListAdapter();
+
+        ServerApi.getSites(new PostCallBack() {
+            @Override
+            public void onResponse(JSONObject ret, String errMsg) {
+                try {
+                    //api호출 실패로 서버에서 에러가 나는지 확인
+                    if (errMsg != null) {
+                        Utils.toast(MainActivity.this, errMsg);
+                        return;
+                    }
+                    //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
+                    if (!ret.getString("response_code").equals("SUCCESS")) {
+                        Utils.toast(MainActivity.this, "사용자 정보를 불러오는데 실패했습니다.");
+                        return;
+                    } else if (ret.get("sites")==null) {
+                        sitesListview.setVisibility(View.GONE);
+                        Utils.toast(MainActivity.this, "해당 사이트가 없습니다.");
+                        return;
+                    } else {
+                        Gson gson = new GsonBuilder().create();
+                        JsonParser parser = new JsonParser();
+                        JsonElement rootObject = parser.parse(ret.get("sites").toString());
+
+                        Sites[] sites = gson.fromJson(rootObject, Sites[].class);
+
+                        //String test =  sites[0].getSiteDetail();
+
+                        if(sites.length > 0){
+                            for(Sites p : sites){
+                                sitesListAdapter.addItem(p.getCategoryB(), p.getCategoryM(), p.getCategoryS(), p.getSiteName(), p.getSiteUrl(), p.getSiteDetail());
+                            }
+                        }
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                sitesListview.setAdapter(sitesListAdapter);
+                            }
+                        });
+
+                    }
+
+                } catch (Exception e) {
+                    Utils.toast(MainActivity.this, e + "");
+                }
+            }
+        });
+
+    }
+
     //스피너 초기값 설정
     private void initSpinner(int index) {
 
@@ -389,7 +480,6 @@ public class MainActivity extends AppCompatActivity {
                 for (int i = 0; i < 13; i++) {
                     if (local.equals(spinnerLocal.getItemAtPosition(i))) {
                         spinnerLocal.setSelection(i);
-
                         break;
                     }
                 }

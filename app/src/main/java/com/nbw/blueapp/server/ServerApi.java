@@ -300,4 +300,116 @@ public class ServerApi {
 
     }
 
+    /*
+
+    {
+    "content": [
+        {
+            "createdDate": "2020-03-26T14:16:29.124",
+            "modifiedDate": "2020-03-26T14:16:29.124",
+            "id": 5,
+            "site_name": "test01",
+            "category_1": "test_category_1_01",
+            "category_2": "test_category_2_01",
+            "category_3": "test_category_3_01",
+            "site_url": "https://www.naver.com/"
+        },
+        {
+            "createdDate": "2020-03-26T14:16:28.673",
+            "modifiedDate": "2020-03-26T14:16:28.673",
+            "id": 4,
+            "site_name": "test01",
+            "category_1": "test_category_1_01",
+            "category_2": "test_category_2_01",
+            "category_3": "test_category_3_01",
+            "site_url": "https://www.naver.com/"
+        },
+        {
+            "createdDate": "2020-03-26T14:16:28.158",
+            "modifiedDate": "2020-03-26T14:16:28.158",
+            "id": 3,
+            "site_name": "test01",
+            "category_1": "test_category_1_01",
+            "category_2": "test_category_2_01",
+            "category_3": "test_category_3_01",
+            "site_url": "https://www.naver.com/"
+        },
+        {
+            "createdDate": "2020-03-26T14:16:27.554",
+            "modifiedDate": "2020-03-26T14:16:27.554",
+            "id": 2,
+            "site_name": "test01",
+            "category_1": "test_category_1_01",
+            "category_2": "test_category_2_01",
+            "category_3": "test_category_3_01",
+            "site_url": "https://www.naver.com/"
+        },
+        {
+            "createdDate": "2020-03-26T14:16:26.063",
+            "modifiedDate": "2020-03-26T14:16:26.063",
+            "id": 1,
+            "site_name": "test01",
+            "category_1": "test_category_1_01",
+            "category_2": "test_category_2_01",
+            "category_3": "test_category_3_01",
+            "site_url": "https://www.naver.com/"
+        }
+    ],
+    "pageable": {
+        "sort": {
+            "sorted": true,
+            "unsorted": false,
+            "empty": false
+        },
+        "offset": 0,
+        "pageSize": 10,
+        "pageNumber": 0,
+        "unpaged": false,
+        "paged": true
+    },
+    "totalPages": 1,
+    "totalElements": 5,
+    "last": true,
+    "size": 10,
+    "number": 0,
+    "first": true,
+    "numberOfElements": 5,
+    "sort": {
+        "sorted": true,
+        "unsorted": false,
+        "empty": false
+    },
+    "empty": false
+}
+
+    */
+    static public void getSites(final PostCallBack cb) {
+        get(SERVER_IP+"/blue/v1/sites/", new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                if (cb != null)
+                    cb.onResponse(null, e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (cb == null)
+                    return;
+                try {
+                    if (response.isSuccessful()) {
+                        String responseStr = response.body().string();
+                        cb.onResponse(new JSONObject(responseStr), null);
+                    } else {
+                        String responseStr = response.body().string();
+                        JSONObject ret = new JSONObject(responseStr);
+                        cb.onResponse(null, ret.getString("message"));
+                    }
+                } catch (Exception e) {
+                    cb.onResponse(null, e.getMessage());
+                }
+            }
+        });
+
+    }
+
 }

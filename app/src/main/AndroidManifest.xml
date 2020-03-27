@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.UserInfoEditActivity"></activity>
+        <activity android:name=".activities.SiteDetailActivity"></activity>
+        <activity android:name=".activities.UserInfoEditActivity" />
         <activity android:name=".activities.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.UserInfoActivity"/>
+        <activity android:name=".activities.UserInfoActivity" />
         <activity android:name=".activities.SignupActivity" />
         <activity android:name=".activities.SignupCompleteActivity" />
         <activity android:name=".activities.MainActivity" />

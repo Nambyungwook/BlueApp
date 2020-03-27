@@ -16,6 +16,8 @@ import com.nbw.blueapp.utils.Utils;
 
 import org.json.JSONObject;
 
+import static com.nbw.blueapp.utils.Utils.StringToSHA1;
+
 public class SignupCompleteActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
@@ -36,7 +38,10 @@ public class SignupCompleteActivity extends AppCompatActivity {
     }
 
     public void onClick_ok(View view) {
-        signin(id, pwd);
+
+        String pwd_sha1 = StringToSHA1(pwd);
+
+        signin(id, pwd_sha1);
 
     }
 
