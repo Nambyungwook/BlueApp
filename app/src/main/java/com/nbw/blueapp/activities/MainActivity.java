@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -39,7 +38,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import static com.nbw.blueapp.GlobalApplication.NODATA_NUMBER;
@@ -276,6 +274,11 @@ public class MainActivity extends AppCompatActivity {
                         AlertDialog dialog = builder.create();    // 알림창 객체 생성
                         dialog.show();    // 알림창 띄우기
                         break;
+                    case 3: // 내사이트
+                        Intent intentMySites = new Intent(MainActivity.this, UserSavedSitesActivity.class);
+                        startActivity(intentMySites);
+
+                        break;
                 }
                 // close drawer.
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
@@ -437,7 +440,30 @@ public class MainActivity extends AppCompatActivity {
     private void getSitesToListview() {
         final SitesListAdapter sitesListAdapter = new SitesListAdapter();
 
-        ServerApi.getSites("0", "10", selectedTarget, selectedLocal, selectedIncome, et_item_title.getText().toString(), new PostCallBack() {
+        String categoryB = selectedTarget;
+        if (categoryB!=null&&categoryB.equals("전체")) {
+            categoryB = "NA";
+        } else if (categoryB == null) {
+            categoryB = "NA";
+        }
+        String categoryM = selectedLocal;
+        if (categoryM!=null&&categoryM.equals("전체")) {
+            categoryM = "NA";
+        } else if (categoryM == null) {
+            categoryM = "NA";
+        }
+        String categoryS = selectedIncome;
+        if (categoryS!=null&&categoryS.equals("없음")) {
+            categoryS = "NA";
+        } else if (categoryS == null) {
+            categoryS = "NA";
+        }
+        String siteName = et_item_title.getText().toString();
+        if (siteName.equals("")) {
+            siteName = "NA";
+        }
+
+        ServerApi.getSites("0", "10", categoryB, categoryM, categoryS, siteName, new PostCallBack() {
             @Override
             public void onResponse(JSONObject ret, String errMsg) {
                 try {

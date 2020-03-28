@@ -325,7 +325,7 @@ public class ServerApi {
 
     }
 
-    //사이트 조
+    //사이트 조건에 맞워서 검색
     static public void getSites(String page,
                                 String size,
                                 String categoryB,
@@ -361,4 +361,93 @@ public class ServerApi {
 
     }
 
+    //사용자가 원하는 사이트 저장(즐겨찾기 추가)
+    static public void saveSites(JSONObject params, final PostCallBack cb) {
+        post(SERVER_IP+"/blue/v1/users/save/sites/", params.toString(), new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                if (cb != null)
+                    cb.onResponse(null, e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (cb == null)
+                    return;
+                try {
+                    if (response.isSuccessful()) {
+                        String responseStr = response.body().string();
+                        cb.onResponse(new JSONObject(responseStr), null);
+                    } else {
+                        String responseStr = response.body().string();
+                        JSONObject ret = new JSONObject(responseStr);
+                        cb.onResponse(null, ret.getString("message"));
+                    }
+                } catch (Exception e) {
+                    cb.onResponse(null, e.getMessage());
+                }
+            }
+        });
+
+    }
+
+    //저장한 사이트 조회
+    static public void getUserSavedSites(String uid, final PostCallBack cb) {
+        get(SERVER_IP+"/blue/v1/users/sites/"+uid, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                if (cb != null)
+                    cb.onResponse(null, e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (cb == null)
+                    return;
+                try {
+                    if (response.isSuccessful()) {
+                        String responseStr = response.body().string();
+                        cb.onResponse(new JSONObject(responseStr), null);
+                    } else {
+                        String responseStr = response.body().string();
+                        JSONObject ret = new JSONObject(responseStr);
+                        cb.onResponse(null, ret.getString("message"));
+                    }
+                } catch (Exception e) {
+                    cb.onResponse(null, e.getMessage());
+                }
+            }
+        });
+
+    }
+
+    //저장한 사이트 삭제
+    static public void deleteUserSavedSites(String uid, String siteName, final PostCallBack cb) {
+        get(SERVER_IP+"/blue/v1/users/delete/site/"+uid+"/"+siteName, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                if (cb != null)
+                    cb.onResponse(null, e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (cb == null)
+                    return;
+                try {
+                    if (response.isSuccessful()) {
+                        String responseStr = response.body().string();
+                        cb.onResponse(new JSONObject(responseStr), null);
+                    } else {
+                        String responseStr = response.body().string();
+                        JSONObject ret = new JSONObject(responseStr);
+                        cb.onResponse(null, ret.getString("message"));
+                    }
+                } catch (Exception e) {
+                    cb.onResponse(null, e.getMessage());
+                }
+            }
+        });
+
+    }
 }

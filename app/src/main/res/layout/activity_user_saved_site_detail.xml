@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SiteDetailActivity"
+    tools:context=".activities.UserSavedSiteDetailActivity"
     android:orientation="vertical">
 
     <LinearLayout
@@ -17,7 +17,7 @@
         android:paddingRight="20dp">
 
         <TextView
-            android:id="@+id/tv_site_name_sd"
+            android:id="@+id/tv_site_name_user_saved"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -36,55 +36,12 @@
         android:paddingRight="20dp">
 
         <TextView
-            android:id="@+id/tv_site_url_sd"
+            android:id="@+id/tv_site_url_user_saved"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="사이트 url"
             android:textSize="40dp"
-            android:textColor="#000000"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingTop="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_site_category_b"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="큰 카테고리"
-            android:textSize="20dp"
-            android:textColor="#000000"/>
-
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:id="@+id/tv_site_category_m"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="중간 카테고리"
-            android:textSize="20dp"
-            android:textColor="#000000"/>
-
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:id="@+id/tv_site_category_s"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="작은 카테고리"
-            android:textSize="20dp"
             android:textColor="#000000"/>
 
     </LinearLayout>
@@ -98,7 +55,7 @@
         android:paddingRight="20dp">
 
         <TextView
-            android:id="@+id/tv_site_detail_sd"
+            android:id="@+id/tv_site_detail_user_saved"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="사이트 상세정보"
@@ -121,11 +78,11 @@
             android:text="사이트로 이동"/>
 
         <Button
-            android:onClick="onClick_saveSite"
+            android:onClick="onClick_delete_site"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="사이트 저장"/>
+            android:text="사이트 삭제"/>
 
     </LinearLayout>
 

@@ -4,9 +4,11 @@
         <item>회원정보</item>
         <item>로그아웃</item>
         <item>회원탈퇴</item>
+        <item>내사이트</item>
     </string-array>
 
     <string-array name="target">
+        <item>전체</item>
         <item >지원금</item>
         <item >일자리</item>
         <item >공연</item>
@@ -15,7 +17,7 @@
     </string-array>
 
     <string-array name="local">
-        <item >입력안함</item>
+        <item >전체</item>
         <item >서울</item>
         <item >경기도</item>
         <item >인천</item>
