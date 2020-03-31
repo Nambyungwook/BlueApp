@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -65,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
     private int age;
 
     //스피너를 통해 선택한 정보
-    private String selectedTarget;
+    private String selectedTargetMain;
+    private String selectedTargetDetail;
     private String selectedLocal;
     private String selectedIncome;
     private String selectedAge;
@@ -74,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView navDrawerListview = null;
     private ListView sitesListview;
 
-    private Spinner spinnerTarget;
+    private Spinner spinnerTargetMain;
+    private Spinner spinnerTargetDetail;
     private Spinner spinnerLocal;
     private Spinner spinnerIncome;
     private Spinner spinnerAge;
@@ -95,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
         uid = sharedPreferences.getString("uid", USER_SIGNOUT);
 
-        spinnerTarget = (Spinner) findViewById(R.id.spinner_target);
+        spinnerTargetMain = (Spinner) findViewById(R.id.spinner_target_main);
+        spinnerTargetDetail = (Spinner) findViewById(R.id.spinner_target_detail);
         spinnerLocal = (Spinner) findViewById(R.id.spinner_local);
         spinnerIncome = (Spinner) findViewById(R.id.spinner_income);
         spinnerAge = (Spinner) findViewById(R.id.spinner_age);
@@ -110,11 +114,25 @@ public class MainActivity extends AppCompatActivity {
         tv_error = (TextView) findViewById(R.id.tv_error);
         //스피너 리스너 구현-------------------------------------------------------------------------
 
-        spinnerTarget.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerTargetMain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //목적 스피너에서 선택된 내용을 저장
-                selectedTarget = adapterView.getItemAtPosition(i).toString();
+                selectedTargetMain = adapterView.getItemAtPosition(i).toString();
+                setTargetDetailSpinner(selectedTargetMain);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+
+        spinnerTargetDetail.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //목적 스피너에서 선택된 내용을 저장
+                selectedTargetDetail = adapterView.getItemAtPosition(i).toString();
             }
 
             @Override
@@ -303,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
 
                 getSitesToListview();
 
-                toast(MainActivity.this, "검색할이름 : " + item_title + "\n목적 : " + selectedTarget + "\n지역 : " + selectedLocal + "\n나이 : " + selectedAge + "\n연봉 : "+selectedIncome+"\n성별 : "+selectedGender);
+                //toast(MainActivity.this, "검색할이름 : " + item_title + "\n목적 : " + selectedTargetMain + "\n지역 : " + selectedLocal + "\n나이 : " + selectedAge + "\n연봉 : "+selectedIncome+"\n성별 : "+selectedGender);
             }
         });
     }
@@ -323,17 +341,25 @@ public class MainActivity extends AppCompatActivity {
 
                 Sites site = (Sites) parent.getItemAtPosition(position);
 
-                String categoryB = site.getCategoryB();
-                String categoryM = site.getCategoryM();
-                String categoryS = site.getCategoryS();
+                Long siteId = site.getId();
+                String targetMain = site.getTargetMain();
+                String targetDetail = site.getTargetDetail();
+                String local = site.getLocal();
+                String income = site.getIncome();
+                String age = site.getAge();
+                String gender = site.getGender();
                 String siteName = site.getSiteName();
                 String siteUrl = site.getSiteUrl();
                 String siteDetail = site.getSiteDetail();
 
                 Intent intent = new Intent(MainActivity.this, SiteDetailActivity.class);
-                intent.putExtra("categoryB", categoryB);
-                intent.putExtra("categoryM", categoryM);
-                intent.putExtra("categoryS", categoryS);
+                intent.putExtra("siteId", siteId);
+                intent.putExtra("targetMain", targetMain);
+                intent.putExtra("targetDetail", targetDetail);
+                intent.putExtra("local", local);
+                intent.putExtra("income", income);
+                intent.putExtra("age", age);
+                intent.putExtra("gender", gender);
                 intent.putExtra("siteName", siteName);
                 intent.putExtra("siteUrl", siteUrl);
                 intent.putExtra("siteDetail", siteDetail);
@@ -342,6 +368,50 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //사이트 리스트뷰 리스너 구현----------------------------------------------------------------------------------------
+    }
+
+    private void setTargetDetailSpinner(String selectedTargetMain) {
+        if (selectedTargetMain==null) {
+            selectedTargetMain = "전체";
+        }
+        switch (selectedTargetMain) {
+            case "전체":
+                ArrayAdapter<String> arrayAdapter_total = new ArrayAdapter<String>(getApplicationContext(),
+                        android.R.layout.simple_spinner_dropdown_item,
+                        getResources().getStringArray(R.array.target_detail_total));
+                spinnerTargetDetail.setAdapter(arrayAdapter_total);
+                break;
+            case "지원금":
+                ArrayAdapter<String> arrayAdapter_money = new ArrayAdapter<String>(getApplicationContext(),
+                        android.R.layout.simple_spinner_dropdown_item,
+                        getResources().getStringArray(R.array.target_detail_money));
+                spinnerTargetDetail.setAdapter(arrayAdapter_money);
+                break;
+            case "일자리":
+                ArrayAdapter<String> arrayAdapter_job = new ArrayAdapter<String>(getApplicationContext(),
+                        android.R.layout.simple_spinner_dropdown_item,
+                        getResources().getStringArray(R.array.target_detail_job));
+                spinnerTargetDetail.setAdapter(arrayAdapter_job);
+                break;
+            case "공연":
+                ArrayAdapter<String> arrayAdapter_show = new ArrayAdapter<String>(getApplicationContext(),
+                        android.R.layout.simple_spinner_dropdown_item,
+                        getResources().getStringArray(R.array.target_detail_show));
+                spinnerTargetDetail.setAdapter(arrayAdapter_show);
+                break;
+            case "쇼핑":
+                ArrayAdapter<String> arrayAdapter_shop = new ArrayAdapter<String>(getApplicationContext(),
+                        android.R.layout.simple_spinner_dropdown_item,
+                        getResources().getStringArray(R.array.target_detail_shop));
+                spinnerTargetDetail.setAdapter(arrayAdapter_shop);
+                break;
+            case "기타":
+                ArrayAdapter<String> arrayAdapter_etc = new ArrayAdapter<String>(getApplicationContext(),
+                        android.R.layout.simple_spinner_dropdown_item,
+                        getResources().getStringArray(R.array.target_detail_etc));
+                spinnerTargetDetail.setAdapter(arrayAdapter_etc);
+                break;
+        }
     }
 
     private void getUserInfo(String uid) {
@@ -440,30 +510,36 @@ public class MainActivity extends AppCompatActivity {
     private void getSitesToListview() {
         final SitesListAdapter sitesListAdapter = new SitesListAdapter();
 
-        String categoryB = selectedTarget;
-        if (categoryB!=null&&categoryB.equals("전체")) {
-            categoryB = "NA";
-        } else if (categoryB == null) {
-            categoryB = "NA";
+        String targetMain = "";
+        if (selectedTargetMain!=null&&!selectedTargetMain.equals("전체")) {
+            targetMain = selectedTargetMain;
         }
-        String categoryM = selectedLocal;
-        if (categoryM!=null&&categoryM.equals("전체")) {
-            categoryM = "NA";
-        } else if (categoryM == null) {
-            categoryM = "NA";
+        String targetDetail = "";
+        if (selectedTargetDetail!=null&&!selectedTargetDetail.equals("전체")) {
+            targetDetail = selectedTargetDetail;
         }
-        String categoryS = selectedIncome;
-        if (categoryS!=null&&categoryS.equals("없음")) {
-            categoryS = "NA";
-        } else if (categoryS == null) {
-            categoryS = "NA";
+        String local = "";
+        if (selectedLocal!=null&&!selectedLocal.equals("전체")) {
+            local = selectedLocal;
+        }
+        String income = "";
+        if (selectedIncome!=null&&!selectedIncome.equals("상관없음")) {
+            income = selectedIncome;
+        }
+        String age = "";
+        if (selectedAge!=null&&!selectedAge.equals("전체")) {
+            age = selectedAge;
+        }
+        String gender = "";
+        if (selectedGender!=null&&!selectedGender.equals("선택안함")) {
+            gender = selectedGender;
         }
         String siteName = et_item_title.getText().toString();
         if (siteName.equals("")) {
-            siteName = "NA";
+            siteName = "";
         }
 
-        ServerApi.getSites("0", "10", categoryB, categoryM, categoryS, siteName, new PostCallBack() {
+        ServerApi.getSites("0", "10", targetMain, targetDetail, local, income, age, gender, siteName, new PostCallBack() {
             @Override
             public void onResponse(JSONObject ret, String errMsg) {
                 try {
@@ -493,11 +569,18 @@ public class MainActivity extends AppCompatActivity {
 
                         Sites[] sites = gson.fromJson(rootObject, Sites[].class);
 
-                        //String test =  sites[0].getSiteDetail();
-
                         if(sites.length > 0){
                             for(Sites p : sites){
-                                sitesListAdapter.addItem(p.getCategoryB(), p.getCategoryM(), p.getCategoryS(), p.getSiteName(), p.getSiteUrl(), p.getSiteDetail());
+                                sitesListAdapter.addItem(p.getId(),
+                                        p.getTargetMain(),
+                                        p.getTargetDetail(),
+                                        p.getLocal(),
+                                        p.getIncome(),
+                                        p.getAge(),
+                                        p.getGender(),
+                                        p.getSiteName(),
+                                        p.getSiteUrl(),
+                                        p.getSiteDetail());
                             }
                         }
                         runOnUiThread(new Runnable() {
@@ -533,17 +616,17 @@ public class MainActivity extends AppCompatActivity {
             case 1://연봉
                 if (income == 0) {
                     spinnerIncome.setSelection(0);
-                } else if (income < 1000) {
+                } else if (income <= 1000) {
                     spinnerIncome.setSelection(1);
-                } else if (income < 2000) {
+                } else if (income <= 2000) {
                     spinnerIncome.setSelection(2);
-                } else if (income < 3000) {
+                } else if (income <= 3000) {
                     spinnerIncome.setSelection(3);
-                } else if (income < 4000) {
+                } else if (income <= 4000) {
                     spinnerIncome.setSelection(4);
-                } else if (income < 5000) {
+                } else if (income <= 5000) {
                     spinnerIncome.setSelection(5);
-                } else if (income < 6000) {
+                } else if (income <= 6000) {
                     spinnerIncome.setSelection(6);
                 } else {
                     spinnerIncome.setSelection(7);
@@ -551,23 +634,23 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 2://나이
                 if (age<=10) {
-                    spinnerAge.setSelection(0);
-                } else if (age<20) {
                     spinnerAge.setSelection(1);
-                } else if (age<30) {
+                } else if (age<20) {
                     spinnerAge.setSelection(2);
-                } else if (age<40) {
+                } else if (age<30) {
                     spinnerAge.setSelection(3);
-                } else if (age<50) {
+                } else if (age<40) {
                     spinnerAge.setSelection(4);
-                } else if (age<60) {
+                } else if (age<50) {
                     spinnerAge.setSelection(5);
-                } else if (age<70) {
+                } else if (age<60) {
                     spinnerAge.setSelection(6);
-                } else if (age<80) {
+                } else if (age<70) {
                     spinnerAge.setSelection(7);
-                } else {
+                } else if (age<80) {
                     spinnerAge.setSelection(8);
+                } else {
+                    spinnerAge.setSelection(9);
                 }
                 break;
             case 3://성별

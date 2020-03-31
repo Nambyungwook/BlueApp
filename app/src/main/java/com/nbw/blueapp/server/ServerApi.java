@@ -51,14 +51,26 @@ public class ServerApi {
     }
 
     //get호출 + 요청 파라미터가 존재시
-    static private Call getParam(String url, String page, String size, String categoryB, String categoryM, String categoryS, String siteName, Callback callback) {
+    static private Call getParam(String url,
+                                 String page,
+                                 String size,
+                                 String targetMain,
+                                 String targetDetail,
+                                 String local,
+                                 String income,
+                                 String age,
+                                 String gender,
+                                 String siteName, Callback callback) {
 
         HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
         builder.addQueryParameter("page", page)
                 .addQueryParameter("size",size)
-                .addQueryParameter("categoryB", categoryB)
-                .addQueryParameter("categoryM",categoryM)
-                .addQueryParameter("categoryS",categoryS)
+                .addQueryParameter("targetMain", targetMain)
+                .addQueryParameter("targetDetail", targetDetail)
+                .addQueryParameter("local", local)
+                .addQueryParameter("income",income)
+                .addQueryParameter("age",age)
+                .addQueryParameter("gender",gender)
                 .addQueryParameter("siteName",siteName);
 
         String requestUrl = builder.build().toString();
@@ -328,12 +340,15 @@ public class ServerApi {
     //사이트 조건에 맞워서 검색
     static public void getSites(String page,
                                 String size,
-                                String categoryB,
-                                String categoryM,
-                                String categoryS,
+                                String targetMain,
+                                String targetDetail,
+                                String local,
+                                String income,
+                                String age,
+                                String gender,
                                 String siteName,
                                 final PostCallBack cb) {
-        getParam(SERVER_IP+"/blue/v1/sites/", page, size, categoryB, categoryM, categoryS, siteName, new Callback() {
+        getParam(SERVER_IP+"/blue/v1/sites/", page, size, targetMain, targetDetail, local, income, age, gender, siteName, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (cb != null)
@@ -422,8 +437,8 @@ public class ServerApi {
     }
 
     //저장한 사이트 삭제
-    static public void deleteUserSavedSites(String uid, String siteName, final PostCallBack cb) {
-        get(SERVER_IP+"/blue/v1/users/delete/site/"+uid+"/"+siteName, new Callback() {
+    static public void deleteUserSavedSites(String uid, Long siteId, final PostCallBack cb) {
+        get(SERVER_IP+"/blue/v1/users/delete/site/"+uid+"/"+siteId, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (cb != null)

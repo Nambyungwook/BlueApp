@@ -23,14 +23,27 @@ public class UserSavedSiteDetailActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
+    private Long siteId;
     private String uid;
+    private String targetMain;
+    private String targetDetail;
+    private String local;
+    private String income;
+    private String age;
+    private String gender;
     private String siteName;
     private String siteUrl;
     private String siteDetail;
 
-    TextView tv_site_name_user_saved;
-    TextView tv_site_url_user_saved;
-    TextView tv_site_detail_user_saved;
+    TextView tv_targetMain_user;
+    TextView tv_targetDetail_user;
+    TextView tv_local_user;
+    TextView tv_income_user;
+    TextView tv_age_user;
+    TextView tv_gender_user;
+    TextView tv_site_name_sd_user;
+    TextView tv_site_url_sd_user;
+    TextView tv_site_detail_sd_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +54,37 @@ public class UserSavedSiteDetailActivity extends AppCompatActivity {
 
         uid = sharedPreferences.getString("uid", USER_SIGNOUT);
 
-        tv_site_detail_user_saved = (TextView) findViewById(R.id.tv_site_detail_user_saved);
-        tv_site_name_user_saved = (TextView) findViewById(R.id.tv_site_name_user_saved);
-        tv_site_url_user_saved = (TextView) findViewById(R.id.tv_site_url_user_saved);
+        tv_targetMain_user = (TextView) findViewById(R.id.tv_site_target_main_user);
+        tv_targetDetail_user = (TextView) findViewById(R.id.tv_site_target_detail_user);
+        tv_local_user = (TextView) findViewById(R.id.tv_site_user_local);
+        tv_income_user = (TextView) findViewById(R.id.tv_site_user_income);
+        tv_age_user = (TextView) findViewById(R.id.tv_site_user_age);
+        tv_gender_user = (TextView) findViewById(R.id.tv_site_user_gender);
+        tv_site_detail_sd_user = (TextView) findViewById(R.id.tv_site_detail_user_sd);
+        tv_site_name_sd_user = (TextView) findViewById(R.id.tv_site_name_user_sd);
+        tv_site_url_sd_user = (TextView) findViewById(R.id.tv_site_url_user_sd);
 
         Intent intent = getIntent();
+        siteId = intent.getLongExtra("siteId", 0);
+        targetMain = intent.getStringExtra("targetMain");
+        targetDetail = intent.getStringExtra("targetDetail");
+        local = intent.getStringExtra("local");
+        income = intent.getStringExtra("income");
+        age = intent.getStringExtra("age");
+        gender = intent.getStringExtra("gender");
         siteName = intent.getStringExtra("siteName");
         siteUrl = intent.getStringExtra("siteUrl");
         siteDetail = intent.getStringExtra("siteDetail");
 
-        tv_site_name_user_saved.setText(siteName);
-        tv_site_url_user_saved.setText(siteUrl);
-        tv_site_detail_user_saved.setText(siteDetail);
+        tv_targetMain_user.setText(targetMain);
+        tv_targetDetail_user.setText(targetDetail);
+        tv_local_user.setText(local);
+        tv_income_user.setText(income);
+        tv_age_user.setText(age);
+        tv_gender_user.setText(gender);
+        tv_site_name_sd_user.setText(siteName);
+        tv_site_url_sd_user.setText(siteUrl);
+        tv_site_detail_sd_user.setText(siteDetail);
     }
 
     public void onClick_move_site(View view) {
@@ -60,7 +92,7 @@ public class UserSavedSiteDetailActivity extends AppCompatActivity {
     }
 
     public void onClick_delete_site(View view) {
-        ServerApi.deleteUserSavedSites(uid, siteName, new PostCallBack() {
+        ServerApi.deleteUserSavedSites(uid, siteId, new PostCallBack() {
             @Override
             public void onResponse(JSONObject ret, String errMsg) {
                 try {

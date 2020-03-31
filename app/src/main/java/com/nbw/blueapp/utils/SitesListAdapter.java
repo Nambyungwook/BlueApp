@@ -56,14 +56,38 @@ public class SitesListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    /* 카테고리1,2,3, 사이트명, url */
-    public void addItem(String categoryB, String categoryM, String categoryS, String siteName, String siteUrl, String siteDetail) {
+    /*
+    private Long id;
+    private String targetMain;
+    private String targetDetail;
+    private String local;
+    private String income;
+    private String age;
+    private String gender;
+    private String siteName;
+    private String siteUrl;
+    private String siteDetail;
+    */
+    public void addItem(Long id,
+                        String targetMain,
+                        String targetDetail,
+                        String local,
+                        String income,
+                        String age,
+                        String gender,
+                        String siteName,
+                        String siteUrl,
+                        String siteDetail) {
 
         Sites sites = new Sites();
 
-        sites.setCategoryB(categoryB);
-        sites.setCategoryM(categoryM);
-        sites.setCategoryS(categoryS);
+        sites.setId(id);
+        sites.setTargetMain(targetMain);
+        sites.setTargetDetail(targetDetail);
+        sites.setLocal(local);
+        sites.setIncome(income);
+        sites.setAge(age);
+        sites.setGender(gender);
         sites.setSiteName(siteName);
         sites.setSiteUrl(siteUrl);
         sites.setSiteDetail(siteDetail);

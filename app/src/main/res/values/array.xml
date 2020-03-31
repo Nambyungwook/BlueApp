@@ -7,12 +7,50 @@
         <item>내사이트</item>
     </string-array>
 
-    <string-array name="target">
+    <string-array name="target_main">
         <item>전체</item>
         <item >지원금</item>
         <item >일자리</item>
         <item >공연</item>
         <item >쇼핑</item>
+        <item >기타</item>
+    </string-array>
+
+    <string-array name="target_detail_total">
+        <item>전체</item>
+    </string-array>
+
+    <string-array name="target_detail_money">
+        <item>전체</item>
+        <item >창업지원금</item>
+        <item >실업지원금</item>
+        <item >기타</item>
+    </string-array>
+
+    <string-array name="target_detail_job">
+        <item>전체</item>
+        <item >취업</item>
+        <item >실업</item>
+        <item >기타</item>
+    </string-array>
+
+    <string-array name="target_detail_show">
+        <item>전체</item>
+        <item >콘서트</item>
+        <item >뮤지컬</item>
+        <item >연극</item>
+        <item >기타</item>
+    </string-array>
+
+    <string-array name="target_detail_shop">
+        <item>전체</item>
+        <item >의류</item>
+        <item >악세사리</item>
+        <item >기타</item>
+    </string-array>
+
+    <string-array name="target_detail_etc">
+        <item>전체</item>
         <item >기타</item>
     </string-array>
 
@@ -33,7 +71,7 @@
     </string-array>
 
     <string-array name="income">
-        <item >없음</item>
+        <item >상관없음</item>
         <item >1000만원이하</item>
         <item >1000~2000만원</item>
         <item >2000~3000만원</item>
@@ -44,6 +82,7 @@
     </string-array>
 
     <string-array name="age">
+        <item>전체</item>
         <item>10살이하</item>
         <item >10대</item>
         <item >20대</item>

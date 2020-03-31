@@ -2,58 +2,94 @@ package com.nbw.blueapp.items;
 
 public class Sites {
 
-    private String categoryB;
-    private String categoryM;
-    private String categoryS;
+    private Long id;
+    private String targetMain;
+    private String targetDetail;
+    private String local;
+    private String income;
+    private String age;
+    private String gender;
     private String siteName;
     private String siteUrl;
     private String siteDetail;
 
-    public void setCategoryB(String categoryB) {
-        this.categoryB = categoryB;
+    public Long getId() {
+        return id;
     }
 
-    public void setCategoryM(String categoryM) {
-        this.categoryM = categoryM;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void setCategoryS(String categoryS) {
-        this.categoryS = categoryS;
+    public String getTargetMain() {
+        return targetMain;
     }
 
-    public void setSiteName(String siteName) {
-        this.siteName = siteName;
+    public void setTargetMain(String targetMain) {
+        this.targetMain = targetMain;
     }
 
-    public void setSiteUrl(String siteUrl) {
-        this.siteUrl = siteUrl;
+    public String getTargetDetail() {
+        return targetDetail;
     }
 
-    public void setSiteDetail(String siteDetail) {
-        this.siteDetail = siteDetail;
+    public void setTargetDetail(String targetDetail) {
+        this.targetDetail = targetDetail;
     }
 
-    public String getCategoryB() {
-        return categoryB;
+    public String getLocal() {
+        return local;
     }
 
-    public String getCategoryM() {
-        return categoryM;
+    public void setLocal(String local) {
+        this.local = local;
     }
 
-    public String getCategoryS() {
-        return categoryS;
+    public String getIncome() {
+        return income;
+    }
+
+    public void setIncome(String income) {
+        this.income = income;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getSiteName() {
         return siteName;
     }
 
+    public void setSiteName(String siteName) {
+        this.siteName = siteName;
+    }
+
     public String getSiteUrl() {
         return siteUrl;
     }
 
+    public void setSiteUrl(String siteUrl) {
+        this.siteUrl = siteUrl;
+    }
+
     public String getSiteDetail() {
         return siteDetail;
+    }
+
+    public void setSiteDetail(String siteDetail) {
+        this.siteDetail = siteDetail;
     }
 }

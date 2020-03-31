@@ -60,17 +60,25 @@ public class UserSavedSitesActivity extends AppCompatActivity {
 
                 Sites site = (Sites) parent.getItemAtPosition(position);
 
-                String categoryB = site.getCategoryB();
-                String categoryM = site.getCategoryM();
-                String categoryS = site.getCategoryS();
+                Long siteId = site.getId();
+                String targetMain = site.getTargetMain();
+                String targetDetail = site.getTargetDetail();
+                String local = site.getLocal();
+                String income = site.getIncome();
+                String age = site.getAge();
+                String gender = site.getGender();
                 String siteName = site.getSiteName();
                 String siteUrl = site.getSiteUrl();
                 String siteDetail = site.getSiteDetail();
 
                 Intent intent = new Intent(UserSavedSitesActivity.this, UserSavedSiteDetailActivity.class);
-                intent.putExtra("categoryB", categoryB);
-                intent.putExtra("categoryM", categoryM);
-                intent.putExtra("categoryS", categoryS);
+                intent.putExtra("siteId", siteId);
+                intent.putExtra("targetMain", targetMain);
+                intent.putExtra("targetDetail", targetDetail);
+                intent.putExtra("local", local);
+                intent.putExtra("income", income);
+                intent.putExtra("age", age);
+                intent.putExtra("gender", gender);
                 intent.putExtra("siteName", siteName);
                 intent.putExtra("siteUrl", siteUrl);
                 intent.putExtra("siteDetail", siteDetail);
@@ -96,7 +104,7 @@ public class UserSavedSitesActivity extends AppCompatActivity {
                     if (!ret.getString("response_code").equals("SUCCESS")) {
                         Utils.toast(UserSavedSitesActivity.this, "사용자 정보를 불러오는데 실패했습니다.");
                         return;
-                    } else if (ret.get("sites").toString().equals("[]")) {
+                    } else if (ret.get("savedSites").toString().equals("[]")) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -107,15 +115,43 @@ public class UserSavedSitesActivity extends AppCompatActivity {
                         Utils.toast(UserSavedSitesActivity.this, "해당 사이트가 없습니다.");
                         return;
                     } else {
+                        /*
+                        {
+            "createdDate": "2020-03-31T15:49:40.836",
+            "modifiedDate": "2020-03-31T15:49:40.836",
+            "id": 1,
+            "siteName": "지원금테스트10",
+            "targetMain": "지원금",
+            "targetDetail": "기타",
+            "local": "전체",
+            "income": "전체",
+            "age": "전체",
+            "gender": "남",
+            "siteUrl": "https://www.naver.com/",
+            "siteDetail": "이것은 테스트 사이트입니다."
+        },
+                        */
+
                         Gson gson = new GsonBuilder().create();
                         JsonParser parser = new JsonParser();
-                        JsonElement rootObject = parser.parse(ret.get("sites").toString());
+                        JsonElement rootObject = parser.parse(ret.get("savedSites").toString());
 
                         Sites[] sites = gson.fromJson(rootObject, Sites[].class);
 
                         if(sites.length > 0){
                             for(Sites p : sites){
-                                sitesListAdapter.addItem(p.getCategoryB(), p.getCategoryM(), p.getCategoryS(), p.getSiteName(), p.getSiteUrl(), p.getSiteDetail());
+                                if (!p.getSiteUrl().equals("ERROR")) {
+                                    sitesListAdapter.addItem(p.getId(),
+                                            p.getTargetMain(),
+                                            p.getTargetDetail(),
+                                            p.getLocal(),
+                                            p.getIncome(),
+                                            p.getAge(),
+                                            p.getGender(),
+                                            p.getSiteName(),
+                                            p.getSiteUrl(),
+                                            p.getSiteDetail());
+                                }
                             }
                         }
                         runOnUiThread(new Runnable() {
