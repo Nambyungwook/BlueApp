@@ -16,7 +16,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -73,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
     private String selectedAge;
     private String selectedGender;
 
+    //전국 지역을 포함하는지 확인하는 값
+    private String allLocalCB = "0";
+
     private ListView navDrawerListview = null;
     private ListView sitesListview;
 
@@ -88,6 +94,10 @@ public class MainActivity extends AppCompatActivity {
     private EditText et_item_title;
 
     private TextView tv_error;
+
+    //지역에 전국을 포함 할지 안할지 정하기 위함
+    private LinearLayout layout_all_local;
+    private CheckBox cb_all_local;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +122,9 @@ public class MainActivity extends AppCompatActivity {
         sitesListview = (ListView) findViewById(R.id.lv_sites);
 
         tv_error = (TextView) findViewById(R.id.tv_error);
+
+        layout_all_local = (LinearLayout) findViewById(R.id.layout_all_local);
+        cb_all_local = (CheckBox) findViewById(R.id.cb_all_local);
         //스피너 리스너 구현-------------------------------------------------------------------------
 
         spinnerTargetMain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -145,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //지역 스피너에서 선택된 내용을 저장
                 selectedLocal = adapterView.getItemAtPosition(i).toString();
+                setAllLocalCheckBox(selectedLocal);
             }
 
             @Override
@@ -367,7 +381,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //사이트 리스트뷰 리스너 구현----------------------------------------------------------------------------------------
+        //사이트 리스트뷰 리스너 구현 End----------------------------------------------------------------------------------------
+
+        //전국 지역 체크박스 셋팅
+        setAllLocalCheckBox(selectedLocal);
+    }
+
+    private void setAllLocalCheckBox(String selectedLocal) {
+        if (selectedLocal==null||selectedLocal.equals("전체")||selectedLocal.equals("전국")) {
+            layout_all_local.setVisibility(View.GONE);
+        } else {
+            layout_all_local.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setTargetDetailSpinner(String selectedTargetMain) {
@@ -538,8 +563,20 @@ public class MainActivity extends AppCompatActivity {
         if (siteName.equals("")) {
             siteName = "";
         }
+        cb_all_local.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    //전국 포함
+                    allLocalCB = "1";
+                } else {
+                    //전국 제외
+                    allLocalCB = "0";
+                }
+            }
+        });
 
-        ServerApi.getSites("0", "10", targetMain, targetDetail, local, income, age, gender, siteName, new PostCallBack() {
+        ServerApi.getSites("0", "10", targetMain, targetDetail, local, allLocalCB, income, age, gender, siteName, new PostCallBack() {
             @Override
             public void onResponse(JSONObject ret, String errMsg) {
                 try {

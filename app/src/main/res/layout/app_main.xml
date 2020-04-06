@@ -70,6 +70,31 @@
                     android:layout_weight="1"
                     android:entries="@array/local"/>
 
+                <LinearLayout
+                    android:id="@+id/layout_all_local"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="전국포함여부"
+                        android:textSize="20dp"
+                        android:textColor="#000000"
+                        android:gravity="center"/>
+
+                    <CheckBox
+                        android:id="@+id/cb_all_local"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
