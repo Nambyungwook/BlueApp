@@ -163,7 +163,7 @@ public class UserInfoEditActivity extends AppCompatActivity {
                             return;
                         }
                         //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
-                        if (!ret.getString("uid").equals(check_uid)) {
+                        if (!ret.getString("responseCode").equals("SUCCESS")) {
                             Utils.toast(UserInfoEditActivity.this, "회원정보 수정에 문제가 있습니다. 다시 시도해주세요.");
                             return;
                         }
