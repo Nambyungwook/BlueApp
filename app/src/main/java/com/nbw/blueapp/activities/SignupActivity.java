@@ -173,8 +173,8 @@ public class SignupActivity extends AppCompatActivity {
                                 return;
                             }
                             //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
-                            if (ret.getString("uid").equals(null)) {
-                                Utils.toast(SignupActivity.this, "회원가입에 문제가 생겼습니다. 나중에 다시 시도해주세요.ㅠ");
+                            if (!ret.getString("responseCode").equals("SUCCESS")) {
+                                Utils.toast(SignupActivity.this, "이미 존재하는 이메일이거나 회원가입에 문제가 생겼습니다. 다시 시도해주세요.ㅠ");
                                 return;
                             }
 

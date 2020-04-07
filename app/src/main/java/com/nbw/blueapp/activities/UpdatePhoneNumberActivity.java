@@ -41,11 +41,9 @@ import static com.nbw.blueapp.GlobalApplication.NODATA_STRING;
 import static com.nbw.blueapp.GlobalApplication.USER_SIGNOUT;
 import static com.nbw.blueapp.utils.Utils.StringToSHA1;
 
-public class SignupCompleteActivity extends AppCompatActivity implements View.OnClickListener {
+public class UpdatePhoneNumberActivity extends AppCompatActivity implements View.OnClickListener {
 
     SharedPreferences sharedPreferences;
-    private String id;
-    private String pwd;
     private String uid;
     private String name;
     private String birthday;
@@ -85,14 +83,11 @@ public class SignupCompleteActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup_complete);
+        setContentView(R.layout.activity_update_phone_number);sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
 
-        sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
-
-        Intent intent = getIntent();
-        id = intent.getStringExtra("email");
-        pwd = intent.getStringExtra("pwd");
         uid = sharedPreferences.getString("uid", USER_SIGNOUT);
+
+        getUserInfo(uid);
 
         sprinner_country_code = (Spinner) findViewById(R.id.sprinner_country_code);
         sprinner_country_code.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -332,11 +327,6 @@ public class SignupCompleteActivity extends AppCompatActivity implements View.On
                 break;
         }
     }
-    //스마트폰 뒤로가기 버튼 막음
-    @Override
-    public void onBackPressed() {
-        return;
-    }
 
     public void onClick_ok(View view) {
 
@@ -344,15 +334,87 @@ public class SignupCompleteActivity extends AppCompatActivity implements View.On
 
     }
 
+    //회원정보조회
+    private void getUserInfo(String uid) {
+        final String check_uid = uid;
+        ServerApi.getUserInfo(uid, new PostCallBack() {
+            @Override
+            public void onResponse(JSONObject ret, String errMsg) {
+                try {
+                    //api호출 실패로 서버에서 에러가 나는지 확인
+                    if (errMsg != null) {
+                        Utils.toast(UpdatePhoneNumberActivity.this, errMsg);
+                        return;
+                    }
+                    //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
+                    if (!ret.getString("uid").equals(check_uid)) {
+                        Utils.toast(UpdatePhoneNumberActivity.this, "사용자 정보를 불러오는데 실패했습니다.");
+                        return;
+                    } else {
+                        if (ret.getString("name")=="null") {
+                            name = NODATA_STRING;
+                        } else {
+                            name = ret.getString("name");
+                        }
+                        if (ret.getString("birthday")=="null") {
+                            birthday = NODATA_STRING;
+                        } else {
+                            birthday = ret.getString("birthday");
+                        }
+                        if (ret.getString("gender")=="null") {
+                            gender = NODATA_STRING;
+                        } else {
+                            gender = ret.getString("gender");
+                        }
+                        if (ret.getString("local")=="null") {
+                            local = NODATA_STRING;
+                        } else {
+                            local = ret.getString("local");
+
+                        }
+                        if (ret.getString("interest")=="null") {
+                            interest = NODATA_STRING;
+                        } else {
+                            interest = ret.getString("interest");
+                        }
+                        if (ret.getString("job")=="null") {
+                            job = NODATA_STRING;
+                        } else {
+                            job = ret.getString("job");
+                        }
+                        if (ret.getString("income")=="null") {
+                            income = NODATA_NUMBER;
+                        } else {
+                            income = ret.getInt("income");
+                        }
+                    }
+
+                } catch (Exception e) {
+                    Utils.toast(UpdatePhoneNumberActivity.this,e+"");
+                }
+            }
+        });
+    }
+
     //회원정보수정
     private void updateUserInfo(String uid) {
 
         String phone = "0" + phoneNumber.substring(3,5) + "-" + phoneNumber.substring(5,9) + "-" + phoneNumber.substring(9);
 
+        if (gender.equals("입력안함")||gender=="null") {
+            gender = "X";
+        }
 
         try {
             //서버에 회원가입 정보 전달
             JSONObject json = new JSONObject();
+            json.put("name", name);
+            json.put("birthday", birthday);
+            json.put("gender", gender);
+            json.put("local", local);
+            json.put("job", job);
+            json.put("interest", interest);
+            json.put("income", income);
             json.put("phone", phone);
 
             //회원가입 api 호출
@@ -362,72 +424,24 @@ public class SignupCompleteActivity extends AppCompatActivity implements View.On
                     try {
                         //api호출 실패로 서버에서 에러가 나는지 확인
                         if (errMsg != null) {
-                            Utils.toast(SignupCompleteActivity.this, errMsg);
+                            Utils.toast(UpdatePhoneNumberActivity.this, errMsg);
                             return;
                         }
                         //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
                         if (!ret.getString("responseCode").equals("SUCCESS")) {
-                            Utils.toast(SignupCompleteActivity.this, "이미 인증된 전화번호입니다. 다시 입력하려면 회원정보창을 이용해주세요.");
+                            Utils.toast(UpdatePhoneNumberActivity.this, "이미 인증된 전화번호입니다. 다시 시도해주세요.");
 
-                            String pwd_sha1 = StringToSHA1(pwd);
-
-                            signin(id, pwd_sha1);
+                            finish();
 
                             return;
                         }
 
-                        Utils.toast(SignupCompleteActivity.this, "전화번호 인증을 완료했습니다.");
+                        Utils.toast(UpdatePhoneNumberActivity.this, "전화번호 인증을 완료했습니다.");
 
-                        String pwd_sha1 = StringToSHA1(pwd);
-
-                        signin(id, pwd_sha1);
-
-                    } catch (Exception e) {
-                        Utils.toast(SignupCompleteActivity.this,e+"");
-                    }
-                }
-            });
-        } catch (Exception e) {
-
-        }
-    }
-
-    private void signin(String id, String pwd) {
-        try {
-            //위에서 받아온 값들을 GlobalApplication의 static 변수에 저장하여 앱 어디서든 불러서 사용할수있도록 설정
-            GlobalApplication.id = id;
-            GlobalApplication.pwd = pwd;
-
-            //서버에 회원가입 정보 전달
-            JSONObject json = new JSONObject();
-            json.put("email", id);
-            json.put("pwd", pwd);
-
-            //회원가입 api 호출
-            ServerApi.signinPost(json, new PostCallBack() {
-                @Override
-                public void onResponse(JSONObject ret, String errMsg) {
-                    try {
-                        //api호출 실패로 서버에서 에러가 나는지 확인
-                        if (errMsg != null) {
-                            Utils.toast(SignupCompleteActivity.this, errMsg);
-                            return;
-                        }
-                        //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
-                        if (!ret.getString("responseCode").equals("SUCCESS")) {
-                            Utils.toast(SignupCompleteActivity.this, ret.getString("message"));
-                            return;
-                        }
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("uid", ret.getString("uid"));
-                        editor.commit();
-
-                        // 로그인이 잘 끝났으니 MainActivity로 화면을 바꿔주고 종료
-                        Intent intent = new Intent(SignupCompleteActivity.this, MainActivity.class);
-                        startActivity(intent);
                         finish();
+
                     } catch (Exception e) {
-                        Utils.toast(SignupCompleteActivity.this,e+"");
+                        Utils.toast(UpdatePhoneNumberActivity.this,e+"");
                     }
                 }
             });

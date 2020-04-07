@@ -7,9 +7,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.nbw.blueapp.R;
 import com.nbw.blueapp.server.PostCallBack;
@@ -44,7 +44,6 @@ public class UserInfoEditActivity extends AppCompatActivity {
     EditText et_job;
     EditText et_interest;
     EditText et_income;
-    EditText et_phone;
 
     private Spinner spinnerLocal;
     private Spinner spinnerGender;
@@ -58,7 +57,6 @@ public class UserInfoEditActivity extends AppCompatActivity {
         et_interest = (EditText) findViewById(R.id.et_interest);
         et_job = (EditText) findViewById(R.id.et_job);
         et_name = (EditText) findViewById(R.id.et_name);
-        et_phone = (EditText) findViewById(R.id.et_phone);
         et_income = (EditText) findViewById(R.id.et_income);
 
         spinnerGender = (Spinner) findViewById(R.id.spinner_gender_user_info_edit);
@@ -128,21 +126,15 @@ public class UserInfoEditActivity extends AppCompatActivity {
         birthday = et_birthday.getText().toString();
         job = et_job.getText().toString();
         String strIncome = et_income.getText().toString();
-        String raw_phone = et_phone.getText().toString();
         interest = et_interest.getText().toString();
 
-        if (name.equals("")|birthday.equals("")|job.equals("")|raw_phone.equals("")|interest.equals("")|strIncome.equals("")) {
+        if (name.equals("")|birthday.equals("")|job.equals("")|interest.equals("")|strIncome.equals("")) {
             Utils.toast(UserInfoEditActivity.this, "회원정보를 모두 입력해주세요.");
             return;
         } else if (!birthday.matches(birthdayForm)) {
             Utils.toast(this, "생년월일을 올바르게 입력해주세요.");
             return;
-        } else if (!raw_phone.matches(phoneForm)) {
-            Utils.toast(this, "전화번호를 올바르게 입력해주세요.");
-            return;
         }
-
-        phone = raw_phone.substring(0,3) + "-" + raw_phone.substring(3,7) + "-" + raw_phone.substring(7);
         income = Integer.parseInt(strIncome);
 
 
@@ -262,10 +254,6 @@ public class UserInfoEditActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (!phone.equals(NODATA_STRING)) {
-                                    String raw_phone = phone.substring(0,3)+phone.substring(4,8)+phone.substring(9);
-                                    et_phone.setText(raw_phone);
-                                }
                                 if (income!=NODATA_NUMBER) {
                                     et_income.setText(income+"");
                                 }
@@ -315,4 +303,5 @@ public class UserInfoEditActivity extends AppCompatActivity {
                 break;
         }
     }
+
 }

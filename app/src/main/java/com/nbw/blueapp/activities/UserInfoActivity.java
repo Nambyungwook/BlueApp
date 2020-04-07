@@ -168,4 +168,9 @@ public class UserInfoActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void onClick_updatePhoneNumber(View view) {
+        Intent intent = new Intent(UserInfoActivity.this, UpdatePhoneNumberActivity.class);
+        startActivity(intent);
+    }
 }

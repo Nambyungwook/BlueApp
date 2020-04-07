@@ -98,7 +98,7 @@ public class SplashActivity extends AppCompatActivity {
                             return;
                         }
                         //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
-                        if (!ret.getString("response_code").equals("SUCCESS")) {
+                        if (!ret.getString("responseCode").equals("SUCCESS")) {
                             Utils.toast(SplashActivity.this, ret.getString("message"));
                             return;
                         }

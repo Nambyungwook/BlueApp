@@ -29,6 +29,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.nbw.blueapp.BuildConfig;
+import com.nbw.blueapp.GlobalApplication;
 import com.nbw.blueapp.R;
 import com.nbw.blueapp.items.Sites;
 import com.nbw.blueapp.server.PostCallBack;
@@ -232,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
                                         return;
                                     }
                                     //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
-                                    if (!ret.getString("response_code").equals("SUCCESS")) {
+                                    if (!ret.getString("responseCode").equals("SUCCESS")) {
                                         Utils.toast(MainActivity.this, ret.getString("message"));
                                         return;
                                     }
@@ -280,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
                                                         return;
                                                     }
                                                     //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
-                                                    if (!ret.getString("response_code").equals("SUCCESS")) {
+                                                    if (!ret.getString("responseCode").equals("SUCCESS")) {
                                                         Utils.toast(MainActivity.this, ret.getString("message"));
                                                         return;
                                                     }
@@ -342,6 +343,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        if (uid.equals(USER_SIGNOUT)) {
+            Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         getSitesToListview();
         getUserInfo(uid);
@@ -460,8 +467,9 @@ public class MainActivity extends AppCompatActivity {
                         } else {
                             name = ret.getString("name");
                         }
-                        if (ret.getString("birthday") == "null") {
+                        if (ret.getString("birthday") == "null"||ret.getString("birthday").equals("입력안함")) {
                             birthday = NODATA_STRING;
+                            age = 0;
                         } else {
                             birthday = ret.getString("birthday");
                             age = BirthdayToAge(birthday);
@@ -585,7 +593,7 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     }
                     //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
-                    if (!ret.getString("response_code").equals("SUCCESS")) {
+                    if (!ret.getString("responseCode").equals("SUCCESS")) {
                         Utils.toast(MainActivity.this, "사용자 정보를 불러오는데 실패했습니다.");
                         return;
                     } else if (ret.get("sites").toString().equals("[]")) {

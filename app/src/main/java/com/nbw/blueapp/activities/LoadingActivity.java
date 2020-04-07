@@ -57,7 +57,7 @@ public class LoadingActivity extends AppCompatActivity {
                         return;
                     }
                     //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
-                    if (!ret.getString("response_code").equals("SUCCESS")) {
+                    if (!ret.getString("responseCode").equals("SUCCESS")) {
                         Utils.toast(LoadingActivity.this, ret.getString("message"));
                         //ui가 변경되는 경우(단순 글자가 아닌 화면상에 그려지는 것이 변경되는 경우) 쓰레드 사용
                         runOnUiThread(new Runnable() {

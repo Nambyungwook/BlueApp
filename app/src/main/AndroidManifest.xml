@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.UserSavedSiteDetailActivity"></activity>
+        <activity android:name=".activities.UpdatePhoneNumberActivity"></activity>
+        <activity android:name=".activities.UserSavedSiteDetailActivity" />
         <activity android:name=".activities.UserSavedSitesActivity" />
         <activity android:name=".activities.SiteDetailActivity" />
         <activity android:name=".activities.UserInfoEditActivity" />
