@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "119992359035",
+    "firebase_url": "https://blueapp-b2074.firebaseio.com",
+    "project_id": "blueapp-b2074",
+    "storage_bucket": "blueapp-b2074.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119992359035:android:ac0f401e9dbe935f902ade",
+        "android_client_info": {
+          "package_name": "com.nbw.blueapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "119992359035-s24bktgpk70guc1t96thhkhr4bmaogk3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nbw.blueapp",
+            "certificate_hash": "70c15824c338edd7f0d7f89b1de38d11936596d9"
+          }
+        },
+        {
+          "client_id": "119992359035-mjuofpfrlmghrpejbcuhvq2gd09onvvr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcqzvH7zrSk793Bj6e-mYcweF2Z7uNIPw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "119992359035-mjuofpfrlmghrpejbcuhvq2gd09onvvr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -48,7 +48,6 @@ import static com.nbw.blueapp.GlobalApplication.NODATA_NUMBER;
 import static com.nbw.blueapp.GlobalApplication.NODATA_STRING;
 import static com.nbw.blueapp.GlobalApplication.USER_SIGNOUT;
 import static com.nbw.blueapp.utils.Utils.BirthdayToAge;
-import static com.nbw.blueapp.utils.Utils.toast;
 
 public class MainActivity extends AppCompatActivity {
 

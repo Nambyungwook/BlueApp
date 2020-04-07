@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.LoadingActivity">
+    tools:context=".activities.LoadingActivity"
+    android:background="#CCF2FA">
 
     <TextView
         android:id="@+id/tv_loading"
