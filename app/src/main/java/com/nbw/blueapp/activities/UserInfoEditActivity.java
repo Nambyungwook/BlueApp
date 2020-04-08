@@ -115,12 +115,8 @@ public class UserInfoEditActivity extends AppCompatActivity {
 
     //회원정보수정
     private void updateUserInfo(String uid) {
-
-        final String check_uid = uid;
         //생년월일 형식
         String birthdayForm = "^([12]\\d{3}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))$";
-        //전화번호 형식
-        String phoneForm = "^01(?:0|1|[6-9])[-]?(\\d{3}|\\d{4})[-]?(\\d{4})$";
 
         name = et_name.getText().toString();
         birthday = et_birthday.getText().toString();

@@ -50,6 +50,25 @@ public class ServerApi {
         return call;
     }
 
+    //get호출 + 요청 파라미터가 존재시 - email
+    static private Call getParam_email(String url,
+                                 String email, Callback callback) {
+
+        HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
+        builder.addQueryParameter("email", email);
+
+        String requestUrl = builder.build().toString();
+
+        Request request = new Request.Builder()
+                .url(requestUrl)
+                .get()
+                .build();
+
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+        return call;
+    }
+
     //get호출 + 요청 파라미터가 존재시
     static private Call getParam(String url,
                                  String page,
@@ -189,9 +208,39 @@ public class ServerApi {
 
     }
 
-    //회원정보조회
+    //회원정보조회 - uid
     static public void getUserInfo(String uid, final PostCallBack cb) {
         get(SERVER_IP+"/blue/v1/users/userinfo/"+ uid, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                if (cb != null)
+                    cb.onResponse(null, e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (cb == null)
+                    return;
+                try {
+                    if (response.isSuccessful()) {
+                        String responseStr = response.body().string();
+                        cb.onResponse(new JSONObject(responseStr), null);
+                    } else {
+                        String responseStr = response.body().string();
+                        JSONObject ret = new JSONObject(responseStr);
+                        cb.onResponse(null, ret.getString("message"));
+                    }
+                } catch (Exception e) {
+                    cb.onResponse(null, e.getMessage());
+                }
+            }
+        });
+
+    }
+
+    //회원정보조회 - email
+    static public void getUserInfo_email(String email, final PostCallBack cb) {
+        getParam_email(SERVER_IP+"/blue/v1/users/userinfo", email, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (cb != null)

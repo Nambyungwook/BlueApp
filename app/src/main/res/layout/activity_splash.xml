@@ -88,10 +88,34 @@
             android:layout_weight="1"
             android:orientation="horizontal">
 
-            <Button
+            <LinearLayout
+                android:id="@+id/btn_custom_login_google"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="구글로그인"/>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#ff0000"
+                android:paddingRight="73dp"
+                android:paddingTop="17dp"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="10.9dp"
+                android:onClick="onClickGoogleSignup">
+                <ImageView
+                    android:layout_width="27.9dp"
+                    android:layout_height="27.9dp"
+                    android:src="@drawable/googleg_disabled_color_18"
+                    android:layout_marginLeft="64.1dp"
+                    android:layout_gravity="center"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:lineSpacingExtra="6sp"
+                    android:gravity="left"
+                    android:text="구글계정으로 시작하기"
+                    />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -117,7 +141,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="페이스북로그인"/>
+                android:text="네이버로그인"/>
 
         </LinearLayout>
 

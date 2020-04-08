@@ -72,7 +72,7 @@
     </string-array>
 
     <string-array name="income">
-        <item >상관없음</item>
+        <item >무관</item>
         <item >1000만원이하</item>
         <item >1000~2000만원</item>
         <item >2000~3000만원</item>

@@ -6,10 +6,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.nbw.blueapp.GlobalApplication;
 import com.nbw.blueapp.R;
 import com.nbw.blueapp.server.PostCallBack;
@@ -23,12 +34,32 @@ import static com.nbw.blueapp.utils.Utils.StringToSHA1;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private static final int GOOGLE_SIGN_IN = 10;
+
+    private GoogleSignInClient mGoogleSignInClient;
+    // [START declare_auth]
+    private FirebaseAuth mAuth;
+    // [END declare_auth]
+
+    private long mLastClickTime = 0;//버튼 중복 클릭 방지용 변수
+
     private EditText et_id;
     private EditText et_pwd;
 
     private String id;
     private String pwd;
     private String uid;
+
+    private String signType;
+
+    //구글인증
+    private String gmail;
+
+    //카카오인증
+    private String email_kakao;
+
+    //네이버인증
+    private String email_naver;
 
     private SharedPreferences sharedPreferences;
 
@@ -51,6 +82,18 @@ public class SplashActivity extends AppCompatActivity {
             checkSignStatus(uid);
         }
 
+        //google 로그인 인증
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        // [START initialize_auth]
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        // [END initialize_auth]
     }
 
     public void onClick_signup(View view) {
@@ -145,5 +188,152 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void onClickGoogleSignup(View view) {
+
+        //중복 클릭 방지를 위해 클릭리스너 안에 시간초를 재서 확인
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
+
+        //구글 계정 연동
+
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent,GOOGLE_SIGN_IN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+
+        //구글 인증
+        if (requestCode==GOOGLE_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                gmail = account.getEmail();
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+            }
+
+            getUserInfo_email(gmail, "G");
+
+        }
+    }
+
+    //서버 디비에 같은 이메일이 존재하는지 확인 - 구글(카카오,네이버) 로그인이 아닌데 구글(카카오,네이버) 메일이 있을수 있음
+    private void getUserInfo_email(final String email, final String signType) {
+        ServerApi.getUserInfo_email(email, new PostCallBack() {
+            @Override
+            public void onResponse(JSONObject ret, String errMsg) {
+                try {
+                    //api호출 실패로 서버에서 에러가 나는지 확인
+                    if (errMsg != null) {
+                        Utils.toast(SplashActivity.this, errMsg);
+                        return;
+                    }
+                    //같은 이메일이 존재하지 않음
+                    if (!ret.getString("responseCode").equals("SUCCESS")) {
+                        Utils.toast(SplashActivity.this, "같은 이메일이 존재하지 않음");
+
+                        if (signType.equals("G")) {
+                            //구글
+                            String pwd = "Google_nbw";
+                            signup(gmail,pwd,signType);
+                        } else if (signType.equals("K")) {
+                            //kakao
+                            String pwd = "Kakao_nbw";
+                            signup(email_kakao,pwd,signType);
+                        } else if (signType.equals("N")) {
+                            //naver
+                            String pwd = "Naver_nbw";
+                            signup(email_naver,pwd,signType);
+                        }
+
+                        return;
+                    } else {
+                        //같은 이메일이 존재
+                        //디비에서 불러온 값
+                        String getUserSignType = ret.getString("signType");
+                        //불러온 값과 입력한 값이 같으면 로그인 아니면 에러창 표시
+                        if (signType.equals(getUserSignType)) {
+                            if (getUserSignType.equals("G")) {
+                                //Google
+                                String pwd_SHA1 = Utils.StringToSHA1("Google_nbw");
+                                signin(gmail,pwd_SHA1);
+                            } else if (getUserSignType.equals("K")) {
+                                //Kakao
+                                String pwd_SHA1 = Utils.StringToSHA1("Kakao_nbw");
+                                signin(email_kakao,pwd_SHA1);
+                            } else if (getUserSignType.equals("N")) {
+                                //Naver
+                                String pwd_SHA1 = Utils.StringToSHA1("Naver_nbw");
+                                signin(email_naver,pwd_SHA1);
+                            }
+
+                            return;
+                        } else {
+                            //에러창 표시
+                            Utils.toast(SplashActivity.this, "같은 이메일로 이미 가입되어있습니다. 이메일로 로그인해주세요.");
+                            return;
+                        }
+                    }
+
+                } catch (Exception e) {
+                    Utils.toast(SplashActivity.this, e + "");
+                }
+            }
+        });
+    }
+
+    private void signup(final String id, final String pwd, String signType) {
+        String pwd_sha1 = StringToSHA1(pwd);
+
+        try {
+            //서버에 회원가입 정보 전달
+            JSONObject json = new JSONObject();
+            json.put("email", id);
+            json.put("pwd", pwd_sha1);
+            json.put("signType", signType);//메일로 회원가입
+            json.put("terms_agree", "Y");//이용약관, 개인정보처리방침 동의
+
+            //회원가입 api 호출
+            ServerApi.signupPost(json, new PostCallBack() {
+                @Override
+                public void onResponse(JSONObject ret, String errMsg) {
+                    try {
+                        //api호출 실패로 서버에서 에러가 나는지 확인
+                        if (errMsg != null) {
+                            Utils.toast(SplashActivity.this, errMsg);
+                            return;
+                        }
+                        //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
+                        if (!ret.getString("responseCode").equals("SUCCESS")) {
+                            Utils.toast(SplashActivity.this, "이미 존재하는 이메일이거나 회원가입에 문제가 생겼습니다. 다시 시도해주세요.ㅠ");
+                            return;
+                        }
+
+                        uid = ret.getString("uid");
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("uid", uid);
+                        editor.commit();
+
+                        // 로그인이 잘 끝났으니 SignupComplete로 화면을 바꿔주고 종료
+                        Intent intent = new Intent(SplashActivity.this, SignupCompleteActivity.class);
+                        intent.putExtra("email", id);
+                        intent.putExtra("pwd", pwd);
+                        startActivity(intent);
+                        finish();
+                    } catch (Exception e) {
+                        Utils.toast(SplashActivity.this,e+"");
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -24,6 +24,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -49,6 +51,11 @@ import static com.nbw.blueapp.GlobalApplication.NODATA_NUMBER;
 import static com.nbw.blueapp.GlobalApplication.NODATA_STRING;
 import static com.nbw.blueapp.GlobalApplication.USER_SIGNOUT;
 import static com.nbw.blueapp.utils.Utils.BirthdayToAge;
+
+//구글 애드몹
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -99,10 +106,25 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout layout_all_local;
     private CheckBox cb_all_local;
 
+    //구글 애드몹 광고
+    private AdView mAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //구글 애드몹 광고 초기화 및 로드-----------------시작------------------------------------------------
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        //구글 애드몹 광고 초기화 및 로드-----------------------------------------------------------------끝---
 
         sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
 
