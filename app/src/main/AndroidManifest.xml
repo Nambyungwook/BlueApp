@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.UpdatePhoneNumberActivity"></activity>
+        <activity android:name=".activities.dialogs.TermsAgreeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Dialog"></activity>
+        <activity android:name=".activities.UpdatePhoneNumberActivity" />
         <activity android:name=".activities.UserSavedSiteDetailActivity" />
         <activity android:name=".activities.UserSavedSitesActivity" />
         <activity android:name=".activities.SiteDetailActivity" />
@@ -28,12 +31,10 @@
         <activity android:name=".activities.SignupActivity" />
         <activity android:name=".activities.SignupCompleteActivity" />
         <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.SplashActivity" />
-
-        <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <activity android:name=".activities.SplashActivity" /> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-4033065866598276~1975541749"/>
+            android:value="ca-app-pub-4033065866598276~1975541749" />
     </application>
 
 </manifest>

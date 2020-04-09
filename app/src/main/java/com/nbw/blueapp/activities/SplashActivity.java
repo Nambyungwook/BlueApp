@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.nbw.blueapp.GlobalApplication;
 import com.nbw.blueapp.R;
+import com.nbw.blueapp.activities.dialogs.TermsAgreeActivity;
 import com.nbw.blueapp.server.PostCallBack;
 import com.nbw.blueapp.server.ServerApi;
 import com.nbw.blueapp.utils.Utils;
@@ -220,7 +221,6 @@ public class SplashActivity extends AppCompatActivity {
             }
 
             getUserInfo_email(gmail, "G");
-
         }
     }
 
@@ -240,17 +240,20 @@ public class SplashActivity extends AppCompatActivity {
                         Utils.toast(SplashActivity.this, "같은 이메일이 존재하지 않음");
 
                         if (signType.equals("G")) {
-                            //구글
-                            String pwd = "Google_nbw";
-                            signup(gmail,pwd,signType);
+                            Intent intent = new Intent(SplashActivity.this, TermsAgreeActivity.class);
+                            intent.putExtra("email", email);
+                            intent.putExtra("signType", "G");
+                            startActivity(intent);
                         } else if (signType.equals("K")) {
-                            //kakao
-                            String pwd = "Kakao_nbw";
-                            signup(email_kakao,pwd,signType);
+                            Intent intent = new Intent(SplashActivity.this, TermsAgreeActivity.class);
+                            intent.putExtra("email", email);
+                            intent.putExtra("signType", "K");
+                            startActivity(intent);
                         } else if (signType.equals("N")) {
-                            //naver
-                            String pwd = "Naver_nbw";
-                            signup(email_naver,pwd,signType);
+                            Intent intent = new Intent(SplashActivity.this, TermsAgreeActivity.class);
+                            intent.putExtra("email", email);
+                            intent.putExtra("signType", "N");
+                            startActivity(intent);
                         }
 
                         return;
