@@ -1,5 +1,6 @@
 package com.nbw.blueapp.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -26,6 +27,11 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -61,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
+    //구글 로그아웃시 필
+    private GoogleSignInClient mGoogleSignInClient;
+
     //서버 디비에서 가져온 유저의 정보
     private String email;
     private String uid;
@@ -72,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     private String job;
     private String interest;
     private String phone;
+    private String signType;
 
     private int age;
 
@@ -125,6 +135,18 @@ public class MainActivity extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         //구글 애드몹 광고 초기화 및 로드-----------------------------------------------------------------끝---
+
+        //구글 인증 관련-----------시작--------------------------------------------------------------------------
+        // [START config_signin]
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        // [END config_signin]
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        //구글인증관련 끝----------------------------------------------------------------------------------------
 
         sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
 
@@ -245,6 +267,17 @@ public class MainActivity extends AppCompatActivity {
 
                         uid = sharedPreferences.getString("uid", USER_SIGNOUT);
 
+                        getUserInfo(uid);
+
+                        if (signType.equals("G")) {
+                            // Google sign out
+                            mGoogleSignInClient.signOut();
+                        } else if (signType.equals("K")) {
+
+                        } else if (signType.equals("N")) {
+
+                        }
+
                         ServerApi.getSignout(uid, new PostCallBack() {
                             @Override
                             public void onResponse(JSONObject ret, String errMsg) {
@@ -292,6 +325,17 @@ public class MainActivity extends AppCompatActivity {
                                         sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
 
                                         uid = sharedPreferences.getString("uid", USER_SIGNOUT);
+
+                                        getUserInfo(uid);
+
+                                        if (signType.equals("G")) {
+                                            // Google sign out
+                                            mGoogleSignInClient.signOut();
+                                        } else if (signType.equals("K")) {
+
+                                        } else if (signType.equals("N")) {
+
+                                        }
 
                                         ServerApi.dropout(uid, new PostCallBack() {
                                             @Override
@@ -484,6 +528,7 @@ public class MainActivity extends AppCompatActivity {
                         return;
                     } else {
                         email = ret.getString("email");
+                        signType = ret.getString("signType");
                         if (ret.getString("name") == "null") {
                             name = NODATA_STRING;
                         } else {
