@@ -11,14 +11,11 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.nbw.blueapp.GlobalApplication;
@@ -50,8 +47,6 @@ public class SplashActivity extends AppCompatActivity {
     private String id;
     private String pwd;
     private String uid;
-
-    private String signType;
 
     //구글인증
     private String gmail;
@@ -290,53 +285,5 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    private void signup(final String id, final String pwd, String signType) {
-        String pwd_sha1 = StringToSHA1(pwd);
-
-        try {
-            //서버에 회원가입 정보 전달
-            JSONObject json = new JSONObject();
-            json.put("email", id);
-            json.put("pwd", pwd_sha1);
-            json.put("signType", signType);//메일로 회원가입
-            json.put("terms_agree", "Y");//이용약관, 개인정보처리방침 동의
-
-            //회원가입 api 호출
-            ServerApi.signupPost(json, new PostCallBack() {
-                @Override
-                public void onResponse(JSONObject ret, String errMsg) {
-                    try {
-                        //api호출 실패로 서버에서 에러가 나는지 확인
-                        if (errMsg != null) {
-                            Utils.toast(SplashActivity.this, errMsg);
-                            return;
-                        }
-                        //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
-                        if (!ret.getString("responseCode").equals("SUCCESS")) {
-                            Utils.toast(SplashActivity.this, "이미 존재하는 이메일이거나 회원가입에 문제가 생겼습니다. 다시 시도해주세요.ㅠ");
-                            return;
-                        }
-
-                        uid = ret.getString("uid");
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putString("uid", uid);
-                        editor.commit();
-
-                        // 로그인이 잘 끝났으니 SignupComplete로 화면을 바꿔주고 종료
-                        Intent intent = new Intent(SplashActivity.this, SignupCompleteActivity.class);
-                        intent.putExtra("email", id);
-                        intent.putExtra("pwd", pwd);
-                        startActivity(intent);
-                        finish();
-                    } catch (Exception e) {
-                        Utils.toast(SplashActivity.this,e+"");
-                    }
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
