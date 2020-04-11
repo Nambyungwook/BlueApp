@@ -78,8 +78,11 @@ public class ServerApi {
                                  String local,
                                  String all_local,
                                  String income,
+                                 String all_income,
                                  String age,
+                                 String all_age,
                                  String gender,
+                                 String all_gender,
                                  String siteName, Callback callback) {
 
         HttpUrl.Builder builder = HttpUrl.parse(url).newBuilder();
@@ -90,8 +93,11 @@ public class ServerApi {
                 .addQueryParameter("local", local)
                 .addQueryParameter("allLocal", all_local)
                 .addQueryParameter("income",income)
+                .addQueryParameter("allIncome", all_income)
                 .addQueryParameter("age",age)
+                .addQueryParameter("allAge", all_age)
                 .addQueryParameter("gender",gender)
+                .addQueryParameter("allGender", all_gender)
                 .addQueryParameter("siteName",siteName);
 
         String requestUrl = builder.build().toString();
@@ -396,11 +402,14 @@ public class ServerApi {
                                 String local,
                                 String all_local,
                                 String income,
+                                String all_income,
                                 String age,
+                                String all_age,
                                 String gender,
+                                String all_gender,
                                 String siteName,
                                 final PostCallBack cb) {
-        getParam(SERVER_IP+"/blue/v1/sites/", page, size, targetMain, targetDetail, local, all_local, income, age, gender, siteName, new Callback() {
+        getParam(SERVER_IP+"/blue/v1/sites/", page, size, targetMain, targetDetail, local, all_local, income, all_income, age, all_age, gender, all_gender, siteName, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (cb != null)

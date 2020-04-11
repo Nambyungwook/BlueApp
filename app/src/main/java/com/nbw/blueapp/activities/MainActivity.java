@@ -1,6 +1,5 @@
 package com.nbw.blueapp.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -30,14 +29,11 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.nbw.blueapp.BuildConfig;
-import com.nbw.blueapp.GlobalApplication;
 import com.nbw.blueapp.R;
 import com.nbw.blueapp.items.Sites;
 import com.nbw.blueapp.server.PostCallBack;
@@ -93,8 +89,11 @@ public class MainActivity extends AppCompatActivity {
     private String selectedAge;
     private String selectedGender;
 
-    //전국 지역을 포함하는지 확인하는 값
+    //무관 지역을 포함하는지 확인하는 값
     private String allLocalCB = "0";
+    private String allIncomeCB = "0";
+    private String allAgeCB = "0";
+    private String allGenderCB = "0";
 
     private ListView navDrawerListview = null;
     private ListView sitesListview;
@@ -112,9 +111,15 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView tv_error;
 
-    //지역에 전국을 포함 할지 안할지 정하기 위함
+    //지역, 연령, 수입, 성별에 전체를 포함 할지 안할지 정하기 위함
     private LinearLayout layout_all_local;
     private CheckBox cb_all_local;
+    private LinearLayout layout_all_income;
+    private CheckBox cb_all_income;
+    private LinearLayout layout_all_age;
+    private CheckBox cb_all_age;
+    private LinearLayout layout_all_gender;
+    private CheckBox cb_all_gender;
 
     //구글 애드몹 광고
     private AdView mAdView;
@@ -169,6 +174,12 @@ public class MainActivity extends AppCompatActivity {
 
         layout_all_local = (LinearLayout) findViewById(R.id.layout_all_local);
         cb_all_local = (CheckBox) findViewById(R.id.cb_all_local);
+        layout_all_income = (LinearLayout) findViewById(R.id.layout_all_income);
+        cb_all_income = (CheckBox) findViewById(R.id.cb_all_income);
+        layout_all_age = (LinearLayout) findViewById(R.id.layout_all_age);
+        cb_all_age = (CheckBox) findViewById(R.id.cb_all_age);
+        layout_all_gender = (LinearLayout) findViewById(R.id.layout_all_gender);
+        cb_all_gender = (CheckBox) findViewById(R.id.cb_all_gender);
         //스피너 리스너 구현-------------------------------------------------------------------------
 
         spinnerTargetMain.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -215,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //수입 스피너에서 선택된 내용을 저장
                 selectedIncome = adapterView.getItemAtPosition(i).toString();
+                setAllIncomeCheckBox(selectedIncome);
             }
 
             @Override
@@ -227,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //나이 스피너에서 선택된 내용을 저장
                 selectedAge = adapterView.getItemAtPosition(i).toString();
+                setAllAgeCheckBox(selectedAge);
             }
 
             @Override
@@ -239,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //성별 스피너에서 선택된 내용을 저장
                 selectedGender = adapterView.getItemAtPosition(i).toString();
+                setAllGenderCheckBox(selectedGender);
             }
 
             @Override
@@ -455,17 +469,51 @@ public class MainActivity extends AppCompatActivity {
 
         //사이트 리스트뷰 리스너 구현 End----------------------------------------------------------------------------------------
 
-        //전국 지역 체크박스 셋팅
+        //전체, 무관 등 포함 여부 체크박스 표시 설정
         setAllLocalCheckBox(selectedLocal);
+        setAllIncomeCheckBox(selectedIncome);
+        setAllAgeCheckBox(selectedAge);
+        setAllGenderCheckBox(selectedGender);
     }
 
     private void setAllLocalCheckBox(String selectedLocal) {
-        if (selectedLocal==null||selectedLocal.equals("전체")||selectedLocal.equals("전국")) {
+        if (selectedLocal==null||selectedLocal.equals("전체")||selectedLocal.equals("무관")) {
             layout_all_local.setVisibility(View.GONE);
         } else {
             layout_all_local.setVisibility(View.VISIBLE);
         }
     }
+    private void setAllIncomeCheckBox(String selectedIncome) {
+        if (selectedIncome==null||selectedIncome.equals("무관")) {
+            layout_all_income.setVisibility(View.GONE);
+        } else  {
+            layout_all_income.setVisibility(View.VISIBLE);
+        }
+    }
+    private void setAllAgeCheckBox(String selectedAge) {
+        if (selectedAge==null||selectedAge.equals("전체")) {
+            layout_all_age.setVisibility(View.GONE);
+        } else {
+            layout_all_age.setVisibility(View.VISIBLE);
+        }
+    }
+    private void setAllGenderCheckBox(String selectedGender) {
+        if (selectedGender==null||selectedGender.equals("무관")) {
+            layout_all_gender.setVisibility(View.GONE);
+        } else {
+            layout_all_gender.setVisibility(View.VISIBLE);
+        }
+    }
+
+//    <string-array name="target_main">
+//        <item>전체</item>
+//        <item >취업지원</item>
+//        <item >창업지원</item>
+//        <item >혜택</item>
+//        <item >공연</item>
+//        <item >쇼핑</item>
+//        <item >기타</item>
+//    </string-array>
 
     private void setTargetDetailSpinner(String selectedTargetMain) {
         if (selectedTargetMain==null) {
@@ -478,17 +526,23 @@ public class MainActivity extends AppCompatActivity {
                         getResources().getStringArray(R.array.target_detail_total));
                 spinnerTargetDetail.setAdapter(arrayAdapter_total);
                 break;
-            case "지원금":
-                ArrayAdapter<String> arrayAdapter_money = new ArrayAdapter<String>(getApplicationContext(),
+            case "취업지원":
+                ArrayAdapter<String> arrayAdapter_employment_support = new ArrayAdapter<String>(getApplicationContext(),
                         android.R.layout.simple_spinner_dropdown_item,
-                        getResources().getStringArray(R.array.target_detail_money));
-                spinnerTargetDetail.setAdapter(arrayAdapter_money);
+                        getResources().getStringArray(R.array.target_detail_employment_support));
+                spinnerTargetDetail.setAdapter(arrayAdapter_employment_support);
                 break;
-            case "일자리":
-                ArrayAdapter<String> arrayAdapter_job = new ArrayAdapter<String>(getApplicationContext(),
+            case "창업지원":
+                ArrayAdapter<String> arrayAdapter_startup_support = new ArrayAdapter<String>(getApplicationContext(),
                         android.R.layout.simple_spinner_dropdown_item,
-                        getResources().getStringArray(R.array.target_detail_job));
-                spinnerTargetDetail.setAdapter(arrayAdapter_job);
+                        getResources().getStringArray(R.array.target_detail_startup_support));
+                spinnerTargetDetail.setAdapter(arrayAdapter_startup_support);
+                break;
+            case "혜택":
+                ArrayAdapter<String> arrayAdapter_benefits = new ArrayAdapter<String>(getApplicationContext(),
+                        android.R.layout.simple_spinner_dropdown_item,
+                        getResources().getStringArray(R.array.target_detail_benefits));
+                spinnerTargetDetail.setAdapter(arrayAdapter_benefits);
                 break;
             case "공연":
                 ArrayAdapter<String> arrayAdapter_show = new ArrayAdapter<String>(getApplicationContext(),
@@ -525,6 +579,9 @@ public class MainActivity extends AppCompatActivity {
                     //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
                     if (!ret.getString("uid").equals(check_uid)) {
                         Utils.toast(MainActivity.this, "사용자 정보를 불러오는데 실패했습니다.");
+                        Intent intent = new Intent(MainActivity.this, SplashActivity.class);
+                        startActivity(intent);
+                        finish();
                         return;
                     } else {
                         email = ret.getString("email");
@@ -622,7 +679,7 @@ public class MainActivity extends AppCompatActivity {
             local = selectedLocal;
         }
         String income = "";
-        if (selectedIncome!=null&&!selectedIncome.equals("상관없음")) {
+        if (selectedIncome!=null&&!selectedIncome.equals("무관")) {
             income = selectedIncome;
         }
         String age = "";
@@ -630,7 +687,7 @@ public class MainActivity extends AppCompatActivity {
             age = selectedAge;
         }
         String gender = "";
-        if (selectedGender!=null&&!selectedGender.equals("선택안함")) {
+        if (selectedGender!=null&&!selectedGender.equals("무관")) {
             gender = selectedGender;
         }
         String siteName = et_item_title.getText().toString();
@@ -641,16 +698,67 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    //전국 포함
+                    //무관 포함
                     allLocalCB = "1";
                 } else {
-                    //전국 제외
+                    //무관 제외
                     allLocalCB = "0";
                 }
             }
         });
 
-        ServerApi.getSites("0", "10", targetMain, targetDetail, local, allLocalCB, income, age, gender, siteName, new PostCallBack() {
+        cb_all_income.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    //무관 포함
+                    allIncomeCB = "1";
+                } else {
+                    //무관 제외
+                    allIncomeCB = "0";
+                }
+            }
+        });
+
+        cb_all_age.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    //무관 포함
+                    allAgeCB = "1";
+                } else {
+                    //무관 제외
+                    allAgeCB = "0";
+                }
+            }
+        });
+
+        cb_all_gender.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    //무관 포함
+                    allGenderCB = "1";
+                } else {
+                    //무관 제외
+                    allGenderCB = "0";
+                }
+            }
+        });
+
+        ServerApi.getSites("0",
+                "10",
+                targetMain,
+                targetDetail,
+                local,
+                allLocalCB,
+                income,
+                allIncomeCB,
+                age,
+                allAgeCB,
+                gender,
+                allGenderCB,
+                siteName, new PostCallBack() {
             @Override
             public void onResponse(JSONObject ret, String errMsg) {
                 try {
@@ -756,12 +864,8 @@ public class MainActivity extends AppCompatActivity {
                     spinnerAge.setSelection(5);
                 } else if (age<60) {
                     spinnerAge.setSelection(6);
-                } else if (age<70) {
-                    spinnerAge.setSelection(7);
-                } else if (age<80) {
-                    spinnerAge.setSelection(8);
                 } else {
-                    spinnerAge.setSelection(9);
+                    spinnerAge.setSelection(7);
                 }
                 break;
             case 3://성별

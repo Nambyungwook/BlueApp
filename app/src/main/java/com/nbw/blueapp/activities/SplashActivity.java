@@ -213,6 +213,9 @@ public class SplashActivity extends AppCompatActivity {
                 gmail = account.getEmail();
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
+                e.printStackTrace();
+                Utils.toast(SplashActivity.this, "이메일정보가 올바르지 않습니다. 다시 시도해주세요.");
+                return;
             }
 
             getUserInfo_email(gmail, "G");

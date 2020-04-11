@@ -6,7 +6,7 @@ public class GlobalApplication {
     public static String pwd;
 
     public static String SERVER_IP = "http://13.209.106.116:9009";//aws서버ip
-    //public static String SERVER_IP = "http://172.30.1.28:9009";
+    //public static String SERVER_IP = "http://172.30.1.50:9009";
 
     //회원상태
     public static String USER_SIGNOUT = "signout";
