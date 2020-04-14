@@ -8,19 +8,23 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            android:padding="3dp"
+            android:background="@drawable/layout_circle">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@drawable/layout_circle_top">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="지원목적"
-                    android:textSize="20dp"
+                    android:textSize="18dp"
                     android:textColor="#000000"
                     android:gravity="center"/>
 
@@ -36,7 +40,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="세부목적"
-                    android:textSize="20dp"
+                    android:textSize="18dp"
                     android:textColor="#000000"
                     android:gravity="center"/>
 
@@ -52,7 +56,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@drawable/tv_edge_grey">
 
                 <TextView
                     android:layout_width="0dp"
@@ -100,7 +105,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@drawable/tv_edge_grey">
 
                 <TextView
                     android:layout_width="0dp"
@@ -148,7 +154,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@drawable/tv_edge_grey">
 
                 <TextView
                     android:layout_width="0dp"
@@ -196,7 +203,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@drawable/tv_edge_grey">
 
                 <TextView
                     android:layout_width="0dp"
@@ -246,7 +254,8 @@
                 android:layout_height="60dp"
                 android:orientation="horizontal"
                 android:paddingRight="10dp"
-                android:paddingLeft="10dp">
+                android:paddingLeft="10dp"
+                android:background="@drawable/layout_circle_bottom">
 
                 <TextView
                     android:layout_width="0dp"
@@ -265,11 +274,10 @@
 
                 <Button
                     android:id="@+id/btn_search"
+                    android:background="@drawable/search"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="검색"
-                    android:textSize="20dp"/>
+                    android:layout_weight="1"/>
 
             </LinearLayout>
 
@@ -280,20 +288,25 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:padding="3dp"
+        android:background="@drawable/layout_circle">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:gravity="center"
             android:text="원하는 사이트"
             android:textColor="#000000"
-            android:textSize="30dp" />
+            android:textSize="30dp"
+            android:background="@drawable/layout_circle_top"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/layout_circle_bottom">
 
             <ListView
                 android:id="@+id/lv_sites"

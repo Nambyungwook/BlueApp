@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="회원가입"
-            android:textSize="70dp"
+            android:textSize="60dp"
             android:gravity="center"/>
 
     </LinearLayout>
