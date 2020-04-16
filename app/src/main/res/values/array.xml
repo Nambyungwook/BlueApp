@@ -5,6 +5,7 @@
         <item>로그아웃</item>
         <item>회원탈퇴</item>
         <item>내사이트</item>
+        <item>문의하기</item>
     </string-array>
 
     <string-array name="target_main">

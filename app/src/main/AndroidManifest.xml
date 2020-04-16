@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.HelpActivity"></activity>
+        <activity android:name=".activities.ContactActivity"></activity>
+        <activity android:name=".activities.HelpActivity" />
         <activity
             android:name=".activities.dialogs.TermsAgreeActivity"
             android:screenOrientation="portrait"

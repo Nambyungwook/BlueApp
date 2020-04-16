@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">DDIPS</string>
     <string name="splash_app_name"><font color="#000000">D</font><font color="#ffffff">D</font>IPS</string>
+    <string name="app_how_to_use">1. 회원가입/로그인\n2. 메인화면에서 원하는 조건을 설정, 검색\n3. 아래 하단에 일치하는 사이트 목록을 확인\n4. 원하는 목록을 선택\n5. 바로 사이트로 이동 / 내사이트에 저장\n6. 메인화면 왼쪽에서 오른쪽으로 드래그를 통해 메뉴를 확인\n7. 회원정보를 입력하면 조건을 빠르게 설정 할 수 있음\n\n* 추가로 전화번호를 입력하면 후에 있을 앱 업데이트에서 더 많은 혜택을 받을수있습니다.</string>
+    <string name="app_info">DDIPS는 여러분들이 놓치고 있는 유용한 정보를 제공하는 앱입니다. 여러분들이 원하는 정보에 대해 조건을 설정하고 검색하면 그와 최대한 일치하는 사이트를 제공하며 이렇게 얻어가는 사이트에서 좋은 정보를 얻어가시길 바랍니다.^^</string>
+    <string name="app_question">DDIPS와 관련하여 문의 사항은 메인화면에서 앱 메뉴바 하단에 문의하기 기능을 이용해주시면 감사하겠습니다.</string>
 </resources>

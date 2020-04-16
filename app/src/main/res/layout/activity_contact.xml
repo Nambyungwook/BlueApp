@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ContactActivity"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/toolbar_userinfo"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@drawable/cool_blues"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageButton
+            android:onClick="onClick_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/back"
+            android:backgroundTint="#ffffff"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="문의하기"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:background="@drawable/tv_edge_grey_top_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="문의내용"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:gravity="center"/>
+
+        <ScrollView
+            android:layout_marginTop="10dp"
+            android:background="@drawable/tv_edge_grey_top_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <EditText
+                    android:padding="15dp"
+                    android:id="@+id/et_contact_contents"
+                    android:background="@null"
+                    android:gravity="left|top"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="문의내용 입력란"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <Button
+            android:onClick="onClick_send_mail"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_common"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="문의하기"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="ID(이메일)가 올바르지 않거나 회원정보에 전화번호을 입력하지 않은경우 문의사항이 정확하게 해결되기 어렵습니다."
+            android:textColor="#ff0000"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -12,7 +12,7 @@
             android:orientation="vertical"
             android:layout_margin="10dp"
             android:padding="3dp"
-            android:background="@drawable/layout_circle">
+            android:background="@drawable/layout_circle_white_border_sky_blue">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -304,7 +304,7 @@
         android:orientation="vertical"
         android:layout_margin="10dp"
         android:padding="3dp"
-        android:background="@drawable/layout_circle">
+        android:background="@drawable/layout_circle_white_border_sky_blue">
 
         <TextView
             android:layout_width="match_parent"

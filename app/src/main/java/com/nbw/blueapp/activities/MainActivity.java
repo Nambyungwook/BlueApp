@@ -391,6 +391,12 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intentMySites);
 
                         break;
+                    case 4: // 문의하기
+                        Intent contactIntent = new Intent(MainActivity.this, ContactActivity.class);
+                        startActivity(contactIntent);
+
+                        break;
+
                 }
                 // close drawer.
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
