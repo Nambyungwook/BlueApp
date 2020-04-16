@@ -30,12 +30,18 @@
                     android:textColor="#000000"
                     android:gravity="center"/>
 
-                <Spinner
-                    android:id="@+id/spinner_target_main"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:entries="@array/target_main"/>
+                    android:layout_weight="2">
+
+                    <Spinner
+                        android:id="@+id/spinner_target_main"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:entries="@array/target_main"/>
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="0dp"
@@ -50,7 +56,7 @@
                     android:id="@+id/spinner_target_detail"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:entries="@array/target_detail_total"/>
 
             </LinearLayout>
@@ -82,7 +88,7 @@
                     android:id="@+id/layout_all_local"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:orientation="horizontal"
                     android:visibility="gone">
 
@@ -110,7 +116,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:background="@drawable/tv_edge_grey_top_bottom">
+                android:background="@drawable/tv_edge_grey_bottom">
 
                 <TextView
                     android:layout_width="0dp"
@@ -132,7 +138,7 @@
                     android:id="@+id/layout_all_income"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:orientation="horizontal"
                     android:visibility="gone">
 
@@ -160,7 +166,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:background="@drawable/tv_edge_grey_top_bottom">
+                android:background="@drawable/tv_edge_grey_bottom">
 
                 <TextView
                     android:layout_width="0dp"
@@ -182,7 +188,7 @@
                     android:id="@+id/layout_all_age"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:orientation="horizontal"
                     android:visibility="gone">
 
@@ -210,7 +216,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:background="@drawable/tv_edge_grey_top_bottom">
+                android:background="@drawable/tv_edge_grey_bottom">
 
                 <TextView
                     android:layout_width="0dp"
@@ -232,7 +238,7 @@
                     android:id="@+id/layout_all_gender"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:orientation="horizontal"
                     android:visibility="gone">
 
