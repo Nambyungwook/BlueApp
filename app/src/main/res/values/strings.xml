@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DDIPS</string>
+    <string name="splash_app_name"><font color="#000000">D</font><font color="#ffffff">D</font>IPS</string>
 </resources>

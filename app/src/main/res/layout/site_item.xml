@@ -9,6 +9,40 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:background="@drawable/tv_edge_grey_bottom_right"
+                android:id="@+id/iv_target_main"
+                android:padding="5dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+
+            <TextView
+                android:background="@drawable/tv_edge_grey_bottom_right"
+                android:id="@+id/tv_target_main"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="targetMain"
+                android:textSize="10dp"/>
+
+            <TextView
+                android:background="@drawable/tv_edge_grey_bottom_right"
+                android:id="@+id/tv_target_detail"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="targetDetail"
+                android:textSize="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_weight="8"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -20,12 +54,14 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom"
                     android:gravity="center"
-                    android:layout_weight="1"
                     android:id="@+id/tv_site_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="site name" />
+                    android:layout_height="match_parent"
+                    android:text="site name"
+                    android:textStyle="bold"
+                    android:textSize="15dp"/>
 
             </LinearLayout>
 
@@ -35,12 +71,14 @@
                 android:layout_weight="1">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom"
                     android:gravity="center"
                     android:layout_weight="1"
-                    android:id="@+id/tv_site_url"
+                    android:id="@+id/tv_site_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="site url" />
+                    android:layout_height="match_parent"
+                    android:text="site detail"
+                    android:textSize="13dp"/>
 
             </LinearLayout>
 

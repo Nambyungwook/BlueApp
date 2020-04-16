@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.LoadingActivity"
-    android:background="@drawable/coolBlues"
+    android:background="@drawable/cool_blues"
     android:orientation="vertical">
 
     <ImageView

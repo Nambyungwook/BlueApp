@@ -882,6 +882,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClick_help(View view) {
         //사용방법 설명 창으로 이동
+        Intent intent = new Intent(MainActivity.this, HelpActivity.class);
+        startActivity(intent);
     }
 
     //구글플레이스토어의 걷다 어플 버전가져와서 현재 어플과 비교 - 강제 업데이트를 위함

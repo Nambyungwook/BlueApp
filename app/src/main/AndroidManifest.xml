@@ -12,9 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.dialogs.TermsAgreeActivity"
+        <activity android:name=".activities.HelpActivity"></activity>
+        <activity
+            android:name=".activities.dialogs.TermsAgreeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Dialog"></activity>
+            android:theme="@style/popupTheme" />
         <activity android:name=".activities.UpdatePhoneNumberActivity" />
         <activity android:name=".activities.UserSavedSiteDetailActivity" />
         <activity android:name=".activities.UserSavedSitesActivity" />

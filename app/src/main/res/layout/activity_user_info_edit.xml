@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.UserInfoEditActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#190F0F0F">
 
     <FrameLayout
         android:id="@+id/toolbar_userinfo_edit"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:background="#0000ff"
+        android:background="@drawable/cool_blues"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -19,18 +20,13 @@
 
 
         <ImageButton
+            android:onClick="onClick_back"
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:layout_gravity="left"
             android:layout_marginLeft="20dp"
-            android:layout_weight="0"
-            android:onClick="onClick_back"
-            android:paddingTop="15dp"
-            android:paddingBottom="13dp"
-            android:scaleType="fitStart"
-            android:background="@drawable/back_button_img"
-            android:backgroundTintMode="multiply"
-            android:backgroundTint="#0000ff"/>
+            android:layout_margin="10dp"
+            android:background="@drawable/back"
+            android:backgroundTint="#ffffff"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -63,15 +59,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingRight="30dp">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -80,6 +77,7 @@
                     android:textSize="20dp"/>
 
                 <EditText
+                    android:background="@drawable/tv_edge_grey_bottom"
                     android:id="@+id/et_name"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -92,17 +90,20 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
                 <TextView
-                    android:gravity="center"
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="직업"
-                    android:textSize="20dp"/>
+                    android:textSize="20dp" />
 
                 <EditText
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:id="@+id/et_job"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -115,9 +116,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@drawable/tv_edge_grey_bottom_right"
+                android:layout_marginBottom="10dp">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -137,9 +141,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -148,6 +154,7 @@
                     android:textSize="20dp"/>
 
                 <EditText
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:id="@+id/et_interest"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -160,9 +167,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -173,7 +182,8 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:background="@drawable/tv_edge_grey_bottom_right">
 
                     <EditText
                         android:id="@+id/et_income"
@@ -185,11 +195,11 @@
                         android:inputType="number"/>
 
                     <TextView
-                        android:gravity="right|center"
+                        android:gravity="left|center"
                         android:layout_width="50dp"
                         android:layout_height="match_parent"
                         android:text="만원"
-                        android:textSize="20dp"/>
+                        android:textSize="15dp"/>
 
                 </LinearLayout>
 
@@ -198,9 +208,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -209,6 +221,7 @@
                     android:textSize="20dp"/>
 
                 <EditText
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:id="@+id/et_birthday"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -222,9 +235,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@drawable/tv_edge_grey_bottom_right">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

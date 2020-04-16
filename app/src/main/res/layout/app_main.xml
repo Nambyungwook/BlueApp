@@ -7,7 +7,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical"
             android:layout_margin="10dp"
             android:padding="3dp"
@@ -15,7 +16,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:orientation="horizontal"
                 android:background="@drawable/layout_circle_top">
 
@@ -24,7 +26,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="지원목적"
-                    android:textSize="18dp"
+                    android:textSize="15dp"
                     android:textColor="#000000"
                     android:gravity="center"/>
 
@@ -40,7 +42,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="세부목적"
-                    android:textSize="18dp"
+                    android:textSize="15dp"
                     android:textColor="#000000"
                     android:gravity="center"/>
 
@@ -55,16 +57,17 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:orientation="horizontal"
-                android:background="@drawable/tv_edge_grey">
+                android:background="@drawable/tv_edge_grey_top_bottom">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="지역"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     android:textColor="#000000"
                     android:gravity="center"/>
 
@@ -87,8 +90,8 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="전국포함여부"
-                        android:textSize="20dp"
+                        android:text="전국포함"
+                        android:textSize="15dp"
                         android:textColor="#000000"
                         android:gravity="center"/>
 
@@ -104,16 +107,17 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:orientation="horizontal"
-                android:background="@drawable/tv_edge_grey">
+                android:background="@drawable/tv_edge_grey_top_bottom">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="연봉"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     android:textColor="#000000"
                     android:gravity="center"/>
 
@@ -136,8 +140,8 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="무관포함여부"
-                        android:textSize="20dp"
+                        android:text="무관포함"
+                        android:textSize="15dp"
                         android:textColor="#000000"
                         android:gravity="center"/>
 
@@ -153,16 +157,17 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:orientation="horizontal"
-                android:background="@drawable/tv_edge_grey">
+                android:background="@drawable/tv_edge_grey_top_bottom">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="나이"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     android:textColor="#000000"
                     android:gravity="center"/>
 
@@ -185,8 +190,8 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="무관포함여부"
-                        android:textSize="20dp"
+                        android:text="무관포함"
+                        android:textSize="15dp"
                         android:textColor="#000000"
                         android:gravity="center"/>
 
@@ -202,16 +207,17 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:orientation="horizontal"
-                android:background="@drawable/tv_edge_grey">
+                android:background="@drawable/tv_edge_grey_top_bottom">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="성별"
-                    android:textSize="20dp"
+                    android:textSize="15dp"
                     android:textColor="#000000"
                     android:gravity="center"/>
 
@@ -234,8 +240,8 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="무관포함여부"
-                        android:textSize="20dp"
+                        android:text="무관포함"
+                        android:textSize="15dp"
                         android:textColor="#000000"
                         android:gravity="center"/>
 
@@ -251,7 +257,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:orientation="horizontal"
                 android:paddingRight="10dp"
                 android:paddingLeft="10dp"
@@ -260,9 +267,9 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="제목"
-                    android:textSize="30dp"
+                    android:layout_weight="2"
+                    android:text="사이트명"
+                    android:textSize="20dp"
                     android:gravity="center"/>
 
                 <EditText
@@ -295,12 +302,17 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:gravity="center"
             android:text="원하는 사이트"
             android:textColor="#000000"
-            android:textSize="30dp"
+            android:textSize="25dp"
             android:background="@drawable/layout_circle_top"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/tv_edge_grey_top_bottom"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -310,6 +322,8 @@
 
             <ListView
                 android:id="@+id/lv_sites"
+
+                android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
 

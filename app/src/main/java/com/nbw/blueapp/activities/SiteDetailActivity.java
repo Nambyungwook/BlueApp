@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nbw.blueapp.R;
@@ -17,6 +18,13 @@ import com.nbw.blueapp.utils.Utils;
 
 import org.json.JSONObject;
 
+import static com.nbw.blueapp.GlobalApplication.TARGET_MAIN_1;
+import static com.nbw.blueapp.GlobalApplication.TARGET_MAIN_2;
+import static com.nbw.blueapp.GlobalApplication.TARGET_MAIN_3;
+import static com.nbw.blueapp.GlobalApplication.TARGET_MAIN_4;
+import static com.nbw.blueapp.GlobalApplication.TARGET_MAIN_5;
+import static com.nbw.blueapp.GlobalApplication.TARGET_MAIN_6;
+import static com.nbw.blueapp.GlobalApplication.TARGET_MAIN_7;
 import static com.nbw.blueapp.GlobalApplication.USER_SIGNOUT;
 
 public class SiteDetailActivity extends AppCompatActivity {
@@ -45,6 +53,8 @@ public class SiteDetailActivity extends AppCompatActivity {
     TextView tv_site_url_sd;
     TextView tv_site_detail_sd;
 
+    ImageView iv_target_main;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +63,8 @@ public class SiteDetailActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
 
         uid = sharedPreferences.getString("uid", USER_SIGNOUT);
+
+        iv_target_main = (ImageView) findViewById(R.id.iv_target_main);
 
         tv_targetMain = (TextView) findViewById(R.id.tv_site_target_main);
         tv_targetDetail = (TextView) findViewById(R.id.tv_site_target_detail);
@@ -79,13 +91,37 @@ public class SiteDetailActivity extends AppCompatActivity {
 
         tv_targetMain.setText(targetMain);
         tv_targetDetail.setText(targetDetail);
-        tv_local.setText(local);
-        tv_income.setText(income);
-        tv_age.setText(age);
-        tv_gender.setText(gender);
+        tv_local.setText("지역 : "+local);
+        tv_income.setText("연봉 : "+income);
+        tv_age.setText("나이 : "+age);
+        tv_gender.setText("성별 : "+gender);
         tv_site_name_sd.setText(siteName);
         tv_site_url_sd.setText(siteUrl);
         tv_site_detail_sd.setText(siteDetail);
+
+        switch (targetMain) {
+            case TARGET_MAIN_1://전체
+                iv_target_main.setImageResource(R.drawable.total_ic);
+                break;
+            case TARGET_MAIN_2://취업지원
+                iv_target_main.setImageResource(R.drawable.job_support_ic);
+                break;
+            case TARGET_MAIN_3://창업지원
+                iv_target_main.setImageResource(R.drawable.startup_support_ic);
+                break;
+            case TARGET_MAIN_4://혜택
+                iv_target_main.setImageResource(R.drawable.gift_ic);
+                break;
+            case TARGET_MAIN_5://공연
+                iv_target_main.setImageResource(R.drawable.concert_ic);
+                break;
+            case TARGET_MAIN_6: //쇼핑
+                iv_target_main.setImageResource(R.drawable.shopping_ic);
+                break;
+            case TARGET_MAIN_7://기타
+                iv_target_main.setImageResource(R.drawable.etc_ic);
+                break;
+        }
     }
 
     public void onClick_saveSite(View view) {
@@ -126,5 +162,9 @@ public class SiteDetailActivity extends AppCompatActivity {
 
     public void onClick_move_site(View view) {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(siteUrl)); startActivity(intent);
+    }
+
+    public void onClick_back(View view) {
+        finish();
     }
 }

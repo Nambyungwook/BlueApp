@@ -6,13 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.UserInfoActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#190F0F0F">
 
     <FrameLayout
         android:id="@+id/toolbar_userinfo"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:background="#0000ff"
+        android:background="@drawable/cool_blues"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -20,18 +21,13 @@
 
 
         <ImageButton
+            android:onClick="onClick_back"
             android:layout_width="40dp"
             android:layout_height="match_parent"
-            android:layout_gravity="left"
             android:layout_marginLeft="20dp"
-            android:layout_weight="0"
-            android:onClick="onClick_back"
-            android:paddingTop="15dp"
-            android:paddingBottom="13dp"
-            android:scaleType="fitStart"
-            android:background="@drawable/back_button_img"
-            android:backgroundTintMode="multiply"
-            android:backgroundTint="#0000ff"/>
+            android:layout_margin="10dp"
+            android:background="@drawable/back"
+            android:backgroundTint="#ffffff"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -78,10 +74,11 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingLeft="30dp"
             android:orientation="vertical">
 
             <TextView
+                android:background="@drawable/tv_edge_grey_bottom"
+                android:paddingLeft="20dp"
                 android:id="@+id/tv_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -89,10 +86,13 @@
                 android:text="email"/>
 
             <TextView
-                android:paddingRight="30dp"
+                android:background="@drawable/tv_edge_grey_bottom"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:text="회원님께서 입력하신 정보입니다. 정보를 정확하게 입력하실수록 좋은 정보를 얻을 수 있습니다."/>
+                android:text="회원님께서 입력하신 정보입니다. 정보를 정확하게 입력하실수록 좋은 정보를 얻을 수 있습니다."
+                android:gravity="center|left"/>
 
         </LinearLayout>
 
@@ -106,14 +106,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingRight="20dp">
+            android:layout_marginTop="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -122,6 +124,7 @@
                     android:textSize="20dp"/>
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom"
                     android:id="@+id/tv_name"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -134,9 +137,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -145,6 +150,7 @@
                     android:textSize="20dp"/>
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom"
                     android:id="@+id/tv_job"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -157,9 +163,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -168,6 +176,7 @@
                     android:textSize="20dp"/>
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom"
                     android:id="@+id/tv_local"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -180,9 +189,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -191,6 +202,7 @@
                     android:textSize="20dp"/>
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom"
                     android:id="@+id/tv_interest"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -203,9 +215,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -214,6 +228,7 @@
                     android:textSize="20dp"/>
 
                 <LinearLayout
+                    android:background="@drawable/tv_edge_grey_bottom"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1">
@@ -227,11 +242,11 @@
                         android:text="income"/>
 
                     <TextView
-                        android:gravity="right|center"
+                        android:gravity="left|center"
                         android:layout_width="50dp"
                         android:layout_height="match_parent"
                         android:text="만원"
-                        android:textSize="20dp"/>
+                        android:textSize="15dp"/>
 
                 </LinearLayout>
 
@@ -240,9 +255,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -251,6 +268,7 @@
                     android:textSize="20dp"/>
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom"
                     android:id="@+id/tv_birthday"
                     android:gravity="center"
                     android:layout_width="0dp"
@@ -263,9 +281,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -273,29 +293,40 @@
                     android:text="전화번호"
                     android:textSize="20dp"/>
 
-                <TextView
-                    android:id="@+id/tv_phone"
-                    android:gravity="center"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:text="phone"/>
+                    android:layout_weight="4"
+                    android:background="@drawable/tv_edge_grey_bottom">
 
-                <Button
-                    android:onClick="onClick_updatePhoneNumber"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="변경"/>
+                    <TextView
+                        android:id="@+id/tv_phone"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:text="phone"/>
+
+                    <Button
+                        android:background="@drawable/btn_common"
+                        android:onClick="onClick_updatePhoneNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="변경"
+                        android:textSize="15dp"/>
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -304,6 +335,7 @@
                     android:textSize="20dp"/>
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom"
                     android:id="@+id/tv_gender"
                     android:gravity="center"
                     android:layout_width="0dp"

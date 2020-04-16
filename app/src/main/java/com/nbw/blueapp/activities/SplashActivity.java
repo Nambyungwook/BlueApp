@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.text.Html;
 import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -41,6 +43,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private long mLastClickTime = 0;//버튼 중복 클릭 방지용 변수
 
+    private TextView tv_title;
     private EditText et_id;
     private EditText et_pwd;
 
@@ -64,8 +67,13 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        tv_title = (TextView) findViewById(R.id.tv_app_title);
         et_id = (EditText) findViewById(R.id.et_id);
         et_pwd = (EditText) findViewById(R.id.et_pwd);
+
+        String htmlText = "<font color=\"#000000\">D</font>"+"<font color=\"#ffffff\">D</font>"+"IPS";
+
+        tv_title.setText(Html.fromHtml(htmlText));
 
         //비밀번호 안보이게 설정
         et_pwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -95,7 +103,6 @@ public class SplashActivity extends AppCompatActivity {
     public void onClick_signup(View view) {
         Intent intent = new Intent(SplashActivity.this, SignupActivity.class);
         startActivity(intent);
-        finish();
     }
 
     public void onClick_signin(View view) {

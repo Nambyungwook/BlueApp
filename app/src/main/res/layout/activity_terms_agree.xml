@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".activities.dialogs.TermsAgreeActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#190F0F0F">
+
+    <FrameLayout
+        android:id="@+id/toolbar_userinfo"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/cool_blues"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="DDIPS"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,6 +40,8 @@
             android:layout_weight="1">
 
             <TextView
+                android:background="@drawable/tv_edge_grey_bottom"
+                android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="띱을 이용하시려면 아래의 약관에 동의해주셔야 합니다."/>
@@ -29,9 +52,12 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
 
             <TextView
+                android:background="@drawable/tv_edge_grey_bottom_right"
+                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -44,6 +70,8 @@
                 android:onClick="onClick_use">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
+                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="약관보기"/>
@@ -51,6 +79,8 @@
             </LinearLayout>
 
             <CheckBox
+                android:background="@drawable/tv_edge_grey_bottom"
+                android:gravity="center"
                 android:id="@+id/cb_use"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
@@ -61,9 +91,12 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
 
             <TextView
+                android:background="@drawable/tv_edge_grey_bottom_right"
+                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -76,6 +109,8 @@
                 android:onClick="onClick_privacy">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
+                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="방침보기"/>
@@ -83,6 +118,8 @@
             </LinearLayout>
 
             <CheckBox
+                android:background="@drawable/tv_edge_grey_bottom"
+                android:gravity="center"
                 android:id="@+id/cb_privacy"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
@@ -93,15 +130,20 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
 
             <TextView
+                android:background="@drawable/tv_edge_grey_bottom_right"
+                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="모두 동의"/>
+                android:text="모두 동의" />
 
             <CheckBox
+                android:background="@drawable/tv_edge_grey_bottom"
+                android:gravity="center"
                 android:id="@+id/cb_all"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
@@ -109,6 +151,8 @@
         </LinearLayout>
 
         <Button
+            android:layout_marginTop="5dp"
+            android:background="@drawable/btn_common"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"

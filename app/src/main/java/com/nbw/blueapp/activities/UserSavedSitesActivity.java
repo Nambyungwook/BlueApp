@@ -172,4 +172,8 @@ public class UserSavedSitesActivity extends AppCompatActivity {
         });
 
     }
+
+    public void onClick_back(View view) {
+        finish();
+    }
 }

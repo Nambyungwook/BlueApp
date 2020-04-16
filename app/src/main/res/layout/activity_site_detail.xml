@@ -6,23 +6,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.SiteDetailActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#190F0F0F">
+
+    <FrameLayout
+        android:id="@+id/toolbar_userinfo"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@drawable/cool_blues"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="0"
+            android:layout_margin="10dp"
+            android:onClick="onClick_back"
+            android:background="@drawable/back"
+            android:backgroundTint="#ffffff"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="사이트 세부 정보"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingTop="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:layout_weight="1">
 
         <TextView
+            android:elevation="10dp"
+            android:background="@drawable/tv_edge_grey_bottom"
             android:id="@+id/tv_site_name_sd"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="사이트명"
-            android:textSize="40dp"
+            android:textSize="30dp"
             android:textColor="#000000"/>
 
     </LinearLayout>
@@ -32,114 +67,125 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingTop="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingTop="10dp">
 
         <TextView
+            android:elevation="10dp"
             android:id="@+id/tv_site_url_sd"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="사이트 url"
-            android:textSize="20dp"
-            android:textColor="#000000"/>
+            android:textSize="15dp"
+            android:textColor="#000000"
+            android:background="@drawable/tv_edge_grey_bottom"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingTop="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:orientation="horizontal">
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:elevation="10dp">
 
-        <TextView
-            android:id="@+id/tv_site_target_main"
-            android:gravity="center"
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_target_main"
+                android:layout_gravity="center"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:padding="5dp"
+                android:background="@drawable/tv_edge_grey_bottom_right"/>
+
+            <TextView
+                android:id="@+id/tv_site_target_main"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="지원목적"
+                android:textSize="15dp"
+                android:textColor="#000000"
+                android:background="@drawable/tv_edge_grey_bottom_right"/>
+
+            <TextView
+                android:id="@+id/tv_site_target_detail"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="세부목적"
+                android:textSize="15dp"
+                android:textColor="#000000"
+                android:background="@drawable/tv_edge_grey_bottom_right"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="지원목적"
-            android:textSize="20dp"
-            android:textColor="#000000"/>
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:id="@+id/tv_site_target_detail"
-            android:gravity="center"
+            <TextView
+                android:id="@+id/tv_site_local"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="지역"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                android:background="@drawable/tv_edge_grey_bottom_right"/>
+
+            <TextView
+                android:id="@+id/tv_site_income"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="연봉"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                android:background="@drawable/tv_edge_grey_bottom_right"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="세부목적"
-            android:textSize="20dp"
-            android:textColor="#000000"/>
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_site_age"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="연령"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                android:background="@drawable/tv_edge_grey_bottom"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingTop="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_site_gender"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="성별"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                android:background="@drawable/tv_edge_grey_bottom"/>
 
-        <TextView
-            android:id="@+id/tv_site_local"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="지역"
-            android:textSize="20dp"
-            android:textColor="#000000"/>
-
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:id="@+id/tv_site_income"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="연봉"
-            android:textSize="20dp"
-            android:textColor="#000000"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:paddingTop="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/tv_site_age"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="연령"
-            android:textSize="20dp"
-            android:textColor="#000000"/>
-
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:id="@+id/tv_site_gender"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="성별"
-            android:textSize="20dp"
-            android:textColor="#000000"/>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -147,18 +193,18 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4"
-        android:paddingTop="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingTop="10dp">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/tv_edge_grey_bottom">
 
             <TextView
                 android:id="@+id/tv_site_detail_sd"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:padding="10dp"
                 android:text="사이트 상세정보"
                 android:textSize="30dp"
                 android:textColor="#000000"/>
@@ -170,10 +216,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_weight="1.5"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
 
         <Button
+            android:background="@drawable/btn_common"
             android:onClick="onClick_move_site"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -181,11 +229,14 @@
             android:text="사이트로 이동"/>
 
         <Button
+            android:background="@drawable/btn_common"
+            android:layout_marginTop="10dp"
             android:onClick="onClick_saveSite"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="사이트 저장"/>
+            android:text="사이트 저장"
+            android:layout_marginBottom="10dp"/>
 
     </LinearLayout>
 

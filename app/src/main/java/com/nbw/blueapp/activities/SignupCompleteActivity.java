@@ -262,6 +262,8 @@ public class SignupCompleteActivity extends AppCompatActivity implements View.On
                             mVerifyButton.setVisibility(View.GONE);
                             mResendButton.setVisibility(View.GONE);
                             mCompleteButton.setVisibility(View.VISIBLE);
+                            mCompleteButton.setPressed(true);
+                            mCompleteButton.setClickable(false);
                             et_mVerificationField.setVisibility(View.GONE);
                             btn_next.setVisibility(View.VISIBLE);
                         } else {

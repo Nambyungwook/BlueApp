@@ -4,19 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.SplashActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/cool_blues">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_app_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:text="DDIPS"
+            android:gravity="center|bottom"
+            android:textSize="60dp"
+            android:textColor="#000000"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="청년앱(가제)"
-            android:gravity="center"
-            android:textSize="60dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="당신이 원하는 정보"
+            android:gravity="center|top"
+            android:textSize="20dp"
             android:textColor="#000000"/>
 
     </LinearLayout>
@@ -24,59 +37,81 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1.5"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:background="@drawable/layout_circle_white_border_sky_blue">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="ID"/>
+                android:orientation="horizontal"
+                android:background="@drawable/layout_edge_grey_bottom">
 
-            <EditText
-                android:id="@+id/et_id"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="9"/>
+                <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:text="ID"/>
+
+                <EditText
+                    android:id="@+id/et_id"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:background="@drawable/tv_edge_grey_right"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:text="password"/>
+
+                <EditText
+                    android:id="@+id/et_pwd"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="password"/>
-
-            <EditText
-                android:id="@+id/et_pwd"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="9"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_signin"
+                android:elevation="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#ffffff"
+                android:layout_margin="10dp"
+                android:paddingTop="17dp"
+                android:paddingBottom="10dp"
                 android:text="로그인"
                 android:onClick="onClick_signin"/>
 
@@ -90,14 +125,15 @@
 
             <LinearLayout
                 android:id="@+id/btn_custom_login_google"
+                android:elevation="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:background="#ffffff"
+                android:layout_margin="10dp"
                 android:paddingRight="73dp"
                 android:paddingTop="17dp"
                 android:paddingBottom="10dp"
-                android:layout_marginTop="10.9dp"
                 android:onClick="onClickGoogleSignup">
                 <ImageView
                     android:layout_width="27.9dp"
@@ -156,16 +192,23 @@
         android:orientation="vertical">
 
         <TextView
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="회원이 아닌경우 회원가입을 해주세요"/>
+            android:text="회원이 아닌경우 회원가입을 해주세요"
+            android:textSize="15dp"
+            android:textColor="#ffffff"/>
 
-        <Button
+        <TextView
+            android:gravity="center|top"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:text="회원가입"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="20dp"
             android:onClick="onClick_signup"/>
 
     </LinearLayout>

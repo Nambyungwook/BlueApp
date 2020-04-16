@@ -209,4 +209,9 @@ public class SignupActivity extends AppCompatActivity {
     public void onClick_privacy(View view) {
         //개인정보처리방침 보여주기
     }
+
+    public void onClick_back(View view) {
+        //뒤로가기
+        finish();
+    }
 }

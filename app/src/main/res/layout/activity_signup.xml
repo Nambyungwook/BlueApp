@@ -5,26 +5,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.SignupActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/cool_sky">
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/toolbar_userinfo"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="44dp"
+        android:background="@drawable/cool_blues"
+        android:orientation="horizontal">
+
+
+        <ImageButton
+            android:onClick="onClick_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="0"
+            android:layout_margin="10dp"
+            android:background="@drawable/back"
+            android:backgroundTint="#ffffff"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
             android:text="회원가입"
-            android:textSize="60dp"
-            android:gravity="center"/>
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
-    </LinearLayout>
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@drawable/layout_circle_white_border_sky_blue">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,7 +58,9 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:background="@drawable/tv_edge_grey_bottom_right"
+                android:layout_weight="2.5"
+                android:gravity="center"
                 android:text="ID"/>
 
             <EditText
@@ -55,7 +80,9 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:background="@drawable/tv_edge_grey_bottom_right"
+                android:layout_weight="2.5"
+                android:gravity="center"
                 android:text="pwd"/>
 
             <EditText
@@ -75,7 +102,9 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:background="@drawable/tv_edge_grey_right"
+                android:layout_weight="2.5"
+                android:gravity="center"
                 android:text="pwd확인"/>
 
             <EditText
@@ -91,7 +120,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
+        android:background="@drawable/layout_circle_white_border_sky_blue">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -100,6 +133,8 @@
             android:orientation="horizontal">
 
             <TextView
+                android:background="@drawable/tv_edge_grey_bottom_right"
+                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -112,6 +147,8 @@
                 android:onClick="onClick_use">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
+                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="약관보기"/>
@@ -120,6 +157,7 @@
 
             <CheckBox
                 android:id="@+id/cb_use"
+                android:background="@drawable/tv_edge_grey_bottom"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
 
@@ -132,6 +170,8 @@
             android:orientation="horizontal">
 
             <TextView
+                android:background="@drawable/tv_edge_grey_bottom_right"
+                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -144,6 +184,8 @@
                 android:onClick="onClick_privacy">
 
                 <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
+                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="방침보기"/>
@@ -152,6 +194,7 @@
 
             <CheckBox
                 android:id="@+id/cb_privacy"
+                android:background="@drawable/tv_edge_grey_bottom"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
 
@@ -164,26 +207,34 @@
             android:orientation="horizontal">
 
             <TextView
+                android:background="@drawable/tv_edge_grey_bottom_right"
+                android:gravity="center"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="모두 동의"/>
 
             <CheckBox
+                android:background="@drawable/tv_edge_grey_bottom"
                 android:id="@+id/cb_all"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"/>
 
         </LinearLayout>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="회원가입"
-            android:onClick="onClick_signup"/>
-
     </LinearLayout>
+
+    <Button
+        android:elevation="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#ffffff"
+        android:layout_margin="10dp"
+        android:paddingTop="17dp"
+        android:paddingBottom="10dp"
+        android:text="회원가입"
+        android:onClick="onClick_signup"/>
 
     <LinearLayout
         android:layout_width="match_parent"

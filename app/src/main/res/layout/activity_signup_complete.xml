@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.SignupCompleteActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/cool_blues">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +16,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="TTIP 회원가입을 해주셔서 감사합니다. 전화번호 인증을 하시면 더 많은 혜택과 보상을 얻을수있습니다. 띱~?!"/>
+            android:gravity="center"
+            android:text="DDIPS 회원가입을 해주셔서 감사합니다. 전화번호 인증을 하시면 더 많은 혜택과 보상을 얻을수있습니다. 띱~?!"
+            android:textSize="20dp"
+            android:textColor="#ffffff"
+            android:padding="30dp"/>
 
     </LinearLayout>
 
@@ -35,7 +40,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                android:background="#ffffff"
+                android:elevation="10dp">
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -74,14 +82,16 @@
 
 
             <EditText
+                android:background="@drawable/tv_edge_grey_bottom"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:id="@+id/etVerificationCode"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="40dp"
                 android:gravity="center"
                 android:hint="인증번호"
                 android:inputType="number"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,6 +103,7 @@
                 android:paddingRight="80dp">
 
                 <Button
+                    android:background="@drawable/btn_common"
                     android:id="@+id/btn_StartVerification"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -100,6 +111,7 @@
                     android:text="인증번호 받기" />
 
                 <Button
+                    android:background="@drawable/btn_common"
                     android:id="@+id/btn_VerifyPhone"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -109,6 +121,7 @@
                     android:visibility="gone" />
 
                 <Button
+                    android:background="@drawable/btn_common"
                     android:id="@+id/btn_Resend"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -117,6 +130,7 @@
                     android:visibility="gone" />
 
                 <Button
+                    android:background="@drawable/btn_common"
                     android:id="@+id/btn_Complete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -129,11 +143,13 @@
         </LinearLayout>
 
         <Button
+            android:background="@drawable/btn_common"
             android:id="@+id/btn_next"
             android:onClick="onClick_ok"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="40dp"
             android:text="다음"
             android:visibility="gone"/>
 
