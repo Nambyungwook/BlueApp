@@ -16,6 +16,8 @@ import com.nbw.blueapp.R;
 import com.nbw.blueapp.activities.MainActivity;
 import com.nbw.blueapp.activities.SignupCompleteActivity;
 import com.nbw.blueapp.activities.SplashActivity;
+import com.nbw.blueapp.activities.TermsOfPrivacyActivity;
+import com.nbw.blueapp.activities.TermsOfUseActivity;
 import com.nbw.blueapp.server.PostCallBack;
 import com.nbw.blueapp.server.ServerApi;
 import com.nbw.blueapp.utils.Utils;
@@ -137,10 +139,15 @@ public class TermsAgreeActivity extends AppCompatActivity {
 
     public void onClick_use(View view) {
         //이용약관 보여주기
+        Intent termsOfUseIntent = new Intent(TermsAgreeActivity.this, TermsOfUseActivity.class);
+        startActivity(termsOfUseIntent);
+
     }
 
     public void onClick_privacy(View view) {
         //개인정보 약관 보여주기
+        Intent termsOfPrivacyIntent = new Intent(TermsAgreeActivity.this, TermsOfPrivacyActivity.class);
+        startActivity(termsOfPrivacyIntent);
     }
 
     public void onClick_signup(View view) {

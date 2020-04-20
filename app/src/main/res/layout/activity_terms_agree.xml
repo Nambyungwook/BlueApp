@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="300dp"
     tools:context=".activities.dialogs.TermsAgreeActivity"
     android:orientation="vertical"
     android:background="#190F0F0F">
@@ -64,13 +64,13 @@
                 android:text="이용약관"/>
 
             <LinearLayout
+                android:background="@drawable/btn_layout_white_grey"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:onClick="onClick_use">
 
                 <TextView
-                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -103,13 +103,13 @@
                 android:text="개인정보취급방침"/>
 
             <LinearLayout
+                android:background="@drawable/btn_layout_white_grey"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:onClick="onClick_privacy">
 
                 <TextView
-                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

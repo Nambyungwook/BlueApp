@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "119992359035-31g778bh5deeffr2me562tuld6ovhhkd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nbw.blueapp",
+            "certificate_hash": "1d599b11b40f13922bf6a1b2f422bf83725e842d"
+          }
+        },
+        {
           "client_id": "119992359035-s24bktgpk70guc1t96thhkhr4bmaogk3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -41,7 +49,8 @@
             }
           ]
         }
-      }
+      },
+      "admob_app_id": "ca-app-pub-4033065866598276~1975541749"
     }
   ],
   "configuration_version": "1"

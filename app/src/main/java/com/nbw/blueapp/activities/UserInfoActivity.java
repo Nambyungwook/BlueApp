@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toolbar;
 
 import com.nbw.blueapp.R;
+import com.nbw.blueapp.activities.dialogs.TermsAgreeActivity;
 import com.nbw.blueapp.server.PostCallBack;
 import com.nbw.blueapp.server.ServerApi;
 import com.nbw.blueapp.utils.Utils;
@@ -172,5 +173,17 @@ public class UserInfoActivity extends AppCompatActivity {
     public void onClick_updatePhoneNumber(View view) {
         Intent intent = new Intent(UserInfoActivity.this, UpdatePhoneNumberActivity.class);
         startActivity(intent);
+    }
+
+    public void onClick_use(View view) {
+        //이용약관 보여주기
+        Intent termsOfUseIntent = new Intent(UserInfoActivity.this, TermsOfUseActivity.class);
+        startActivity(termsOfUseIntent);
+    }
+
+    public void onClick_privacy(View view) {
+        //개인정보 약관 보여주기
+        Intent termsOfPrivacyIntent = new Intent(UserInfoActivity.this, TermsOfPrivacyActivity.class);
+        startActivity(termsOfPrivacyIntent);
     }
 }

@@ -272,11 +272,15 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView parent, View v, int position, long id) {
 
                 switch (position) {
-                    case 0: // 회원정보
+                    case 0: // 공지사항
+                        Intent intentNotice = new Intent(MainActivity.this, NoticeActivity.class);
+                        startActivity(intentNotice);
+                        break;
+                    case 1: // 회원정보
                         Intent intent = new Intent(MainActivity.this, UserInfoActivity.class);
                         startActivity(intent);
                         break;
-                    case 1: // 로그아웃
+                    case 2: // 로그아웃
                         sharedPreferences = getSharedPreferences("blue", Context.MODE_PRIVATE);
 
                         uid = sharedPreferences.getString("uid", USER_SIGNOUT);
@@ -321,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                         break;
-                    case 2: // 회원탈퇴
+                    case 3: // 회원탈퇴
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
 
                         builder.setTitle("회원탈퇴")
@@ -386,12 +390,12 @@ public class MainActivity extends AppCompatActivity {
                         AlertDialog dialog = builder.create();    // 알림창 객체 생성
                         dialog.show();    // 알림창 띄우기
                         break;
-                    case 3: // 내사이트
+                    case 4: // 내사이트
                         Intent intentMySites = new Intent(MainActivity.this, UserSavedSitesActivity.class);
                         startActivity(intentMySites);
 
                         break;
-                    case 4: // 문의하기
+                    case 5: // 문의하기
                         Intent contactIntent = new Intent(MainActivity.this, ContactActivity.class);
                         startActivity(contactIntent);
 

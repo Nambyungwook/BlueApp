@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="nav_bar">
+        <item>공지사항</item>
         <item>회원정보</item>
         <item>로그아웃</item>
         <item>회원탈퇴</item>
@@ -41,6 +42,8 @@
     <string-array name="target_detail_benefits">
         <item>전체</item>
         <item>금융혜택</item>
+        <item>육아</item>
+        <item>주거지원</item>
     </string-array>
 
     <string-array name="target_detail_show">

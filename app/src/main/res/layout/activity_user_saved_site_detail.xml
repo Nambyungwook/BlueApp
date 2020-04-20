@@ -203,9 +203,7 @@
                 android:id="@+id/tv_site_detail_user_sd"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="사이트 상세정보"
-                android:textSize="30dp"
-                android:textColor="#000000"/>
+                android:text="사이트 상세정보"/>
 
         </ScrollView>
 

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -97,7 +98,9 @@ public class SiteDetailActivity extends AppCompatActivity {
         tv_gender.setText("성별 : "+gender);
         tv_site_name_sd.setText(siteName);
         tv_site_url_sd.setText(siteUrl);
-        tv_site_detail_sd.setText(siteDetail);
+
+        String htmlTextSiteDetail = siteDetail;
+        tv_site_detail_sd.setText(Html.fromHtml(htmlTextSiteDetail));
 
         switch (targetMain) {
             case TARGET_MAIN_1://전체

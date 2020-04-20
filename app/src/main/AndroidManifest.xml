@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.ContactActivity"></activity>
+        <activity android:name=".activities.TermsOfPrivacyActivity"></activity>
+        <activity android:name=".activities.TermsOfUseActivity" />
+        <activity android:name=".activities.NoticeActivity" />
+        <activity android:name=".activities.ContactActivity" />
         <activity android:name=".activities.HelpActivity" />
         <activity
             android:name=".activities.dialogs.TermsAgreeActivity"

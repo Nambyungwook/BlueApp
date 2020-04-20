@@ -1,6 +1,7 @@
 package com.nbw.blueapp.utils;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,8 @@ public class SitesListAdapter extends BaseAdapter {
         Sites sites = getItem(position);
 
         tv_stie_name.setText(sites.getSiteName());
-        tv_site_detail.setText(sites.getSiteDetail().substring(0,20)+"....");
+        String htmlTextSiteDetail = sites.getSiteDetail();
+        tv_site_detail.setText(Html.fromHtml(htmlTextSiteDetail).toString().substring(0,20)+"....");
         tv_target_main.setText(sites.getTargetMain());
         tv_target_detail.setText(sites.getTargetDetail());
 

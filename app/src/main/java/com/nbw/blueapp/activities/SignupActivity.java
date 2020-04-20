@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import com.nbw.blueapp.GlobalApplication;
 import com.nbw.blueapp.R;
+import com.nbw.blueapp.activities.dialogs.TermsAgreeActivity;
 import com.nbw.blueapp.server.PostCallBack;
 import com.nbw.blueapp.server.ServerApi;
 import com.nbw.blueapp.utils.Utils;
@@ -204,10 +205,15 @@ public class SignupActivity extends AppCompatActivity {
 
     public void onClick_use(View view) {
         //이용약관 보여주기
+        //이용약관 보여주기
+        Intent termsOfUseIntent = new Intent(SignupActivity.this, TermsOfUseActivity.class);
+        startActivity(termsOfUseIntent);
     }
 
     public void onClick_privacy(View view) {
         //개인정보처리방침 보여주기
+        Intent termsOfPrivacyIntent = new Intent(SignupActivity.this, TermsOfPrivacyActivity.class);
+        startActivity(termsOfPrivacyIntent);
     }
 
     public void onClick_back(View view) {

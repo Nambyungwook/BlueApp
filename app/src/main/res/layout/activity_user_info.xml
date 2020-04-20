@@ -345,6 +345,32 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:background="@drawable/btn_layout_white_grey"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="이용약관"
+                    android:onClick="onClick_use"/>
+
+                <TextView
+                    android:background="@drawable/btn_layout_white_grey"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="개인정보처리방침"
+                    android:onClick="onClick_privacy"/>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
