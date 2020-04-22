@@ -44,12 +44,14 @@ public class NoticeListAdapter extends BaseAdapter {
 
 
         TextView tv_notice_title = (TextView) convertView.findViewById(R.id.tv_notice_title);
-        TextView tv_notice_content = (TextView) convertView.findViewById(R.id.tv_notice_content);
+        TextView tv_notice_date = (TextView)convertView.findViewById(R.id.tv_notice_date);
+        TextView tv_notice_author = (TextView) convertView.findViewById(R.id.tv_notice_author);
 
         Notices notices = getItem(position);
 
         tv_notice_title.setText(notices.getTitle());
-        tv_notice_content.setText(notices.getContents().substring(0,20)+"....");
+        tv_notice_author.setText("작성자 : " + notices.getAuthor());
+        tv_notice_date.setText("게시날짜 : " + notices.getModifiedDate());
 
         return convertView;
     }

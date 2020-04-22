@@ -1,6 +1,7 @@
 package com.nbw.blueapp.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.AlertDialog;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
-    //구글 로그아웃시 필
+    //구글 로그아웃시 필요
     private GoogleSignInClient mGoogleSignInClient;
 
     //서버 디비에서 가져온 유저의 정보
@@ -105,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinnerAge;
     private Spinner spinnerGender;
 
+    private DrawerLayout drawer;
+
     private Button btn_search;
 
     private EditText et_item_title;
@@ -128,6 +131,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //버전 체크
+        //구글 플레이스토어와 앱 버전 비교 및 업데이트 팝업 실행 - 테스트시에 주석처리
+//        MainActivity.versionCheck versionCheck_ = new MainActivity.versionCheck();
+//        versionCheck_.execute();
 
         //구글 애드몹 광고 초기화 및 로드-----------------시작------------------------------------------------
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
@@ -403,25 +411,19 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 // close drawer.
-                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+                drawer = (DrawerLayout) findViewById(R.id.drawer);
                 drawer.closeDrawer(Gravity.LEFT);
+                drawer.openDrawer(Gravity.LEFT);
             }
         });
         //네비게이션드로어 설정 끝--------------------------------------------------------------------------------------
 
         //=========================================================================================================
 
-        //구글 플레이스토어와 앱 버전 비교 및 업데이트 팝업 실행 - 테스트시에 주석처리
-//        MainActivity.versionCheck versionCheck_ = new MainActivity.versionCheck();
-//        versionCheck_.execute();
-
         //제도 검색 버튼 기능 구현
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //검색할 제목
-                String item_title = et_item_title.getText().toString();
 
                 getSitesToListview();
 
@@ -693,7 +695,7 @@ public class MainActivity extends AppCompatActivity {
             income = selectedIncome;
         }
         String age = "";
-        if (selectedAge!=null&&!selectedAge.equals("전체")) {
+        if (selectedAge!=null&&!selectedAge.equals("무관")) {
             age = selectedAge;
         }
         String gender = "";
@@ -896,12 +898,17 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onClick_menu(View view) {
+        DrawerLayout drawer = findViewById(R.id.drawer);
+        drawer.openDrawer(GravityCompat.START);
+    }
+
     //구글플레이스토어의 걷다 어플 버전가져와서 현재 어플과 비교 - 강제 업데이트를 위함
     private class versionCheck extends AsyncTask<Void, Void, String> {
 
         private final String APP_VERSION_NAME = BuildConfig.VERSION_NAME;
 
-        private final String STORE_URL = "추후에 구글 플레이 스토어에 올린 우리 앱의 주소";
+        private final String STORE_URL = "추후에 우리 앱 url 주소";
 
         @Override
         protected void onPreExecute() {

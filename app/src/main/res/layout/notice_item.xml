@@ -6,16 +6,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1">
 
                 <TextView
@@ -30,22 +31,32 @@
 
             </LinearLayout>
 
-            <LinearLayout
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:background="@drawable/tv_edge_grey_bottom_right"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:id="@+id/tv_notice_author"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="match_parent"
+                android:text="author"
+                android:textSize="13dp"/>
 
-                <TextView
-                    android:background="@drawable/tv_edge_grey_bottom"
-                    android:gravity="center"
-                    android:layout_weight="1"
-                    android:id="@+id/tv_notice_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="content"
-                    android:textSize="13dp"/>
-
-            </LinearLayout>
+            <TextView
+                android:background="@drawable/tv_edge_grey_bottom"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:id="@+id/tv_notice_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="modified date"
+                android:textSize="13dp"/>
 
         </LinearLayout>
 

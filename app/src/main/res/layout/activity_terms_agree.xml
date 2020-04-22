@@ -5,7 +5,9 @@
     android:layout_height="300dp"
     tools:context=".activities.dialogs.TermsAgreeActivity"
     android:orientation="vertical"
-    android:background="#190F0F0F">
+    android:background="#190F0F0F"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp">
 
     <FrameLayout
         android:id="@+id/toolbar_userinfo"

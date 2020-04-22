@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.NoticeActivity"
+    android:background="@drawable/cool_sky"
     android:orientation="vertical">
 
     <FrameLayout
@@ -33,7 +34,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="공지사항"
+            android:text="DDIPS"
             android:textColor="#ffffff"
             android:textSize="15sp"
             android:textStyle="bold" />
@@ -57,6 +58,8 @@
             android:gravity="center"/>
 
         <ListView
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
             android:id="@+id/lv_notice"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

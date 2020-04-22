@@ -1,56 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity"
-    android:background="@drawable/cool_sky">
+    android:background="@drawable/cool_sky"
+    tools:context=".activities.MainActivity">
 
     <FrameLayout
-    android:id="@+id/toolbar_userinfo"
-    android:layout_width="match_parent"
-    android:layout_height="44dp"
-    android:background="@drawable/cool_blues"
-    android:orientation="horizontal"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+        android:id="@+id/toolbar_userinfo"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@drawable/cool_blues"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <ImageButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="left|center"
+            android:layout_margin="10dp"
+            android:layout_weight="0"
+            android:background="@drawable/menu_ic"
+            android:backgroundTint="#ffffff"
+            android:onClick="onClick_menu" />
 
-    <ImageButton
-        android:onClick="onClick_help"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="left|center"
-        android:layout_margin="10dp"
-        android:layout_weight="0"
-        android:background="@drawable/help"
-        android:backgroundTint="#ffffff"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="DDIPS"
+            android:textColor="#ffffff"
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="DDIPS"
-        android:textColor="#ffffff"
-        android:textSize="15sp"
-        android:textStyle="bold" />
+        <ImageButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|center"
+            android:layout_margin="10dp"
+            android:layout_weight="0"
+            android:background="@drawable/help"
+            android:backgroundTint="#ffffff"
+            android:onClick="onClick_help" />
 
-</FrameLayout>
+    </FrameLayout>
 
     <androidx.drawerlayout.widget.DrawerLayout
-        android:layout_marginTop="44dp"
+        android:id="@+id/drawer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="44dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:id="@+id/drawer">
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <include
             layout="@layout/app_main"
@@ -58,12 +66,12 @@
             android:layout_height="match_parent" />
 
         <ListView
+            android:id="@+id/drawer_menulist"
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_gravity="left"
-            android:id="@+id/drawer_menulist"
             android:background="#ffffff"
-            android:entries="@array/nav_bar"/>
+            android:entries="@array/nav_bar" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
