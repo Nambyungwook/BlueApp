@@ -39,7 +39,7 @@
             android:gravity="center"
             android:text="사이트 세부 정보"
             android:textColor="#ffffff"
-            android:textSize="15sp"
+            android:textSize="25dp"
             android:textStyle="bold" />
 
     </FrameLayout>

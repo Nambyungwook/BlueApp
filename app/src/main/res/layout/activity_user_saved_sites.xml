@@ -39,7 +39,7 @@
             android:gravity="center"
             android:text="저장한 사이트 목록"
             android:textColor="#ffffff"
-            android:textSize="15sp"
+            android:textSize="25dp"
             android:textStyle="bold" />
 
     </FrameLayout>
