@@ -6,12 +6,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -20,7 +20,7 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:background="@drawable/tv_edge_grey_bottom"
+                    android:background="@drawable/tv_edge_grey_bottom_right"
                     android:gravity="center"
                     android:id="@+id/tv_notice_title"
                     android:layout_width="match_parent"
@@ -34,17 +34,18 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
-                android:background="@drawable/tv_edge_grey_bottom_right"
+                android:background="@drawable/tv_edge_grey_bottom"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:id="@+id/tv_notice_author"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:text="author"
                 android:textSize="13dp"/>
 
@@ -54,7 +55,7 @@
                 android:layout_weight="1"
                 android:id="@+id/tv_notice_date"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
                 android:text="modified date"
                 android:textSize="13dp"/>
 

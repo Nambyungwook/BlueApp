@@ -51,7 +51,9 @@ public class NoticeListAdapter extends BaseAdapter {
 
         tv_notice_title.setText(notices.getTitle());
         tv_notice_author.setText("작성자 : " + notices.getAuthor());
-        tv_notice_date.setText("게시날짜 : " + notices.getModifiedDate());
+
+        String modifiedDate = notices.getModifiedDate();//2020-04-20T112:23:01
+        tv_notice_date.setText("날짜 : " + modifiedDate.substring(0, 10)+" "+modifiedDate.substring(11));
 
         return convertView;
     }

@@ -13,7 +13,10 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -112,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText et_item_title;
 
+    private InputMethodManager imm;
+
     private TextView tv_error;
 
     //지역, 연령, 수입, 성별에 전체를 포함 할지 안할지 정하기 위함
@@ -175,6 +180,8 @@ public class MainActivity extends AppCompatActivity {
         btn_search = (Button) findViewById(R.id.btn_search);
 
         et_item_title = (EditText) findViewById(R.id.et_item_title);
+
+        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         sitesListview = (ListView) findViewById(R.id.lv_sites);
 
@@ -271,6 +278,26 @@ public class MainActivity extends AppCompatActivity {
         //스피너 리스너 구현-------------------------------------------------------------------------
 
         //=========================================================================================================
+
+        //사이트명 검색시 키보드 엔터키로 바로 검색할수있도록 연결---------------------------------------------------------------------
+        et_item_title.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+
+                switch (keyEvent.getKeyCode()) {
+                    case KeyEvent.KEYCODE_ENTER:
+                        //검색하기색
+                        getSitesToListview();
+                        imm.hideSoftInputFromWindow(et_item_title.getWindowToken(), 0);
+
+                        break;
+                    default:
+                        return false;
+                }
+                return true;
+            }
+        });
+        //------------------------------------------------------------------------------------------------------------------
 
         //네비게이션드로어 설정---------------------------------------------------------------------------------------
 
@@ -426,6 +453,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 getSitesToListview();
+                //키보드 내리기
+                imm.hideSoftInputFromWindow(et_item_title.getWindowToken(), 0);
 
                 //toast(MainActivity.this, "검색할이름 : " + item_title + "\n목적 : " + selectedTargetMain + "\n지역 : " + selectedLocal + "\n나이 : " + selectedAge + "\n연봉 : "+selectedIncome+"\n성별 : "+selectedGender);
             }

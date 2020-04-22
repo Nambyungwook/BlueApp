@@ -44,13 +44,17 @@ public class NoticeActivity extends AppCompatActivity {
                 String title = notices.getTitle();
                 String contents = notices.getContents();
                 String author = notices.getAuthor();
+
                 String createdDate = notices.getCreatedDate();
-                String modifitedDate = notices.getModifiedDate();
+                String createdDate_ = createdDate.substring(0, 10)+" "+createdDate.substring(11);
+
+                String modifiedDate = notices.getModifiedDate();
+                String modifiedDate_ = modifiedDate.substring(0, 10)+" "+modifiedDate.substring(11);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(NoticeActivity.this);
 
                 builder.setTitle(title)
-                        .setMessage(contents + "\n\n작성자 : " + author + "\n작성날짜 : " + createdDate + "\n수정날짜 : " + modifitedDate)
+                        .setMessage(contents + "\n\n작성자 : " + author + "\n작성날짜 : " + createdDate_ + "\n수정날짜 : " + modifiedDate_)
                         .setCancelable(false)
                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
