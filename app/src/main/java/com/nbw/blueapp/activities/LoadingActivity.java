@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -18,7 +19,9 @@ import org.json.JSONObject;
 
 public class LoadingActivity extends AppCompatActivity {
 
+    private TextView tv_title;
     private TextView tv_loading;
+    private TextView tv_error;
     private ProgressBar pb_loading;
 
 
@@ -27,8 +30,14 @@ public class LoadingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
+        tv_title = (TextView) findViewById(R.id.tv_app_title);
         tv_loading = (TextView) findViewById(R.id.tv_loading);
+        tv_error = (TextView) findViewById(R.id.tv_error);
         pb_loading = (ProgressBar) findViewById(R.id.pb_loading);
+
+        String htmlText = "<font color=\"#000000\">D</font>"+"<font color=\"#ffffff\">D</font>"+"IPS";
+
+        tv_title.setText(Html.fromHtml(htmlText));
 
         startLoading();
     }
@@ -55,7 +64,8 @@ public class LoadingActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                tv_loading.setText("서버 접속에 실패했습니다.");
+                                tv_error.setVisibility(View.VISIBLE);
+                                tv_loading.setVisibility(View.GONE);
                                 pb_loading.setVisibility(View.GONE);
                             }
                         });
@@ -69,7 +79,8 @@ public class LoadingActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                tv_loading.setText("서버 접속에 실패했습니다. 다시 시도해주세요.");
+                                tv_error.setVisibility(View.VISIBLE);
+                                tv_loading.setVisibility(View.GONE);
                                 pb_loading.setVisibility(View.GONE);
                             }
                         });

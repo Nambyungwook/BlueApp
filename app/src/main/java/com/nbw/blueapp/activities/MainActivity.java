@@ -532,7 +532,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void setAllAgeCheckBox(String selectedAge) {
-        if (selectedAge==null||selectedAge.equals("전체")) {
+        if (selectedAge==null||selectedAge.equals("무관")) {
             layout_all_age.setVisibility(View.GONE);
         } else {
             layout_all_age.setVisibility(View.VISIBLE);
