@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nbw.blueapp.R;
@@ -16,7 +18,9 @@ import org.json.JSONObject;
 
 public class LoadingActivity extends AppCompatActivity {
 
-    TextView tv_loading;
+    private TextView tv_loading;
+    private ProgressBar pb_loading;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,7 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
 
         tv_loading = (TextView) findViewById(R.id.tv_loading);
+        pb_loading = (ProgressBar) findViewById(R.id.pb_loading);
 
         startLoading();
     }
@@ -45,12 +50,13 @@ public class LoadingActivity extends AppCompatActivity {
                 try {
                     //api호출 실패로 서버에서 에러가 나는지 확인
                     if (errMsg != null) {
-                        Utils.toast(LoadingActivity.this, errMsg);
+                        //Utils.toast(LoadingActivity.this, errMsg);
                         //ui가 변경되는 경우(단순 글자가 아닌 화면상에 그려지는 것이 변경되는 경우) 쓰레드 사용
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                tv_loading.setText("서버 점검중입니다....");
+                                tv_loading.setText("서버 접속에 실패했습니다.");
+                                pb_loading.setVisibility(View.GONE);
                             }
                         });
 
@@ -64,6 +70,7 @@ public class LoadingActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tv_loading.setText("서버 접속에 실패했습니다. 다시 시도해주세요.");
+                                pb_loading.setVisibility(View.GONE);
                             }
                         });
                         return;

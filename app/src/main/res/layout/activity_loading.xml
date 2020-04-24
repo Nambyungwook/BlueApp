@@ -10,35 +10,37 @@
     android:orientation="vertical">
 
     <ImageView
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"/>
+        android:layout_weight="3"
+        android:background="@drawable/model00"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        android:gravity="center">
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_gravity="bottom"
+            android:id="@+id/tv_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="로딩중"
+            android:textSize="50dp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"/>
 
         <ProgressBar
+            android:id="@+id/pb_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminateTint="#ffffff"/>
 
     </LinearLayout>
 
-    <TextView
-        android:layout_gravity="bottom"
-        android:id="@+id/tv_loading"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="로딩중..."
-        android:fontFamily="serif"
-        android:textSize="50dp"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"/>
+
 
 </LinearLayout>
