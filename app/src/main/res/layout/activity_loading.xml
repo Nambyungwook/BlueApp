@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.LoadingActivity"
-    android:background="@drawable/cool_blues">
+    android:background="@drawable/background">
 
 
     <TextView
@@ -30,7 +30,7 @@
         android:layout_height="400dp"
         android:layout_gravity="center"
         android:adjustViewBounds="true"
-        android:background="@drawable/model00"
+        android:background="@drawable/model"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.454"
