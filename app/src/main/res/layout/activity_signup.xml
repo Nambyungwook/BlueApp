@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.SignupActivity"
     android:orientation="vertical"
-    android:background="@drawable/cool_sky">
+    android:background="@drawable/background">
 
     <FrameLayout
         android:id="@+id/toolbar_userinfo"

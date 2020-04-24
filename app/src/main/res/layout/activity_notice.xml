@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.NoticeActivity"
-    android:background="@drawable/cool_sky"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
     <FrameLayout
