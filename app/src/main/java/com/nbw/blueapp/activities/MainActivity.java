@@ -137,11 +137,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //버전 체크
-        //구글 플레이스토어와 앱 버전 비교 및 업데이트 팝업 실행 - 테스트시에 주석처리
-//        MainActivity.versionCheck versionCheck_ = new MainActivity.versionCheck();
-//        versionCheck_.execute();
-
         //구글 애드몹 광고 초기화 및 로드-----------------시작------------------------------------------------
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
@@ -464,6 +459,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        //버전 체크
+        //구글 플레이스토어와 앱 버전 비교 및 업데이트 팝업 실행 - 테스트시에 주석처리
+        MainActivity.versionCheck versionCheck_ = new MainActivity.versionCheck();
+        versionCheck_.execute();
 
         if (uid.equals(USER_SIGNOUT)) {
             Intent intent = new Intent(MainActivity.this, SplashActivity.class);
@@ -934,10 +934,11 @@ public class MainActivity extends AppCompatActivity {
 
     //구글플레이스토어의 걷다 어플 버전가져와서 현재 어플과 비교 - 강제 업데이트를 위함
     private class versionCheck extends AsyncTask<Void, Void, String> {
-
+        private AppCompatActivity appCompatActivity = new AppCompatActivity();
         private final String APP_VERSION_NAME = BuildConfig.VERSION_NAME;
+        private final String APP_PACKAGE_NAME = BuildConfig.APPLICATION_ID;
 
-        private final String STORE_URL = "추후에 우리 앱 url 주소";
+        private final String STORE_URL = "https://play.google.com/store/apps/details?id=com.nbw.blueapp";
 
         @Override
         protected void onPreExecute() {
@@ -947,7 +948,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                Document doc = Jsoup.connect(STORE_URL).get();
+                Document doc = Jsoup.connect(STORE_URL).ignoreHttpErrors(true).get();
 
                 Elements Version = doc.select(".htlgb");
 
@@ -968,10 +969,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String s) { //s는 마켓의 버전
+        protected void onPostExecute(String s) { //s는 마켓의 버전입니다.
             if (s != null) {
                 AlertDialog.Builder mDialog = new AlertDialog.Builder(MainActivity.this);
-                if (!s.equals(APP_VERSION_NAME)) { //APP_VERSION_NAME는 현재 앱의 버전
+                if (!s.equals(APP_VERSION_NAME)) { //APP_VERSION_NAME는 현재 앱의
                     mDialog.setMessage("최신 버전이 출시되었습니다. 업데이트 후 사용 가능합니다.")
                             .setCancelable(false)
                             .setPositiveButton("업데이트 바로가기",

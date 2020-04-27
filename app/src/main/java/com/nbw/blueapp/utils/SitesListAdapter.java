@@ -63,9 +63,29 @@ public class SitesListAdapter extends BaseAdapter {
 
         Sites sites = getItem(position);
 
-        tv_stie_name.setText(sites.getSiteName());
+        String siteName = sites.getSiteName();
+        String age = sites.getAge();
+        String income = sites.getIncome();
+
+        //"<font color=\"#ff0000\">구매가격 : "+ saleDiscountPrice +" STP"+"</font>"
+        String htmlTextSiteTitle = siteName + "(" + "<font color=\"#00FFFF\">" +age+ "</font>" + ")" + " " + "(" + "<font color=\"#87CEFA\">" +income+ "</font>" + ")";
+
+        tv_stie_name.setText(Html.fromHtml(htmlTextSiteTitle));
         String htmlTextSiteDetail = sites.getSiteDetail();
-        tv_site_detail.setText(Html.fromHtml(htmlTextSiteDetail).toString().substring(0,20)+"....");
+
+        if(htmlTextSiteDetail.contains("<font color=\"#990000\">")) {
+            int start = htmlTextSiteDetail.indexOf("<font color=\"#990000\">");
+
+            int end = htmlTextSiteDetail.indexOf("</font>");
+
+            String preSiteDetail = htmlTextSiteDetail.substring(start,end+7);
+
+            tv_site_detail.setText(Html.fromHtml(preSiteDetail));
+        } else {
+            tv_site_detail.setText(Html.fromHtml(htmlTextSiteDetail).toString().substring(0,20)+"....");
+        }
+
+
         tv_target_main.setText(sites.getTargetMain());
         tv_target_detail.setText(sites.getTargetDetail());
 

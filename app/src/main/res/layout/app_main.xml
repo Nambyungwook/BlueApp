@@ -333,7 +333,7 @@
                 android:id="@+id/tv_error"
                 android:gravity="center"
                 android:visibility="gone"
-                android:background="@drawable/layout_circle"
+                android:background="@drawable/cool_sky"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="죄송합니다. 조건에 맞는 사이트가 없습니다. 다시 검색해주세요."
@@ -344,7 +344,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="80dp">
 
@@ -356,7 +355,7 @@
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+            ads:adUnitId="ca-app-pub-4033065866598276/8976064365">
             <!--ca-app-pub-3940256099942544/6300978111 테스트 id-->
             <!--ca-app-pub-4033065866598276/8976064365 실제 사용 배너광고 id-->
 
