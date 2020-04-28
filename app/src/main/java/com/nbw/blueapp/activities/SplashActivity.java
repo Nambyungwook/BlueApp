@@ -115,7 +115,7 @@ public class SplashActivity extends AppCompatActivity {
         String pwd_sha1 = StringToSHA1(pwd);
 
         if (!id.matches(regEmail)) {
-            Utils.toast(SplashActivity.this, "이메일 형식을 올바르게 입력해주세요.");
+            Utils.toast(SplashActivity.this, "아이디 입력시 이메일 형식으로 입력해주세요.");
             return;
         }
 
@@ -157,12 +157,12 @@ public class SplashActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     } catch (Exception e) {
-                        Utils.toast(SplashActivity.this,e+"");
+                        e.printStackTrace();
                     }
                 }
             });
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -187,7 +187,7 @@ public class SplashActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } catch (Exception e) {
-                    Utils.toast(SplashActivity.this,e+"");
+                    e.printStackTrace();
                 }
             }
         });
@@ -242,7 +242,7 @@ public class SplashActivity extends AppCompatActivity {
                     }
                     //같은 이메일이 존재하지 않음
                     if (!ret.getString("responseCode").equals("SUCCESS")) {
-                        Utils.toast(SplashActivity.this, "같은 이메일이 존재하지 않음");
+                        //Utils.toast(SplashActivity.this, "같은 이메일이 존재하지 않음");
 
                         if (signType.equals("G")) {
                             Intent intent = new Intent(SplashActivity.this, TermsAgreeActivity.class);

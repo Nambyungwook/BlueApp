@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="DDIPS를 이용해주셔서 감사합니다. 전화번호 인증을 하시면 더 많은 혜택을 얻을수있습니다. 띱~?!"
+            android:text="@string/update_phone"
             android:textSize="20dp"
             android:textColor="#ffffff"
             android:padding="30dp"/>

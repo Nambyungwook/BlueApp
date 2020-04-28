@@ -143,7 +143,7 @@ public class SignupActivity extends AppCompatActivity {
 
         if (!id.matches(regEmail)) {
 
-            Utils.toast(SignupActivity.this, "이메일 형식을 올바르게 입력해주세요.");
+            Utils.toast(SignupActivity.this, "아이디를 입력시 이메일 형식으로 입력해주세요.");
             return;
 
         } else if (!pwd.equals(pwd_conrfirm)) {
@@ -184,12 +184,15 @@ public class SignupActivity extends AppCompatActivity {
                             editor.putString("uid", uid);
                             editor.commit();
 
-                            // 로그인이 잘 끝났으니 MainActivity로 화면을 바꿔주고 종료
-                            Intent intent = new Intent(SignupActivity.this, SignupCompleteActivity.class);
-                            intent.putExtra("email", id);
-                            intent.putExtra("pwd", pwd);
-                            startActivity(intent);
-                            finish();
+//                            // 로그인이 잘 끝났으니 MainActivity로 화면을 바꿔주고 종료 - 추후에 휴대전화 인증이 필요할때 다시 살릴것
+//                            Intent intent = new Intent(SignupActivity.this, SignupCompleteActivity.class);
+//                            intent.putExtra("email", id);
+//                            intent.putExtra("pwd", pwd);
+//                            startActivity(intent);
+//                            finish();
+
+                            String pwd_sha1 = StringToSHA1(pwd);
+                            signin(id, pwd_sha1);
                         } catch (Exception e) {
                             Utils.toast(SignupActivity.this,e+"");
                         }
@@ -219,5 +222,49 @@ public class SignupActivity extends AppCompatActivity {
     public void onClick_back(View view) {
         //뒤로가기
         finish();
+    }
+
+    private void signin(String id, String pwd) {
+        try {
+            //위에서 받아온 값들을 GlobalApplication의 static 변수에 저장하여 앱 어디서든 불러서 사용할수있도록 설정
+            GlobalApplication.id = id;
+            GlobalApplication.pwd = pwd;
+
+            //서버에 회원가입 정보 전달
+            JSONObject json = new JSONObject();
+            json.put("email", id);
+            json.put("pwd", pwd);
+
+            //회원가입 api 호출
+            ServerApi.signinPost(json, new PostCallBack() {
+                @Override
+                public void onResponse(JSONObject ret, String errMsg) {
+                    try {
+                        //api호출 실패로 서버에서 에러가 나는지 확인
+                        if (errMsg != null) {
+                            Utils.toast(SignupActivity.this, errMsg);
+                            return;
+                        }
+                        //api호출은 작동했지만 code가 성공이 아닌 다른 경우에 무슨 에러인지 보여주는 부분
+                        if (!ret.getString("responseCode").equals("SUCCESS")) {
+                            Utils.toast(SignupActivity.this, ret.getString("message"));
+                            return;
+                        }
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("uid", ret.getString("uid"));
+                        editor.commit();
+
+                        // 로그인이 잘 끝났으니 MainActivity로 화면을 바꿔주고 종료
+                        Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } catch (Exception e) {
+                        Utils.toast(SignupActivity.this,e+"");
+                    }
+                }
+            });
+        } catch (Exception e) {
+
+        }
     }
 }
