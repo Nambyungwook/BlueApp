@@ -1,15 +1,13 @@
 package com.nbw.blueapp.utils;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.widget.Toast;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
@@ -58,6 +56,20 @@ public class Utils {
         age = nowYear - birthdayYear + 1;
 
         return age;
+    }
+
+
+
+    public static String getCurrentDate() {
+        SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+
+        Date time = new Date();
+
+        String todayStr = format1.format(time);
+
+        String retStr = todayStr.substring(0,10);
+
+        return retStr;
     }
 
 }

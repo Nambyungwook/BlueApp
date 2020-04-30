@@ -39,6 +39,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.nbw.blueapp.BuildConfig;
 import com.nbw.blueapp.R;
+import com.nbw.blueapp.activities.dialogs.NoticePopupActivity;
 import com.nbw.blueapp.items.Sites;
 import com.nbw.blueapp.server.PostCallBack;
 import com.nbw.blueapp.server.ServerApi;
@@ -464,6 +465,8 @@ public class MainActivity extends AppCompatActivity {
         //구글 플레이스토어와 앱 버전 비교 및 업데이트 팝업 실행 - 테스트시에 주석처리
         MainActivity.versionCheck versionCheck_ = new MainActivity.versionCheck();
         versionCheck_.execute();
+
+        getLastNotice();
 
         if (uid.equals(USER_SIGNOUT)) {
             Intent intent = new Intent(MainActivity.this, SplashActivity.class);
@@ -930,6 +933,19 @@ public class MainActivity extends AppCompatActivity {
     public void onClick_menu(View view) {
         DrawerLayout drawer = findViewById(R.id.drawer);
         drawer.openDrawer(GravityCompat.START);
+    }
+
+    private void getLastNotice() {
+
+        String today = Utils.getCurrentDate();
+
+        int todayChecker = sharedPreferences.getInt(today, 0);
+
+        if (todayChecker==0) {
+            Intent intent = new Intent(MainActivity.this,NoticePopupActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     //구글플레이스토어의 걷다 어플 버전가져와서 현재 어플과 비교 - 강제 업데이트를 위함

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="600dp"
+    tools:context=".activities.dialogs.NoticePopupActivity"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <FrameLayout
+        android:id="@+id/toolbar_userinfo"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/cool_blues"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="DDIPS"
+            android:textColor="#ffffff"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:background="@drawable/tv_edge_grey_top_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tv_title"
+            android:text="title"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@drawable/tv_edge_grey_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/tv_content"
+                android:text="content"
+                android:textSize="20dp"
+                android:padding="10dp"/>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@drawable/tv_edge_grey_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tv_author"
+            android:text="author"
+            android:textSize="20dp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:background="@drawable/tv_edge_grey_bottom_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/tv_create_time"
+            android:text="c_time"
+            android:textSize="15dp"
+            android:gravity="center"/>
+
+        <TextView
+            android:background="@drawable/tv_edge_grey_bottom"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/tv_update_time"
+            android:text="u_time"
+            android:textSize="15dp"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:background="@drawable/tv_edge_grey_bottom_right"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="오늘 하루동안 그만 보기"
+            android:textSize="15dp"/>
+
+        <CheckBox
+            android:background="@drawable/tv_edge_grey_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/cb_today"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@drawable/btn_layout_white_grey"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:onClick="onClick_ok">
+
+        <TextView
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="확인"
+            android:textSize="15dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

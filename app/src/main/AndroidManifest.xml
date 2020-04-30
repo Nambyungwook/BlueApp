@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.TermsOfPrivacyActivity"></activity>
+        <activity android:name=".activities.dialogs.NoticePopupActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/popupTheme"></activity>
+        <activity android:name=".activities.TermsOfPrivacyActivity" />
         <activity android:name=".activities.TermsOfUseActivity" />
         <activity android:name=".activities.NoticeActivity" />
         <activity android:name=".activities.ContactActivity" />
@@ -36,9 +39,10 @@
         <activity android:name=".activities.UserInfoActivity" />
         <activity android:name=".activities.SignupActivity" />
         <activity android:name=".activities.SignupCompleteActivity" />
-        <activity android:name=".activities.MainActivity"
+        <activity
+            android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|adjustPan"/>
+            android:windowSoftInputMode="adjustResize|adjustPan" />
         <activity android:name=".activities.SplashActivity" /> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
