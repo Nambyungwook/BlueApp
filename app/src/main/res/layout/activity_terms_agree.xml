@@ -80,6 +80,7 @@
             </LinearLayout>
 
             <CheckBox
+                android:padding="5dp"
                 android:background="@drawable/tv_edge_grey_bottom"
                 android:gravity="center"
                 android:id="@+id/cb_use"
@@ -119,6 +120,7 @@
             </LinearLayout>
 
             <CheckBox
+                android:padding="5dp"
                 android:background="@drawable/tv_edge_grey_bottom"
                 android:gravity="center"
                 android:id="@+id/cb_privacy"
@@ -143,6 +145,7 @@
                 android:text="모두 동의" />
 
             <CheckBox
+                android:padding="5dp"
                 android:background="@drawable/tv_edge_grey_bottom"
                 android:gravity="center"
                 android:id="@+id/cb_all"

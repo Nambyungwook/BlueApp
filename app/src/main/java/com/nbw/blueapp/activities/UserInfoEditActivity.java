@@ -34,6 +34,7 @@ public class UserInfoEditActivity extends AppCompatActivity {
     private String birthday;
     private String gender;
     private String local;
+    private String mainLocal;
     private String job;
     private String interest;
     private int income;
@@ -46,6 +47,7 @@ public class UserInfoEditActivity extends AppCompatActivity {
     EditText et_income;
 
     private Spinner spinnerLocal;
+    private Spinner spinnerSubLocal;
     private Spinner spinnerGender;
 
     @Override
@@ -61,13 +63,25 @@ public class UserInfoEditActivity extends AppCompatActivity {
 
         spinnerGender = (Spinner) findViewById(R.id.spinner_gender_user_info_edit);
         spinnerLocal = (Spinner) findViewById(R.id.spinner_local_user_info_edit);
+        spinnerSubLocal = (Spinner) findViewById(R.id.spinner_sub_local_user_info_edit);
 
 
         spinnerLocal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //지역 스피너에서 선택된 내용을 저장
-                local = adapterView.getItemAtPosition(i).toString();
+                mainLocal = adapterView.getItemAtPosition(i).toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
+        spinnerSubLocal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //지역 스피너에서 선택된 내용을 저장
+                local = mainLocal+ "_" + adapterView.getItemAtPosition(i).toString();
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -282,11 +296,30 @@ public class UserInfoEditActivity extends AppCompatActivity {
         switch (index) {
             case 0:
                 for (int i = 0; i < 13; i++) {
-                    if (local.equals(spinnerLocal.getItemAtPosition(i))) {
+
+                    if (local.contains("_")) {
+                        String mainLocal = local.split("_")[0];
+                        String subLocal = local.split("_")[1];
+
+                        if (mainLocal.equals(spinnerLocal.getItemAtPosition(i))) {
+                            spinnerLocal.setSelection(i);
+
+                            for (int j = 0; j < 10; j++) {
+                                if (subLocal.equals(spinnerSubLocal.getItemAtPosition(j))) {
+                                    spinnerSubLocal.setSelection(j);
+
+                                    break;
+                                }
+                            }
+
+                            break;
+                        }
+                    } else if (local.equals(spinnerLocal.getItemAtPosition(i))) {
                         spinnerLocal.setSelection(i);
 
                         break;
                     }
+
                 }
             case 1:
                 if (gender.equals("남")) {

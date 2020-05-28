@@ -76,6 +76,7 @@ public class ServerApi {
                                  String targetMain,
                                  String targetDetail,
                                  String local,
+                                 String subLocal,
                                  String all_local,
                                  String income,
                                  String all_income,
@@ -91,6 +92,7 @@ public class ServerApi {
                 .addQueryParameter("targetMain", targetMain)
                 .addQueryParameter("targetDetail", targetDetail)
                 .addQueryParameter("local", local)
+                .addQueryParameter("subLocal", subLocal)
                 .addQueryParameter("allLocal", all_local)
                 .addQueryParameter("income",income)
                 .addQueryParameter("allIncome", all_income)
@@ -430,6 +432,7 @@ public class ServerApi {
                                 String targetMain,
                                 String targetDetail,
                                 String local,
+                                String subLocal,
                                 String all_local,
                                 String income,
                                 String all_income,
@@ -439,7 +442,7 @@ public class ServerApi {
                                 String all_gender,
                                 String siteName,
                                 final PostCallBack cb) {
-        getParam(SERVER_IP+"/blue/v1/sites/", page, size, targetMain, targetDetail, local, all_local, income, all_income, age, all_age, gender, all_gender, siteName, new Callback() {
+        getParam(SERVER_IP+"/blue/v1/sites/", page, size, targetMain, targetDetail, local, subLocal, all_local, income, all_income, age, all_age, gender, all_gender, siteName, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 if (cb != null)

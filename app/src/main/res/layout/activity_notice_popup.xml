@@ -48,7 +48,8 @@
         android:background="@drawable/tv_edge_grey_bottom"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:padding="10dp">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -123,6 +124,7 @@
             android:textSize="15dp"/>
 
         <CheckBox
+            android:padding="5dp"
             android:background="@drawable/tv_edge_grey_bottom"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -131,7 +133,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:background="@drawable/btn_layout_white_grey"
+        android:background="@drawable/btn_layout_white_grey_bottom_right"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"

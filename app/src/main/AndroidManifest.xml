@@ -12,9 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.dialogs.NoticePopupActivity"
+        <activity android:name=".activities.SearchSettingActivity"></activity>
+        <activity
+            android:name=".activities.dialogs.NoticePopupActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/popupTheme"></activity>
+            android:theme="@style/popupTheme" />
         <activity android:name=".activities.TermsOfPrivacyActivity" />
         <activity android:name=".activities.TermsOfUseActivity" />
         <activity android:name=".activities.NoticeActivity" />

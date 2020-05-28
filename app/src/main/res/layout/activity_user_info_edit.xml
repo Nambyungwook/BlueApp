@@ -142,6 +142,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal"
+                android:background="@drawable/tv_edge_grey_bottom_right"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:background="@drawable/tv_edge_grey_bottom_right"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="세부지역"
+                    android:textSize="20dp"/>
+
+                <Spinner
+                    android:id="@+id/spinner_sub_local_user_info_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:entries="@array/local"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
                 android:layout_marginBottom="10dp">
 
                 <TextView
